@@ -6,5 +6,7 @@ class SightWordsController < ApplicationController
 	end
 
 	def show
+		sightword = SightWord.find(params[:id])
+		render json: sightword
 	end
 end
