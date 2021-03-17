@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
     create_table :users do |t|
       t.string :name
       t.string :email
-      t.integer :completion_status
+      t.integer :completion_status, default: 0
 
       t.timestamps
     end

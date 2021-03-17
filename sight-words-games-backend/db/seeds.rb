@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+user1 = User.create(name: "User1", email: "user1@email.com")
+
+
+a = SightWord.create(spelling: "a")
+
+completed_words1 = CompletedWord.create(user: user1, sight_word: a)
