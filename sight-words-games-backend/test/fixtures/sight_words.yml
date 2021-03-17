@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spelling: MyString
+  word_length: MyString
+  pronunciation_audio: MyString
+  pronunciation_key: MyString
+  sentence: MyString
+  picture: MyString
+
+two:
+  spelling: MyString
+  word_length: MyString
+  pronunciation_audio: MyString
+  pronunciation_key: MyString
+  sentence: MyString
+  picture: MyString

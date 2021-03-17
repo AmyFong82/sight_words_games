@@ -1,0 +1,2 @@
+class SightWordsController < ApplicationController
+end

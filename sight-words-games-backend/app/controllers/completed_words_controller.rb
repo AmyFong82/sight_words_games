@@ -1,0 +1,2 @@
+class CompletedWordsController < ApplicationController
+end
