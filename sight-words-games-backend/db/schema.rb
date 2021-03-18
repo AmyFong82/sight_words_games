@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 2021_03_17_035428) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "username"
+    t.string "password_digest"
     t.integer "completion_status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
