@@ -1,0 +1,13 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.navbar {
+	background-color: #ef2d56;
+}
+
+h2 {
+	color: white;
+	font-family: 'RocknRoll One', sans-serif;
+	  text-transform: uppercase;
+}
