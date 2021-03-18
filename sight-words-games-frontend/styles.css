@@ -3,11 +3,30 @@ body {
 }
 
 .navbar {
-	background-color: #ef2d56;
+	background-color: #6ddccf;
 }
 
-h2 {
+h1 {
 	color: white;
 	font-family: 'RocknRoll One', sans-serif;
-	  text-transform: uppercase;
+	text-transform: uppercase;
+	padding-top: 5px;
+	padding-left: 25px;
 }
+
+h3 {
+	font-family: 'RocknRoll One', sans-serif;
+	padding-top: 25px;
+	padding-left: 25px;
+}
+
+#login {
+	background-color: #ffefa1;
+}
+
+.sightword_list_col {
+	background-color: #ffcb91;
+	color: darkcyan;
+}
+
+
