@@ -14,10 +14,11 @@ h1 {
 	padding-left: 25px;
 }
 
-h3 {
+h5 {
 	font-family: 'RocknRoll One', sans-serif;
+	text-align: center;
 	padding-top: 25px;
-	padding-left: 25px;
+	/*padding-left: 25px;*/
 }
 
 #login {
@@ -30,4 +31,14 @@ h3 {
 	height: 
 }
 
+.fa-arrow-circle-right {
+	color: #6ddccf;
+	font-size: 1.5rem;
+	vertical-align: middle;
+}
+
+a.list-group-item {
+	font-size: 1.5rem;
+	text-align: center;
+}
 

@@ -69,10 +69,4 @@ a = SightWord.create(spelling: "a",
 # 						sentence:
 # 						picture:)
 
-# was = SightWord.create(spelling: "was"
-# 						pronunciation_audio:
-# 						pronunciation_key:
-# 						sentence:
-# 						picture:)
-
 completed_words1 = CompletedWord.create(user: user1, sight_word: a)
