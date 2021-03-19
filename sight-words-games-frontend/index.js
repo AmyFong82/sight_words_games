@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function renderSightWords(){
-	const h2 = document.querySelector("h2")
+	const h3 = document.querySelector("h3")
 	const ul = document.createElement("ul")
-	h2.append(ul)
+	h3.append(ul)
 	fetch(BASE_URL + '/sight_words')
 	.then(resp => resp.json())
 	.then(sight_words => {
