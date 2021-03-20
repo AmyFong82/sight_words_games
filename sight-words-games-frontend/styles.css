@@ -28,7 +28,6 @@ h5 {
 .sightword_list_col {
 	background-color: #ffcb91;
 	color: darkcyan;
-	height: 
 }
 
 .fa-arrow-circle-right {
@@ -42,3 +41,21 @@ a.list-group-item {
 	text-align: center;
 }
 
+#word_intro {
+	display: none;
+	margin: auto;
+}
+
+h2, h6 {
+	text-align: center;
+}
+
+.fa-volume-up {
+	color: #6ddccf;
+	font-size: 2rem;
+}
+
+#speaker {
+	border: none;
+	background-color: transparent;
+}
