@@ -23,7 +23,9 @@ function renderSightWords(){
 			btn.classList.add("list-group-item", "list-group-item-action")
 			btn.setAttribute("id", `${word.spelling}`)
 			btn.innerHTML = word.spelling
-			btn.addEventListener("click", fetchSightWord(word.id))
+			btn.addEventListener("click", e => {
+				fetchSightWord(word.id)
+			})
 			// (e) => {
 			// 	fetch(BASE_URL + '/sight_words/' + word.id)
 			// 	.then(resp => resp.json())
