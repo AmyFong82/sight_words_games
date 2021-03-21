@@ -28,6 +28,7 @@ h5 {
 .sightword_list_col {
 	background-color: #ffcb91;
 	color: darkcyan;
+	height: 88vh;
 }
 
 .fa-arrow-circle-right {
@@ -36,7 +37,7 @@ h5 {
 	vertical-align: middle;
 }
 
-a.list-group-item {
+button.list-group-item {
 	font-size: 1.5rem;
 	text-align: center;
 }
@@ -46,7 +47,7 @@ a.list-group-item {
 	margin: auto;
 }
 
-h2, h6 {
+h2, h6, #audio_wrapper{
 	text-align: center;
 }
 
@@ -58,4 +59,8 @@ h2, h6 {
 #speaker {
 	border: none;
 	background-color: transparent;
+}
+
+#main_word {
+	font-size: 3rem;
 }
