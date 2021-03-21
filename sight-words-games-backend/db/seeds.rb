@@ -15,11 +15,11 @@ a = SightWord.create(spelling: "a",
 					sentence: "May I have a pink popsicle, please?", 
 					picture: "https://images.vexels.com/media/users/3/210453/isolated/preview/193ca85105f26dd0dbc539de1c1baf52-pink-popsicle-illustration-by-vexels.png")
 
-# the = SightWord.create(spelling: "the"
-# 						pronunciation_audio:
-# 						pronunciation_key:
-# 						sentence:
-# 						picture:)
+the = SightWord.create(spelling: "the",
+						pronunciation_audio: "https://static.sfdict.com/audio/lunawav/NEW2016/the_000.ogg",
+						pronunciation_key: "[ before a consonant thuh; before a vowel thee ]",
+						sentence: "The??",
+						picture: "hkfdsk")
 
 # of = SightWord.create(spelling: "of"
 # 						pronunciation_audio:

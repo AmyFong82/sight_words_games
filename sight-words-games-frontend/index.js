@@ -26,27 +26,6 @@ function renderSightWords(){
 			btn.addEventListener("click", e => {
 				fetchSightWord(word.id)
 			})
-			// (e) => {
-			// 	fetch(BASE_URL + '/sight_words/' + word.id)
-			// 	.then(resp => resp.json())
-			// 	.then(sight_word => {
-			// 		hideIntroLine();
-			// 		const word_intro = document.querySelector("#word_intro")
-			// 		word_intro.style.display = "block";
-			// 		const h2 = document.querySelector("h2")
-			// 		h2.innerHTML = sight_word.spelling
-			// 		const audio_key = document.querySelector("#pronunciation_key")
-			// 		audio_key.innerHTML = sight_word.pronunciation_key
-			// 		const speaker = document.querySelector("#speaker")
-			//         const audio = document.querySelector("audio")
-			//         audio.setAttribute("src", `${sight_word.pronunciation_audio}`)
-			//         audio.play();
-			// 		speaker.onclick = e => {
-			// 	        e.preventDefault();
-			// 	        audio.play();
-	  //     			};
-			// 	})
-			// })
 			div.append(btn)
 		}
 	})
