@@ -39,6 +39,14 @@ function hideIntroLine(){
 	
 }
 
+ 
+// fetch("http://localhost:3000/sight_words/1")
+// .then(resp => resp.json())
+// .then(sight_word => {
+// 	let word = new SightWord(sight_word.spelling)
+// 	console.log(word)
+// })
+
 function fetchSightWord(word_id){
 	fetch(BASE_URL + '/sight_words/' + word_id)
 	.then(resp => resp.json())
@@ -47,9 +55,10 @@ function fetchSightWord(word_id){
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
 		const main_word = document.querySelector("#main_word")
-		main_word.innerHTML = sight_word.spelling
+		const word = new SightWord(sight_word.spelling)
+		main_word.innerHTML = word.spelling
 		const badge_sm = document.querySelector("h5 .badge")
-		badge_sm.innerHTML = sight_word.spelling
+		badge_sm.innerHTML = word.spelling
 		const speaker = document.querySelector("#speaker")
         const audio = document.querySelector("audio")
         audio.setAttribute("src", `${sight_word.pronunciation_audio}`)
