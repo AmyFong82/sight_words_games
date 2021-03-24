@@ -48,8 +48,6 @@ function fetchSightWord(word_id){
 		word_intro.style.display = "block";
 		const h2 = document.querySelector("h2")
 		h2.innerHTML = sight_word.spelling
-		const audio_key = document.querySelector("#pronunciation_key")
-		audio_key.innerHTML = sight_word.pronunciation_key
 		const speaker = document.querySelector("#speaker")
         const audio = document.querySelector("audio")
         audio.setAttribute("src", `${sight_word.pronunciation_audio}`)
