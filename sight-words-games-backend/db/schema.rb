@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 2021_03_17_035428) do
     t.string "spelling"
     t.integer "word_length"
     t.string "pronunciation_audio"
-    t.string "pronunciation_key"
     t.string "sentence"
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false

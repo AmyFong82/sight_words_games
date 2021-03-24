@@ -4,7 +4,6 @@ class CreateSightWords < ActiveRecord::Migration[6.1]
       t.string :spelling
       t.integer :word_length
       t.string :pronunciation_audio
-      t.string :pronunciation_key
       t.string :sentence
       t.string :picture
 
