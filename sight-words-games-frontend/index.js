@@ -55,13 +55,13 @@ function fetchSightWord(word_id){
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
 		const main_word = document.querySelector("#main_word")
-		const word = new SightWord(sight_word.spelling)
+		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.sentence, sight_word.picture)
 		main_word.innerHTML = word.spelling
 		const badge_sm = document.querySelector("h5 .badge")
 		badge_sm.innerHTML = word.spelling
 		const speaker = document.querySelector("#speaker")
         const audio = document.querySelector("audio")
-        audio.setAttribute("src", `${sight_word.pronunciation_audio}`)
+        audio.setAttribute("src", word.audio)
         audio.play();
 		speaker.onclick = e => {
 	        e.preventDefault();
@@ -77,8 +77,11 @@ function playAudio(){
 }
 
 class SightWord {
-  constructor(spelling, audi, ){
+  constructor(spelling, audio, sentence, picture){
   	this.spelling = spelling;
+  	this.audio = audio;
+  	this.sentence = sentence;
+  	this.picture = picture;
   }
   check(string){
   	if(this.spelling === string){
