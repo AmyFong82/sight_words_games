@@ -9,15 +9,13 @@
 user1 = User.create(username: "User1", password: "1")
 
 
-a = SightWord.create(spelling: "a", 
-					pronunciation_audio: "https://static.sfdict.com/audio/lunawav/A00/A0000100.ogg", 
-					pronunciation_key: "[ uh; when stressed ey ]", 
-					sentence: "May I have a pink popsicle, please?", 
-					picture: "https://images.vexels.com/media/users/3/210453/isolated/preview/193ca85105f26dd0dbc539de1c1baf52-pink-popsicle-illustration-by-vexels.png")
+at = SightWord.create(spelling: "at", 
+					pronunciation_audio: "https://static.sfdict.com/audio/lunawav/NEW/NEW10235.ogg", 
+					sentence: "Is that fish looking at me?", 
+					picture: "https://pyxis.nymag.com/v1/imgs/bc4/9c9/fde191e88b8b4c007822555bdd4019c38f-20-dream-fish.2x.rhorizontal.w700.jpg")
 
 the = SightWord.create(spelling: "the",
 						pronunciation_audio: "https://static.sfdict.com/audio/lunawav/NEW2016/the_000.ogg",
-						pronunciation_key: "[ before a consonant thuh; before a vowel thee ]",
 						sentence: "The??",
 						picture: "hkfdsk")
 
