@@ -66,3 +66,15 @@ function playAudio(){
 	const audio = document.querySelector("audio")
 	audio.play();
 }
+
+class SightWord {
+  constructor(spelling){
+  	this.spelling = spelling;
+  }
+  check(string){
+  	if(this.spelling === string){
+  		return "Correct!"
+  	}
+  	return `${this.spelling}`
+  }
+}
