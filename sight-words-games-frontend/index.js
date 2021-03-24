@@ -46,8 +46,10 @@ function fetchSightWord(word_id){
 		hideIntroLine();
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
-		const h2 = document.querySelector("h2")
-		h2.innerHTML = sight_word.spelling
+		const main_word = document.querySelector("#main_word")
+		main_word.innerHTML = sight_word.spelling
+		const badge_sm = document.querySelector("h5 .badge")
+		badge_sm.innerHTML = sight_word.spelling
 		const speaker = document.querySelector("#speaker")
         const audio = document.querySelector("audio")
         audio.setAttribute("src", `${sight_word.pronunciation_audio}`)

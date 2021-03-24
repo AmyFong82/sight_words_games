@@ -15,7 +15,6 @@ h1 {
 }
 
 h5 {
-	font-family: 'RocknRoll One', sans-serif;
 	text-align: center;
 	padding-top: 25px;
 	/*padding-left: 25px;*/
@@ -51,16 +50,22 @@ h2, h6, #audio_wrapper{
 	text-align: center;
 }
 
+#main_word {
+	font-size: 3rem;
+}
+
 .fa-volume-up {
 	color: #6ddccf;
 	font-size: 2rem;
 }
+
 
 #speaker {
 	border: none;
 	background-color: transparent;
 }
 
-#main_word {
-	font-size: 3rem;
+.badge {
+	font-size: 1.5rem;
 }
+
