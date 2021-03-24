@@ -23,8 +23,7 @@ ActiveRecord::Schema.define(version: 2021_03_17_035428) do
 
   create_table "sight_words", force: :cascade do |t|
     t.string "spelling"
-    t.integer "word_length"
-    t.string "pronunciation_audio"
+    t.string "audio"
     t.string "sentence"
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false

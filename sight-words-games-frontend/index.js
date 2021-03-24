@@ -77,7 +77,7 @@ function playAudio(){
 }
 
 class SightWord {
-  constructor(spelling){
+  constructor(spelling, audi, ){
   	this.spelling = spelling;
   }
   check(string){

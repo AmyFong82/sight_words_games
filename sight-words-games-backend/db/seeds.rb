@@ -10,12 +10,12 @@ user1 = User.create(username: "User1", password: "1")
 
 
 at = SightWord.create(spelling: "at", 
-					pronunciation_audio: "https://static.sfdict.com/audio/lunawav/NEW/NEW10235.ogg", 
+					audio: "https://static.sfdict.com/audio/lunawav/NEW/NEW10235.ogg", 
 					sentence: "Is that fish looking at me?", 
 					picture: "https://pyxis.nymag.com/v1/imgs/bc4/9c9/fde191e88b8b4c007822555bdd4019c38f-20-dream-fish.2x.rhorizontal.w700.jpg")
 
 the = SightWord.create(spelling: "the",
-						pronunciation_audio: "https://static.sfdict.com/audio/lunawav/NEW2016/the_000.ogg",
+						audio: "https://static.sfdict.com/audio/lunawav/NEW2016/the_000.ogg",
 						sentence: "The??",
 						picture: "hkfdsk")
 
