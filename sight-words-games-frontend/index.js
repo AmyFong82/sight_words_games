@@ -68,14 +68,16 @@ function fetchSightWord(word_id){
 	        audio.play();
 		}
 		const word_choices = document.querySelector(".word_choices")
-		for(let i = 0; i < 4; i++) {
-			const choice_btn = document.createElement("button")
-			choice_btn.classList.add("btn", "btn-outline-success")
-			choice_btn.innerHTML = word.word_choices[i]
-			choice_btn.addEventListener("click", e => {
-				word.check(choice_btn.innerHTML)
-			})
-			word_choices.append(choice_btn)
+		if (word_choices.children.length !== 4){
+			for(let i = 0; i < 4; i++) {
+				const choice_btn = document.createElement("button")
+				choice_btn.classList.add("btn", "btn-outline-success", "btn-lg")
+				choice_btn.innerHTML = word.word_choices[i]
+				choice_btn.addEventListener("click", e => {
+					word.check(choice_btn.innerHTML)
+				})
+				word_choices.append(choice_btn)
+			}
 		}
 	})
 }
