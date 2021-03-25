@@ -44,7 +44,7 @@ function hideIntroLine(){
 // .then(resp => resp.json())
 // .then(sight_word => {
 // 	let word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
-// 	console.log(word)
+// 	console.log(word.spelling === "an")
 // })
 
 function fetchSightWord(word_id){
@@ -72,6 +72,9 @@ function fetchSightWord(word_id){
 			const choice_btn = document.createElement("button")
 			choice_btn.classList.add("btn", "btn-outline-success")
 			choice_btn.innerHTML = word.word_choices[i]
+			choice_btn.addEventListener("click", e => {
+				word.check(choice_btn.innerHTML)
+			})
 			word_choices.append(choice_btn)
 		}
 	})
@@ -94,8 +97,9 @@ class SightWord {
 
   check(string){
   	if(this.spelling === string){
-  		return "Correct!"
+  		alert("Correct!");
+  	}else{
+  		alert("Try again!");
   	}
-  	return "Try again!"
   }
 }
