@@ -21,7 +21,7 @@ function renderSightWords(){
 		for (const word of sight_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item", "list-group-item-action")
-			btn.setAttribute("id", `${word.spelling}`)
+			// btn.setAttribute("id", `${word.spelling}`)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
 				fetchSightWord(word.id)
@@ -43,7 +43,7 @@ function hideIntroLine(){
 // fetch("http://localhost:3000/sight_words/1")
 // .then(resp => resp.json())
 // .then(sight_word => {
-// 	let word = new SightWord(sight_word.spelling)
+// 	let word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
 // 	console.log(word)
 // })
 
@@ -55,7 +55,7 @@ function fetchSightWord(word_id){
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
 		const main_word = document.querySelector("#main_word")
-		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.sentence, sight_word.picture)
+		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
 		main_word.innerHTML = word.spelling
 		const badge_sm = document.querySelector("h5 .badge")
 		badge_sm.innerHTML = word.spelling
@@ -67,6 +67,13 @@ function fetchSightWord(word_id){
 	        e.preventDefault();
 	        audio.play();
 		}
+		const word_choices = document.querySelector(".word_choices")
+		for(let i = 0; i < 4; i++) {
+			const choice_btn = document.createElement("button")
+			choice_btn.classList.add("btn", "btn-outline-success")
+			choice_btn.innerHTML = word.word_choices[i]
+			word_choices.append(choice_btn)
+		}
 	})
 }
 
@@ -77,16 +84,18 @@ function playAudio(){
 }
 
 class SightWord {
-  constructor(spelling, audio, sentence, picture){
+  constructor(spelling, audio, word_choices, sentence, picture){
   	this.spelling = spelling;
   	this.audio = audio;
+  	this.word_choices = word_choices.split(" ");
   	this.sentence = sentence;
   	this.picture = picture;
   }
+
   check(string){
   	if(this.spelling === string){
   		return "Correct!"
   	}
-  	return `${this.spelling}`
+  	return "Try again!"
   }
 }
