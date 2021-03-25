@@ -54,6 +54,8 @@ function fetchSightWord(word_id){
 		hideIntroLine();
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
+		const game1 = document.querySelector("#game1")
+		game1.style.display = "block";
 		const main_word = document.querySelector("#main_word")
 		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
 		main_word.innerHTML = word.spelling
@@ -71,7 +73,7 @@ function fetchSightWord(word_id){
 		if (word_choices.children.length !== 4){
 			for(let i = 0; i < 4; i++) {
 				const choice_btn = document.createElement("button")
-				choice_btn.classList.add("btn", "btn-outline-success", "btn-lg")
+				choice_btn.classList.add("btn", "btn-light", "btn-lg")
 				choice_btn.innerHTML = word.word_choices[i]
 				choice_btn.addEventListener("click", e => {
 					word.check(choice_btn.innerHTML)

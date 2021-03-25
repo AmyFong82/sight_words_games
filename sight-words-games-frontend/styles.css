@@ -44,6 +44,7 @@ button.list-group-item {
 #word_intro {
 	display: none;
 	margin: auto;
+	margin-top: 50px;
 }
 
 h2, h6, #audio_wrapper{
@@ -65,6 +66,18 @@ h2, h6, #audio_wrapper{
 	background-color: transparent;
 }
 
+#game1 {
+	display: none;
+	width: 70%;
+	margin: auto;
+	border-radius: 30px;
+	background-color: #94ebcd;
+}
+
+#game1 h5 {
+	margin-top: 50px;
+}
+
 .badge {
 	font-size: 1.5rem;
 }
@@ -73,7 +86,11 @@ h2, h6, #audio_wrapper{
 	text-align: center;
 }
 
-.btn-outline-success {
+.btn-light {
 	margin: 20px;
+}
+
+.btn-light:hover {
+	    font-weight: 800;
 }
 
