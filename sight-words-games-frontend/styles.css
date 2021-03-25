@@ -71,7 +71,7 @@ h2, h6, #audio_wrapper{
 	width: 70%;
 	margin: auto;
 	border-radius: 30px;
-	background-color: #94ebcd;
+	background-color: #6ddccf;
 }
 
 #game1 h5 {
@@ -92,5 +92,9 @@ h2, h6, #audio_wrapper{
 
 .btn-light:hover {
 	    font-weight: 800;
+}
+
+.alert-warning{
+	display: none;
 }
 

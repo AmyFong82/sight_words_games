@@ -76,7 +76,13 @@ function fetchSightWord(word_id){
 				choice_btn.classList.add("btn", "btn-light", "btn-lg")
 				choice_btn.innerHTML = word.word_choices[i]
 				choice_btn.addEventListener("click", e => {
-					word.check(choice_btn.innerHTML)
+					if(word.check(choice_btn.innerHTML)){
+						alert("correct!")
+					}else{
+						const wrong_alert = document.querySelector(".alert-warning")
+						wrong_alert.style.display = "block";
+						choice_btn.setAttribute("disabled", "true")
+					}
 				})
 				word_choices.append(choice_btn)
 			}
@@ -101,9 +107,9 @@ class SightWord {
 
   check(string){
   	if(this.spelling === string){
-  		alert("Correct!");
+  		return true
   	}else{
-  		alert("Try again!");
+  		return false
   	}
   }
 }
