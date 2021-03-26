@@ -98,3 +98,10 @@ h2, h6, #audio_wrapper{
 	display: none;
 }
 
+.alert-success {
+	background-color: #0ab96a;
+	border: 0;
+	color: white;
+	font-weight: 800;
+}
+

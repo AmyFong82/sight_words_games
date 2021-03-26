@@ -23,7 +23,6 @@ function renderSightWords(){
 		for (const word of sight_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item", "list-group-item-action")
-			// btn.setAttribute("id", `${word.spelling}`)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
 				fetchSightWord(word.id)
@@ -32,6 +31,8 @@ function renderSightWords(){
 					b.classList.remove("active")
 				}
 				btn.classList.add("active")
+				right_alert.style.display = "none";
+				wrong_alert.style.display = "none";
 			})
 			div.append(btn)
 		}
