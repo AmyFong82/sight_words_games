@@ -17,8 +17,9 @@ at = SightWord.create(spelling: "at",
 
 the = SightWord.create(spelling: "the",
 						audio: "https://static.sfdict.com/audio/lunawav/NEW2016/the_000.ogg",
-						sentence: "The??",
-						picture: "hkfdsk")
+						word_choices: "then the ten them",
+						sentence: "The dog is brown.",
+						picture: "https://thehappypuppysite.com/wp-content/uploads/2018/10/brown-dog-names-long.jpg")
 
 # of = SightWord.create(spelling: "of"
 # 						pronunciation_audio:
