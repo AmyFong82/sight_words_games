@@ -1,4 +1,6 @@
 const BASE_URL = "http://localhost:3000"
+const right_alert = document.querySelector(".alert-success")
+const wrong_alert = document.querySelector(".alert-warning")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -25,6 +27,11 @@ function renderSightWords(){
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
 				fetchSightWord(word.id)
+				const non_active_btns = document.querySelectorAll(".list-group button")
+				for (const b of non_active_btns){
+					b.classList.remove("active")
+				}
+				btn.classList.add("active")
 			})
 			div.append(btn)
 		}
@@ -77,10 +84,11 @@ function fetchSightWord(word_id){
 				choice_btn.innerHTML = word.word_choices[i]
 				choice_btn.addEventListener("click", e => {
 					if(word.check(choice_btn.innerHTML)){
-						alert("correct!")
+						right_alert.style.display = "block";
+						wrong_alert.style.display = "none";
 					}else{
-						const wrong_alert = document.querySelector(".alert-warning")
 						wrong_alert.style.display = "block";
+						right_alert.style.display = "none";
 						choice_btn.setAttribute("disabled", "true")
 					}
 				})
