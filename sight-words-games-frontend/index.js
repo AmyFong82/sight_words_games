@@ -64,37 +64,19 @@ function fetchSightWord(word_id){
 		const game1 = document.querySelector("#game1")
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main_word")
-		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
-		main_word.innerHTML = word.spelling
-		const badge_sm = document.querySelector("h5 .badge")
-		badge_sm.innerHTML = word.spelling
-		const speaker = document.querySelector("#speaker")
-        const audio = document.querySelector("audio")
-        audio.setAttribute("src", word.audio)
+		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture);
+		main_word.innerHTML = word.spelling;
+		const badge_sm = document.querySelector("h5 .badge");
+		badge_sm.innerHTML = word.spelling;
+		const speaker = document.querySelector("#speaker");
+        const audio = document.querySelector("audio");
+        audio.setAttribute("src", word.audio);
         audio.play();
 		speaker.onclick = e => {
 	        e.preventDefault();
 	        audio.play();
 		}
-		const word_choices = document.querySelector(".word_choices")
-		if (word_choices.children.length !== 4){
-			for(let i = 0; i < 4; i++) {
-				const choice_btn = document.createElement("button")
-				choice_btn.classList.add("btn", "btn-light", "btn-lg")
-				choice_btn.innerHTML = word.word_choices[i]
-				choice_btn.addEventListener("click", e => {
-					if(word.check(choice_btn.innerHTML)){
-						right_alert.style.display = "block";
-						wrong_alert.style.display = "none";
-					}else{
-						wrong_alert.style.display = "block";
-						right_alert.style.display = "none";
-						choice_btn.setAttribute("disabled", "true")
-					}
-				})
-				word_choices.append(choice_btn)
-			}
-		}
+		renderWordChoices(word);
 	})
 }
 
@@ -103,6 +85,26 @@ function playAudio(){
 	const audio = document.querySelector("audio")
 	audio.play();
 }
+
+function renderWordChoices(word){
+	const word_choices = document.querySelector(".word_choices")
+	const choice_btns = word_choices.children
+		for(let i = 0; i < 4; i++) {
+			choice_btns[i].innerHTML = word.word_choices[i]
+			choice_btns[i].addEventListener("click", e => {
+				if(word.check(choice_btns[i].innerHTML)){
+					right_alert.style.display = "block";
+					wrong_alert.style.display = "none";
+				}else{
+					wrong_alert.style.display = "block";
+					right_alert.style.display = "none";
+					choice_btns[i].setAttribute("disabled", "true")
+				}
+			})
+		}
+	}
+
+
 
 class SightWord {
   constructor(spelling, audio, word_choices, sentence, picture){
