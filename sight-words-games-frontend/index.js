@@ -89,20 +89,22 @@ function playAudio(){
 function renderWordChoices(word){
 	const word_choices = document.querySelector(".word_choices")
 	const choice_btns = word_choices.children
-		for(let i = 0; i < 4; i++) {
-			choice_btns[i].innerHTML = word.word_choices[i]
-			choice_btns[i].addEventListener("click", e => {
-				if(word.check(choice_btns[i].innerHTML)){
-					right_alert.style.display = "block";
-					wrong_alert.style.display = "none";
-				}else{
-					wrong_alert.style.display = "block";
-					right_alert.style.display = "none";
-					choice_btns[i].setAttribute("disabled", "true")
-				}
-			})
-		}
+	for(let i = 0; i < 4; i++) {
+		choice_btns[i].innerHTML = word.word_choices[i]
+		choice_btns[i].disabled = false;
+		choice_btns[i].addEventListener("click", e => {
+			if(word.check(choice_btns[i].innerHTML)){
+				right_alert.style.display = "block";
+				wrong_alert.style.display = "none";
+				choice_btns[i].disabled = false;
+			}else{
+				wrong_alert.style.display = "block";
+				right_alert.style.display = "none";
+				choice_btns[i].setAttribute("disabled", "true")
+			}
+		})
 	}
+}
 
 
 
