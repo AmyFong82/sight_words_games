@@ -1,6 +1,7 @@
 const BASE_URL = "http://localhost:3000"
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".alert-warning")
+const stars = document.querySelector(".stars")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -60,6 +61,7 @@ function fetchSightWord(word_id){
 	.then(resp => resp.json())
 	.then(sight_word => {
 		hideIntroLine();
+		stars.style.display = "block";
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
 		const game1 = document.querySelector("#game-container")
@@ -90,6 +92,7 @@ function playAudio(){
 function renderWordChoices(word){
 	const word_choices = document.querySelector(".word_choices")
 	const choice_btns = word_choices.children
+	const star1 = document.querySelector("#star1")
 	for(let i = 0; i < 4; i++) {
 		choice_btns[i].innerHTML = word.word_choices[i]
 		choice_btns[i].disabled = false;
@@ -98,6 +101,8 @@ function renderWordChoices(word){
 				right_alert.style.display = "block";
 				wrong_alert.style.display = "none";
 				choice_btns[i].disabled = false;
+				star1.classList.remove("far");
+				star1.classList.add("fas", "star-animation")
 			}else{
 				wrong_alert.style.display = "block";
 				right_alert.style.display = "none";

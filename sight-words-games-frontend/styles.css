@@ -16,6 +16,7 @@ h1 {
 
 h4, h5 {
 	text-align: center;
+	padding-top: 10px;
 }
 
 #login {
@@ -64,6 +65,28 @@ h2, h6, #audio_wrapper{
 	background-color: transparent;
 }
 
+.stars {
+	position: absolute;
+	color: #ffefa1;
+	font-size: 2rem;
+	padding: 20px;
+	display: none;
+}
+
+@keyframes anime-star {
+	0% {color: #ffefa1; font-size: 2rem;}
+	25% {color: #ffc107; font-size: 2.5rem;}
+	50% {color: #ffc107; font-size: 3rem;}
+	100% {color: #ffc107; font-size: 2rem;}
+}
+
+.star-animation {
+	animation-name: anime-star;
+	animation-duration: 3s;
+  	animation-fill-mode: forwards;
+  	animation-timing-function: ease-out;
+}
+
 #game-container {
 	display: none;
 	width: 70%;
@@ -75,7 +98,6 @@ h2, h6, #audio_wrapper{
 
 .circle {
 	position: absolute;
-	float: left;
 	width: 50px;
 	height: 50px;
 	line-height: 50px;
