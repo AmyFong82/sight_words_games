@@ -72,7 +72,7 @@ function fetchSightWord(word_id){
 		const badge_sm = document.querySelector("h4 .badge");
 		badge_sm.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
-        const audio = document.querySelector("audio");
+        const audio = document.querySelector("#pronunciation");
         audio.setAttribute("src", word.audio);
         audio.play();
 		speaker.onclick = e => {
@@ -103,10 +103,16 @@ function renderWordChoices(word){
 				choice_btns[i].disabled = false;
 				star1.classList.remove("far");
 				star1.classList.add("fas", "star-animation")
+				const audio = document.querySelector("#alert_audio");
+		        audio.setAttribute("src", "sounds/right_alert_chime.mp3");
+		        audio.play();
 			}else{
 				wrong_alert.style.display = "block";
 				right_alert.style.display = "none";
 				choice_btns[i].setAttribute("disabled", "true")
+				const audio = document.querySelector("#alert_audio");
+		        audio.setAttribute("src", "sounds/wrong_alert_chime.mp3");
+		        audio.play();
 			}
 		})
 	}
