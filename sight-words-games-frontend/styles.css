@@ -74,15 +74,12 @@ h2, h6, #audio_wrapper{
 }
 
 @keyframes anime-star {
-	0% {color: #ffefa1; font-size: 2rem;}
-	25% {color: #ffc107; font-size: 2.5rem;}
-	50% {color: #ffc107; font-size: 3rem;}
+	0% {color: #ffefa1; font-size: 3rem;}
 	100% {color: #ffc107; font-size: 2rem;}
 }
 
 .star-animation {
-	animation-name: anime-star;
-	animation-duration: 3s;
+	animation: anime-star 1s;
   	animation-fill-mode: forwards;
   	animation-timing-function: ease-out;
 }
@@ -117,7 +114,7 @@ h2, h6, #audio_wrapper{
 	text-align: center;
 }
 
-.btn-light {
+.btn-light, .btn-warning {
 	margin: 20px;
 }
 
@@ -138,5 +135,10 @@ h2, h6, #audio_wrapper{
 	border: 0;
 	color: white;
 	font-weight: 800;
+	font-size: 2rem;
+}
+
+.alert-warning {
+	font-size: 2rem;
 }
 

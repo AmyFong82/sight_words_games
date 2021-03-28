@@ -98,6 +98,8 @@ function renderWordChoices(word){
 		choice_btns[i].disabled = false;
 		choice_btns[i].addEventListener("click", e => {
 			if(word.check(choice_btns[i].innerHTML)){
+				choice_btns[i].classList.remove("btn-light")
+				choice_btns[i].classList.add("btn-warning")
 				right_alert.style.display = "block";
 				wrong_alert.style.display = "none";
 				choice_btns[i].disabled = false;
