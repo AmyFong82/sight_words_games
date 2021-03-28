@@ -14,10 +14,8 @@ h1 {
 	padding-left: 25px;
 }
 
-h5 {
+h4, h5 {
 	text-align: center;
-	padding-top: 25px;
-	/*padding-left: 25px;*/
 }
 
 #login {
@@ -45,6 +43,7 @@ button.list-group-item {
 	display: none;
 	margin: auto;
 	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 h2, h6, #audio_wrapper{
@@ -60,22 +59,32 @@ h2, h6, #audio_wrapper{
 	font-size: 2rem;
 }
 
-
 #speaker {
 	border: none;
 	background-color: transparent;
 }
 
-#game1 {
+#game-container {
 	display: none;
 	width: 70%;
 	margin: auto;
 	border-radius: 30px;
 	background-color: #6ddccf;
+	padding: 20px;
 }
 
-#game1 h5 {
-	margin-top: 50px;
+.circle {
+	position: absolute;
+	float: left;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 50%;
+	font-size: 2rem;
+	font-style: bold;
+	color: #6ddccf;
+	text-align: center;
+	background: #fff;
 }
 
 .badge {
@@ -91,11 +100,15 @@ h2, h6, #audio_wrapper{
 }
 
 .btn-light:hover {
-	    font-weight: 800;
+	font-weight: 800;
 }
 
 .alert{
 	display: none;
+	width: 70%;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px
 }
 
 .alert-success {

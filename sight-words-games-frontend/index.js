@@ -62,12 +62,12 @@ function fetchSightWord(word_id){
 		hideIntroLine();
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
-		const game1 = document.querySelector("#game1")
+		const game1 = document.querySelector("#game-container")
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main_word")
 		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
-		const badge_sm = document.querySelector("h5 .badge");
+		const badge_sm = document.querySelector("h4 .badge");
 		badge_sm.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
         const audio = document.querySelector("audio");
