@@ -2,6 +2,7 @@ const BASE_URL = "http://localhost:3000"
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".alert-warning")
 const stars = document.querySelector(".stars")
+const next_btn = document.querySelector(".next-btn")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -108,6 +109,7 @@ function renderWordChoices(word){
 				const audio = document.querySelector("#alert_audio");
 		        audio.setAttribute("src", "sounds/right_alert_chime.mp3");
 		        audio.play();
+		        next_btn.style.display = "block";
 			}else{
 				wrong_alert.style.display = "block";
 				right_alert.style.display = "none";

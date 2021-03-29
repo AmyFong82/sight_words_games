@@ -74,7 +74,9 @@ h2, h6, #audio_wrapper{
 }
 
 @keyframes anime-star {
-	0% {color: #ffefa1; font-size: 3rem;}
+	0% {color: #ffc107; font-size: 3rem; transform: rotate(10deg)}
+	25% {color: #ffc107; font-size: 2rem; transform: rotate(-10deg)}
+	50% {color: #ffc107; font-size: 2rem; transform: rotate(10deg)}
 	100% {color: #ffc107; font-size: 2rem;}
 }
 
@@ -140,5 +142,16 @@ h2, h6, #audio_wrapper{
 
 .alert-warning {
 	font-size: 2rem;
+}
+
+.next-btn {
+	float: right;
+	background-color: #6ddccf;
+	display: none;
+}
+
+.next-btn:hover {
+	background-color: #6ddccf;
+	font-weight: 800;
 }
 
