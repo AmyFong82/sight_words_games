@@ -110,6 +110,10 @@ function renderWordChoices(word){
 		        audio.setAttribute("src", "sounds/right_alert_chime.mp3");
 		        audio.play();
 		        next_btn.style.display = "block";
+		        const other_choices = document.querySelectorAll(".btn-light")
+		        for(const b of other_choices){
+		        	b.setAttribute("disabled", "true")
+		        }
 			}else{
 				wrong_alert.style.display = "block";
 				right_alert.style.display = "none";
