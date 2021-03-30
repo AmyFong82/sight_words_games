@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
 
 	const startBtn = document.querySelector("#start-arrow")
-	// startBtn.onclick = e => {
+	startBtn.onclick = e => {
 
-	// }
+	}
 
 })
 
@@ -49,6 +49,12 @@ function hideIntroLine(){
 	
 }
 
+function playAudio(ele, file_path){
+	const audio = document.querySelector(ele)
+	audio.setAttribute("src", file_path);
+	audio.play();
+}
+
  
 // fetch("http://localhost:3000/sight_words/1")
 // .then(resp => resp.json())
@@ -77,18 +83,12 @@ function fetchSightWord(word_id){
         audio.setAttribute("src", word.audio);
         audio.play();
 		speaker.onclick = e => {
-	        e.preventDefault();
 	        audio.play();
 		}
 		renderWordChoices(word);
 	})
 }
 
-
-function playAudio(){
-	const audio = document.querySelector("audio")
-	audio.play();
-}
 
 function renderWordChoices(word){
 	const word_choices = document.querySelector(".word_choices")
@@ -108,9 +108,7 @@ function renderWordChoices(word){
 				choice_btns[i].disabled = false;
 				star1.classList.remove("far");
 				star1.classList.add("fas", "star-animation")
-				const audio = document.querySelector("#alert_audio");
-		        audio.setAttribute("src", "sounds/right_alert_chime.mp3");
-		        audio.play();
+				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
 		        next_btn.style.display = "block";
 		        const other_choices = document.querySelectorAll(".btn-light")
 		        for(const b of other_choices){
@@ -120,9 +118,7 @@ function renderWordChoices(word){
 				wrong_alert.style.display = "block";
 				right_alert.style.display = "none";
 				choice_btns[i].setAttribute("disabled", "true")
-				const audio = document.querySelector("#alert_audio");
-		        audio.setAttribute("src", "sounds/wrong_alert_chime.mp3");
-		        audio.play();
+				playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
 			}
 		})
 	}

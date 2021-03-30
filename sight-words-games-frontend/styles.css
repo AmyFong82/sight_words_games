@@ -23,6 +23,10 @@ h4, h5 {
 	background-color: #ffefa1;
 }
 
+.sw-list-title {
+	font-weight: 600;
+}
+
 .sightword_list_col {
 	background-color: #ffcb91;
 	color: darkcyan;
