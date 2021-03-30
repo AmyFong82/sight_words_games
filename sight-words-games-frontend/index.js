@@ -46,7 +46,7 @@ function renderSightWords(){
 }
 
 function hideIntroLine(){
-	const intro_line = document.querySelector("#intro_line")
+	const intro_line = document.querySelector("#intro-line")
 	if (intro_line.style.display = "block") {
 		intro_line.style.display = "none";
 	}	
@@ -72,10 +72,10 @@ function fetchSightWord(word_id){
 	.then(sight_word => {
 		hideIntroLine();
 		stars.style.display = "block";
-		const word_intro = document.querySelector("#word_intro")
+		const word_intro = document.querySelector("#word-intro")
 		word_intro.style.display = "block";
 		game1.style.display = "block";
-		const main_word = document.querySelector("#main_word")
+		const main_word = document.querySelector("#main-word")
 		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
 		const badge_sm = document.querySelector("h4 .badge");
@@ -91,7 +91,7 @@ function fetchSightWord(word_id){
 
 
 function renderGame1(word){
-	const word_choices = document.querySelector(".word_choices")
+	const word_choices = document.querySelector(".word-choices")
 	const choice_btns = word_choices.children
 	const star1 = document.querySelector("#star1")
 	for(let i = 0; i < 4; i++) {
@@ -128,8 +128,20 @@ function renderGame1(word){
 }
 
 function renderGame2(word){
+	right_alert.style.display = "none";
 	game1.style.display = "none"
 	game2.style.display = "block"
+	const word_in_q = document.querySelector("#game2 h4 .badge")
+	word_in_q.innerHTML = word.spelling
+	const chosen_letters = document.querySelector(".chosen-letters")
+	for (let i = 0; i < word.length(); i++){
+		const letter = document.createElement("div")
+		chosen_letters.append(letter)
+		letter.className = "chosen-letter"
+	}
+	for(const letter in word){
+
+	}
 
 
 }
@@ -152,4 +164,9 @@ class SightWord {
   		return false
   	}
   }
+
+  length(){
+  	return this.spelling.length
+  }
+
 }

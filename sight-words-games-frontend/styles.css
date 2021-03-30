@@ -51,13 +51,13 @@ button.list-group-item {
 	text-align: center;
 }
 
-#intro_line {
+#intro-line {
 	padding-top: 12%;
 	font-size: 2rem;
 	line-height: 2.5;
 }
 
-#word_intro {
+#word-intro {
 	display: none;
 	margin: auto;
 	margin-top: 50px;
@@ -68,7 +68,7 @@ h2, h6, #audio_wrapper{
 	text-align: center;
 }
 
-#main_word {
+#main-word {
 	font-size: 3rem;
 }
 
@@ -129,7 +129,7 @@ h2, h6, #audio_wrapper{
 	font-size: 1.5rem;
 }
 
-.word_choices {
+.word-choices {
 	text-align: center;
 }
 
@@ -139,6 +139,10 @@ h2, h6, #audio_wrapper{
 
 .btn-light:hover {
 	font-weight: 800;
+}
+
+.chosen-letter {
+
 }
 
 .alert{
