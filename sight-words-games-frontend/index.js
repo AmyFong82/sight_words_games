@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const startBtn = document.querySelector("#start-arrow")
 	startBtn.onclick = e => {
-
+		fetchSightWord(1)
 	}
 
 })
@@ -25,6 +25,7 @@ function renderSightWords(){
 		for (const word of sight_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item", "list-group-item-action")
+			btn.setAttribute("id", word.id)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
 				fetchSightWord(word.id)
