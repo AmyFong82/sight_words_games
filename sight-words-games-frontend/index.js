@@ -6,6 +6,7 @@ const next_btn = document.querySelector(".next-btn")
 const game1 = document.querySelector("#game1")
 const game2 = document.querySelector("#game2")
 const game3 = document.querySelector("#game3")
+const chosen_letter = document.querySelectorAll(".chosen-letter")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -91,6 +92,7 @@ function fetchSightWord(word_id){
 
 
 function renderGame1(word){
+	game2.style.display = "none";
 	next_btn.style.display = "none";
 	const word_choices = document.querySelector(".word-choices")
 	const choice_btns = word_choices.children
@@ -129,17 +131,17 @@ function renderGame1(word){
 }
 
 function renderGame2(word){
+	for (let i = 0; i < chosen_letter.length; i++) {
+		chosen_letter[i].style.display = "none"
+	}
 	next_btn.style.display = "none";
 	right_alert.style.display = "none";
 	game1.style.display = "none"
 	game2.style.display = "block"
 	const word_in_q = document.querySelector("#game2 h4 .badge")
 	word_in_q.innerHTML = word.spelling
-	const chosen_letters = document.querySelector(".chosen-letters")
 	for (let i = 0; i < word.length(); i++){
-		const letter = document.createElement("div")
-		chosen_letters.append(letter)
-		letter.className = "chosen-letter"
+		chosen_letter[i].style.display = "block"
 	}
 	for(const letter in word){
 
