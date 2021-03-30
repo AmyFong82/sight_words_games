@@ -91,6 +91,7 @@ function fetchSightWord(word_id){
 
 
 function renderGame1(word){
+	next_btn.style.display = "none";
 	const word_choices = document.querySelector(".word-choices")
 	const choice_btns = word_choices.children
 	const star1 = document.querySelector("#star1")
@@ -128,6 +129,7 @@ function renderGame1(word){
 }
 
 function renderGame2(word){
+	next_btn.style.display = "none";
 	right_alert.style.display = "none";
 	game1.style.display = "none"
 	game2.style.display = "block"
