@@ -79,11 +79,9 @@ function fetchSightWord(word_id){
 		const badge_sm = document.querySelector("h4 .badge");
 		badge_sm.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
-        const audio = document.querySelector("#pronunciation");
-        audio.setAttribute("src", word.audio);
-        audio.play();
+		playAudio("#pronunciation", word.audio)
 		speaker.onclick = e => {
-	        audio.play();
+    		playAudio("#pronunciation", word.audio)
 		}
 		renderWordChoices(word);
 	})
