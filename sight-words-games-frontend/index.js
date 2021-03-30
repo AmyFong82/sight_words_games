@@ -97,6 +97,8 @@ function renderWordChoices(word){
 	for(let i = 0; i < 4; i++) {
 		choice_btns[i].innerHTML = word.word_choices[i]
 		choice_btns[i].disabled = false;
+		choice_btns[i].classList.remove("btn-warning")
+		choice_btns[i].classList.add("btn-light")
 		choice_btns[i].addEventListener("click", e => {
 			if(word.check(choice_btns[i].innerHTML)){
 				choice_btns[i].classList.remove("btn-light")
