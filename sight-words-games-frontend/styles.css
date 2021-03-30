@@ -31,13 +31,22 @@ h4, h5 {
 
 .fa-arrow-circle-right {
 	color: #6ddccf;
-	font-size: 1.5rem;
 	vertical-align: middle;
+}
+
+.fa-hand-point-left {
+	color: #6ddccf;
 }
 
 button.list-group-item {
 	font-size: 1.5rem;
 	text-align: center;
+}
+
+#intro_line {
+	padding-top: 12%;
+	font-size: 2rem;
+	line-height: 2.5;
 }
 
 #word_intro {
