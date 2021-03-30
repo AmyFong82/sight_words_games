@@ -103,7 +103,7 @@ h2, h6, #audio_wrapper{
   	animation-timing-function: ease-out;
 }
 
-#game-container {
+.game-container {
 	display: none;
 	width: 70%;
 	margin: auto;

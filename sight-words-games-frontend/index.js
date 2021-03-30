@@ -3,6 +3,9 @@ const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".alert-warning")
 const stars = document.querySelector(".stars")
 const next_btn = document.querySelector(".next-btn")
+const game1 = document.querySelector("#game1")
+const game2 = document.querySelector("#game2")
+const game3 = document.querySelector("#game3")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -46,8 +49,7 @@ function hideIntroLine(){
 	const intro_line = document.querySelector("#intro_line")
 	if (intro_line.style.display = "block") {
 		intro_line.style.display = "none";
-	}
-	
+	}	
 }
 
 function playAudio(ele, file_path){
@@ -72,7 +74,6 @@ function fetchSightWord(word_id){
 		stars.style.display = "block";
 		const word_intro = document.querySelector("#word_intro")
 		word_intro.style.display = "block";
-		const game1 = document.querySelector("#game-container")
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main_word")
 		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture);
@@ -84,12 +85,12 @@ function fetchSightWord(word_id){
 		speaker.onclick = e => {
     		playAudio("#pronunciation", word.audio)
 		}
-		renderWordChoices(word);
+		renderGame1(word);
 	})
 }
 
 
-function renderWordChoices(word){
+function renderGame1(word){
 	const word_choices = document.querySelector(".word_choices")
 	const choice_btns = word_choices.children
 	const star1 = document.querySelector("#star1")
@@ -109,6 +110,9 @@ function renderWordChoices(word){
 				star1.classList.add("fas", "star-animation")
 				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
 		        next_btn.style.display = "block";
+		        next_btn.onclick = e => {
+		        	renderGame2(word)
+		        }
 		        const other_choices = document.querySelectorAll(".btn-light")
 		        for(const b of other_choices){
 		        	b.setAttribute("disabled", "true")
@@ -121,6 +125,13 @@ function renderWordChoices(word){
 			}
 		})
 	}
+}
+
+function renderGame2(word){
+	game1.style.display = "none"
+	game2.style.display = "block"
+
+
 }
 
 
