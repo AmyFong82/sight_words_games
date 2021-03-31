@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2021_03_17_035428) do
     t.string "spelling"
     t.string "audio"
     t.string "word_choices"
+    t.string "letter_choices"
     t.string "sentence"
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false

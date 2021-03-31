@@ -77,7 +77,7 @@ function fetchSightWord(word_id){
 		word_intro.style.display = "block";
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main-word")
-		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture);
+		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
 		const badge_sm = document.querySelector("h4 .badge");
 		badge_sm.innerHTML = word.spelling;
@@ -94,9 +94,9 @@ function fetchSightWord(word_id){
 function renderGame1(word){
 	game2.style.display = "none";
 	next_btn.style.display = "none";
+	const star1 = document.querySelector("#star1")
 	const word_choices = document.querySelector(".word-choices")
 	const choice_btns = word_choices.children
-	const star1 = document.querySelector("#star1")
 	for(let i = 0; i < 4; i++) {
 		choice_btns[i].innerHTML = word.word_choices[i]
 		choice_btns[i].disabled = false;
@@ -139,24 +139,32 @@ function renderGame2(word){
 	game1.style.display = "none"
 	game2.style.display = "block"
 	const word_in_q = document.querySelector("#game2 h4 .badge")
+	const letter_choices = document.querySelector(".letter-choices")
+	const choice_btns = letter_choices.children
 	word_in_q.innerHTML = word.spelling
 	for (let i = 0; i < word.length(); i++){
 		chosen_letter[i].style.display = "block"
 	}
-	for(const letter in word){
+	for(let i = 0; i < 4; i++) {
+		choice_btns[i].innerHTML = word.letter_choices[i]
+		choice_btns[i].disabled = false;
+		choice_btns[i].classList.remove("btn-warning")
+		choice_btns[i].classList.add("btn-light")
+		choice_btns[i].addEventListener("click", e => {
 
+		})
 	}
-
 
 }
 
 
 
 class SightWord {
-  constructor(spelling, audio, word_choices, sentence, picture){
+  constructor(spelling, audio, word_choices, letter_choices, sentence, picture){
   	this.spelling = spelling;
   	this.audio = audio;
   	this.word_choices = word_choices.split(" ");
+  	this.letter_choices = letter_choices.split(" ");
   	this.sentence = sentence;
   	this.picture = picture;
   }
