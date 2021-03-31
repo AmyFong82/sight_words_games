@@ -143,18 +143,20 @@ h2, h6, #audio_wrapper{
 }
 
 @keyframes blinking_underline {
-	0% {border-bottom: 3px solid #4caf50;}
+	0% {border-bottom: 3px solid #f8f9fa;}
+	10% {border-bottom: 3px solid #4caf50;}
 	90% {border-bottom: 3px solid #4caf50;}
 	100% {border-bottom: 3px solid #f8f9fa;}
 }
 
 .chosen-letter {
-	width: 75px;
-	height: 75px;
-	margin: 15px;
+	text-align: center;
+	width: 50px;
+	height: 50px;
+	border-radius: 5px;
+	margin: 5px;
 	font-size: 2rem;
 	background-color: #f8f9fa;
-	border-bottom: 3px solid #4caf50;
 	display: none;
 }
 

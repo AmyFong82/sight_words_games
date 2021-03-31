@@ -144,9 +144,6 @@ function renderGame2(word){
 	word_in_q.innerHTML = word.spelling
 	for (let i = 0; i < word.length(); i++){
 		chosen_letter[i].style.display = "block"
-		if(chosen_letter[i].innerHTML === ""){
-			chosen_letter[i].classList.add("chosen-letter-blinking")
-		}
 	}
 	for(let i = 0; i < 4; i++) {
 		choice_btns[i].innerHTML = word.letter_choices[i]
@@ -154,7 +151,18 @@ function renderGame2(word){
 		choice_btns[i].classList.remove("btn-warning")
 		choice_btns[i].classList.add("btn-light")
 		choice_btns[i].addEventListener("click", e => {
-
+			choice_btns[i].setAttribute("disabled", "true")
+			const letter_boxes = document.querySelectorAll(".chosen-letter")
+			for(const box of letter_boxes){
+				if(box.innerHTML === ""){
+					box.innerHTML = choice_btns[i].innerHTML
+					box.classList.remove("chosen-letter-blinking")
+					const nextBox = box.nextSibling
+					console.log(nextBox)
+					nextBox.nextSibling.classList.add("chosen-letter-blinking")
+					return
+				}
+			}
 
 		})
 	}
