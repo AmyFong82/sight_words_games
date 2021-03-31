@@ -6,7 +6,7 @@ const next_btn = document.querySelector(".next-btn")
 const game1 = document.querySelector("#game1")
 const game2 = document.querySelector("#game2")
 const game3 = document.querySelector("#game3")
-const chosen_letter = document.querySelectorAll(".chosen-letter")
+const chosen_letters = document.querySelectorAll(".chosen-letter")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -131,9 +131,12 @@ function renderGame1(word){
 }
 
 function renderGame2(word){
-	for (let i = 0; i < chosen_letter.length; i++) {
-		chosen_letter[i].style.display = "none"
+	for (let i = 0; i < chosen_letters.length; i++) {
+		chosen_letters[i].style.display = "none"
+		chosen_letters[i].innerHTML = ""
+		chosen_letters[i].classList.remove("chosen-letter-blinking")
 	}
+	chosen_letters[0].classList.add("chosen-letter-blinking")
 	next_btn.style.display = "none";
 	right_alert.style.display = "none";
 	game1.style.display = "none"
@@ -143,7 +146,7 @@ function renderGame2(word){
 	const choice_btns = letter_choices.children
 	word_in_q.innerHTML = word.spelling
 	for (let i = 0; i < word.length(); i++){
-		chosen_letter[i].style.display = "block"
+		chosen_letters[i].style.display = "block"
 	}
 	for(let i = 0; i < 4; i++) {
 		choice_btns[i].innerHTML = word.letter_choices[i]
@@ -152,13 +155,11 @@ function renderGame2(word){
 		choice_btns[i].classList.add("btn-light")
 		choice_btns[i].addEventListener("click", e => {
 			choice_btns[i].setAttribute("disabled", "true")
-			const letter_boxes = document.querySelectorAll(".chosen-letter")
-			for(const box of letter_boxes){
+			for(const box of chosen_letters){
 				if(box.innerHTML === ""){
 					box.innerHTML = choice_btns[i].innerHTML
 					box.classList.remove("chosen-letter-blinking")
 					const nextBox = box.nextSibling
-					console.log(nextBox)
 					nextBox.nextSibling.classList.add("chosen-letter-blinking")
 					return
 				}
