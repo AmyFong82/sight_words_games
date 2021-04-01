@@ -185,7 +185,7 @@ h2, h6, #audio_wrapper{
 	font-size: 2rem;
 }
 
-.next-btn {
+.next-btn, .check-btn {
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
@@ -193,7 +193,7 @@ h2, h6, #audio_wrapper{
 	display: none;
 }
 
-.next-btn:hover {
+.next-btn:hover, .check-btn:hover {
 	background-color: #6ddccf;
 	font-weight: 800;
 }

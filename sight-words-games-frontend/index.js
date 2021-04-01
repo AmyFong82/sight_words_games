@@ -116,7 +116,7 @@ function renderGame1(word){
 		        next_btn.onclick = e => {
 		        	renderGame2(word)
 		        }
-		        const other_choices = document.querySelectorAll(".btn-light")
+		        const other_choices = document.querySelectorAll(".word-choice")
 		        for(const b of other_choices){
 		        	b.setAttribute("disabled", "true")
 		        }
@@ -156,13 +156,12 @@ function renderGame2(word){
 		choice.disabled = false;
 		choice.classList.remove("btn-warning")
 		choice.classList.add("btn-light")
-		for (let i = 0; i < word.length(); i++) (function(i){ 
-		  choice.onclick = function() {
+		for (let i = 0; i < word.length(); i++) (function(){ 
+		    choice.onclick = function() {
 		    choice.setAttribute("disabled", "true")
 			choice.style.color = "#f8f9fa"
 			for(box of chosen_letters){
 				if(box.classList.contains("chosen-letter-blinking")){
-					console.log(box)
 					box.innerHTML = choice.innerHTML
 					box.classList.remove("chosen-letter-blinking")
 					const nextBox = box.nextElementSibling
@@ -173,11 +172,20 @@ function renderGame2(word){
 				}
 			}
 		   }
-		})(i);
+		})();
 	}
 
 }
 
+
+function showCheckBtn(word){
+	const lastBox = chosen_letters.children[word.length()-1]
+	if(lastBox.innerHTML !== ""){
+		const checkBtn = document.querySelector(".check-btn")
+		checkBtn.style.display = "block"
+	}
+
+}
 
 
 
