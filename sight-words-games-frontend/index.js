@@ -136,39 +136,49 @@ function renderGame2(word){
 		chosen_letters[i].innerHTML = ""
 		chosen_letters[i].classList.remove("chosen-letter-blinking")
 	}
+	for (let i = 0; i < word.length(); i++){
+		chosen_letters[i].style.display = "block"
+	}
 	chosen_letters[0].classList.add("chosen-letter-blinking")
 	next_btn.style.display = "none";
 	right_alert.style.display = "none";
 	game1.style.display = "none"
 	game2.style.display = "block"
 	const word_in_q = document.querySelector("#game2 h4 .badge")
+	word_in_q.innerHTML = word.spelling
 	const letter_choices = document.querySelector(".letter-choices")
 	const choice_btns = letter_choices.children
-	word_in_q.innerHTML = word.spelling
-	for (let i = 0; i < word.length(); i++){
-		chosen_letters[i].style.display = "block"
-	}
+
 	for(let i = 0; i < 4; i++) {
-		choice_btns[i].innerHTML = word.letter_choices[i]
-		choice_btns[i].disabled = false;
-		choice_btns[i].classList.remove("btn-warning")
-		choice_btns[i].classList.add("btn-light")
-		choice_btns[i].addEventListener("click", e => {
-			choice_btns[i].setAttribute("disabled", "true")
-			for(const box of chosen_letters){
-				if(box.innerHTML === ""){
-					box.innerHTML = choice_btns[i].innerHTML
+		const choice = choice_btns[i]
+		choice.innerHTML = word.letter_choices[i]
+		choice.style.color = "#000"
+		choice.disabled = false;
+		choice.classList.remove("btn-warning")
+		choice.classList.add("btn-light")
+		for (let i = 0; i < word.length(); i++) (function(i){ 
+		  choice.onclick = function() {
+		    choice.setAttribute("disabled", "true")
+			choice.style.color = "#f8f9fa"
+			for(box of chosen_letters){
+				if(box.classList.contains("chosen-letter-blinking")){
+					console.log(box)
+					box.innerHTML = choice.innerHTML
 					box.classList.remove("chosen-letter-blinking")
-					const nextBox = box.nextSibling
-					nextBox.nextSibling.classList.add("chosen-letter-blinking")
-					return
+					const nextBox = box.nextElementSibling
+					if(nextBox.style.display === "block"){
+						nextBox.classList.add("chosen-letter-blinking")
+					}
+					break
 				}
 			}
-
-		})
+		   }
+		})(i);
 	}
 
 }
+
+
 
 
 
