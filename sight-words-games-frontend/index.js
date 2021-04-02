@@ -53,6 +53,12 @@ function resetLayout(){
 	game1.style.display = "none";
 	game2.style.display = "none";
 	next_btn.style.display = "none";
+	const stars123 = stars.children
+	for(let star of stars123){
+		star.classList.remove("fas")
+		star.classList.add("far")
+	}
+
 
 }
 
