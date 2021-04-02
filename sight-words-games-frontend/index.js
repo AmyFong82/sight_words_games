@@ -158,20 +158,21 @@ function renderGame2(word){
 		choice.classList.add("btn-light")
 		for (let i = 0; i < word.length(); i++) (function(){ 
 		    choice.onclick = function() {
-		    choice.setAttribute("disabled", "true")
-			choice.style.color = "#f8f9fa"
-			for(box of chosen_letters){
-				if(box.classList.contains("chosen-letter-blinking")){
-					box.innerHTML = choice.innerHTML
-					box.classList.remove("chosen-letter-blinking")
-					const nextBox = box.nextElementSibling
-					if(nextBox.style.display === "block"){
-						nextBox.classList.add("chosen-letter-blinking")
+			    choice.setAttribute("disabled", "true")
+				choice.style.color = "#f8f9fa"
+				for(box of chosen_letters){
+					if(box.classList.contains("chosen-letter-blinking")){
+						box.innerHTML = choice.innerHTML
+						box.classList.remove("chosen-letter-blinking")
+						const nextBox = box.nextElementSibling
+						if(nextBox.style.display === "block"){
+							nextBox.classList.add("chosen-letter-blinking")
+						}
+						showCheckBtn(word)
+						break
 					}
-					break
 				}
-			}
-		   }
+		    }
 		})();
 	}
 
@@ -179,7 +180,7 @@ function renderGame2(word){
 
 
 function showCheckBtn(word){
-	const lastBox = chosen_letters.children[word.length()-1]
+	const lastBox = chosen_letters[word.length()-1]
 	if(lastBox.innerHTML !== ""){
 		const checkBtn = document.querySelector(".check-btn")
 		checkBtn.style.display = "block"
