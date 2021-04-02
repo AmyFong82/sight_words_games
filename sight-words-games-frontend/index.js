@@ -53,6 +53,7 @@ function resetLayout(){
 	game1.style.display = "none";
 	game2.style.display = "none";
 	next_btn.style.display = "none";
+	checkBtn.style.display = "none"
 	const stars123 = stars.children
 	for(let star of stars123){
 		star.classList.remove("fas")
@@ -196,9 +197,23 @@ function showCheckBtn(word){
 	if(lastBox.innerHTML !== ""){
 		checkBtn.style.display = "block"
 	}
-
+	checkBtn.onclick = e => {
+		checkSpelling()
+	}
 }
 
+function checkSpelling(){
+	const picked_letters = []
+	for(const picked_letter of chosen_letters){
+		picked_letters.push(picked_letter.innerHTML)
+	}
+	const picked_word = picked_letters.join("")
+	if(word.check(picked_word)){
+	}
+
+	
+
+}
 
 
 
