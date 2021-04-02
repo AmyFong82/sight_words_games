@@ -189,12 +189,13 @@ h2, h6, #audio_wrapper{
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
+	color: white;
+	font-weight: 800;
 	background-color: #6ddccf;
 	display: none;
 }
 
 .next-btn:hover, .check-btn:hover {
-	background-color: #6ddccf;
-	font-weight: 800;
+	color: black;
 }
 

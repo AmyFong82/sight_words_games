@@ -1,4 +1,5 @@
 const BASE_URL = "http://localhost:3000"
+const intro_line = document.querySelector("#intro-line")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".alert-warning")
 const stars = document.querySelector(".stars")
@@ -7,6 +8,7 @@ const game1 = document.querySelector("#game1")
 const game2 = document.querySelector("#game2")
 const game3 = document.querySelector("#game3")
 const chosen_letters = document.querySelectorAll(".chosen-letter")
+const checkBtn = document.querySelector(".check-btn")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -46,12 +48,18 @@ function renderSightWords(){
 	})
 }
 
-function hideIntroLine(){
-	const intro_line = document.querySelector("#intro-line")
-	if (intro_line.style.display = "block") {
-		intro_line.style.display = "none";
-	}	
+function resetLayout(){
+	intro_line.style.display = "none";
+	game1.style.display = "none";
+	game2.style.display = "none";
+	next_btn.style.display = "none";
+
 }
+
+// function hideIntroLine(){
+// 	if (intro_line.style.display = "block") {
+// 	}	
+// }
 
 function playAudio(ele, file_path){
 	const audio = document.querySelector(ele)
@@ -71,7 +79,7 @@ function fetchSightWord(word_id){
 	fetch(BASE_URL + '/sight_words/' + word_id)
 	.then(resp => resp.json())
 	.then(sight_word => {
-		hideIntroLine();
+		resetLayout();
 		stars.style.display = "block";
 		const word_intro = document.querySelector("#word-intro")
 		word_intro.style.display = "block";
@@ -92,8 +100,6 @@ function fetchSightWord(word_id){
 
 
 function renderGame1(word){
-	game2.style.display = "none";
-	next_btn.style.display = "none";
 	const star1 = document.querySelector("#star1")
 	const word_choices = document.querySelector(".word-choices")
 	const choice_btns = word_choices.children
@@ -182,7 +188,6 @@ function renderGame2(word){
 function showCheckBtn(word){
 	const lastBox = chosen_letters[word.length()-1]
 	if(lastBox.innerHTML !== ""){
-		const checkBtn = document.querySelector(".check-btn")
 		checkBtn.style.display = "block"
 	}
 
