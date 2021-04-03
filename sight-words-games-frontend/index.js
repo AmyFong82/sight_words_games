@@ -10,7 +10,6 @@ const game3 = document.querySelector("#game3")
 const chosen_letters = document.querySelectorAll(".chosen-letter")
 const checkBtn = document.querySelector(".check-btn")
 const letter_choices = document.querySelector(".letter-choices").children
-// const choice_btns = letter_choices.children
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -213,6 +212,12 @@ function checkSpelling(word){
 			if (word.spelling[i] !== picked_letters[i]){
 				const wrong_letter = chosen_letters[i].innerHTML
 				chosen_letters[i].innerHTML = ""
+				for(const l of letter_choices){
+					if(l.innerHTML === wrong_letter){
+						l.style.color = "#000"
+						l.disabled = false
+					}
+				}
 
 			}
 		}
