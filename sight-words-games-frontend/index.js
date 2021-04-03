@@ -56,7 +56,7 @@ function resetLayout(){
 	checkBtn.style.display = "none"
 	const stars123 = stars.children
 	for(let star of stars123){
-		star.classList.remove("fas")
+		star.classList.remove("fas", "star-animation")
 		star.classList.add("far")
 	}
 
@@ -198,17 +198,22 @@ function showCheckBtn(word){
 		checkBtn.style.display = "block"
 	}
 	checkBtn.onclick = e => {
-		checkSpelling()
+		checkSpelling(word)
 	}
 }
 
-function checkSpelling(){
+function checkSpelling(word){
 	const picked_letters = []
 	for(const picked_letter of chosen_letters){
 		picked_letters.push(picked_letter.innerHTML)
 	}
 	const picked_word = picked_letters.join("")
 	if(word.check(picked_word)){
+		const star2 = document.querySelector("#star2")
+		star2.classList.remove("far");
+		star2.classList.add("fas", "star-animation")
+	}else{
+
 	}
 
 	
