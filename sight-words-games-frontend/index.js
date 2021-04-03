@@ -9,6 +9,8 @@ const game2 = document.querySelector("#game2")
 const game3 = document.querySelector("#game3")
 const chosen_letters = document.querySelectorAll(".chosen-letter")
 const checkBtn = document.querySelector(".check-btn")
+const letter_choices = document.querySelector(".letter-choices").children
+// const choice_btns = letter_choices.children
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -63,10 +65,6 @@ function resetLayout(){
 
 }
 
-// function hideIntroLine(){
-// 	if (intro_line.style.display = "block") {
-// 	}	
-// }
 
 function playAudio(ele, file_path){
 	const audio = document.querySelector(ele)
@@ -159,11 +157,9 @@ function renderGame2(word){
 	game2.style.display = "block"
 	const word_in_q = document.querySelector("#game2 h4 .badge")
 	word_in_q.innerHTML = word.spelling
-	const letter_choices = document.querySelector(".letter-choices")
-	const choice_btns = letter_choices.children
 
 	for(let i = 0; i < 4; i++) {
-		const choice = choice_btns[i]
+		const choice = letter_choices[i]
 		choice.innerHTML = word.letter_choices[i]
 		choice.style.color = "#000"
 		choice.disabled = false;
@@ -188,7 +184,6 @@ function renderGame2(word){
 		    }
 		})();
 	}
-
 }
 
 
@@ -213,6 +208,14 @@ function checkSpelling(word){
 		star2.classList.remove("far");
 		star2.classList.add("fas", "star-animation")
 	}else{
+		wrong_alert.style.display = "block";
+		for (let i = 0; i < word.length(); i++){
+			if (word.spelling[i] !== picked_letters[i]){
+				const wrong_letter = chosen_letters[i].innerHTML
+				chosen_letters[i].innerHTML = ""
+
+			}
+		}
 
 	}
 
