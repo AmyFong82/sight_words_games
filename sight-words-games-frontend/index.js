@@ -165,24 +165,48 @@ function renderGame2(word){
 		choice.classList.remove("btn-warning")
 		choice.classList.add("btn-light")
 		for (let i = 0; i < word.length(); i++) (function(){ 
-		    choice.onclick = function() {
-			    choice.setAttribute("disabled", "true")
-				choice.style.color = "#f8f9fa"
-				for(box of chosen_letters){
-					if(box.classList.contains("chosen-letter-blinking")){
-						box.innerHTML = choice.innerHTML
-						box.classList.remove("chosen-letter-blinking")
-						const nextBox = box.nextElementSibling
-						if(nextBox.style.display === "block"){
-							nextBox.classList.add("chosen-letter-blinking")
-						}
-						showCheckBtn(word)
-						break
-					}
-				}
-		    }
-		})();
+		    choice.onclick = functionclickToBox() 
+		  //   {
+			 //    choice.setAttribute("disabled", "true")
+				// choice.style.color = "#f8f9fa"
+				// for(const box of chosen_letters){
+				// 	if(box.classList.contains("chosen-letter-blinking")){
+				// 		box.innerHTML = choice.innerHTML
+				// 		box.classList.remove("chosen-letter-blinking")
+				// 		const nextBox = box.nextElementSibling
+				// 		if(nextBox.style.display === "block"){
+				// 			nextBox.classList.add("chosen-letter-blinking")
+				// 		}
+					// 	showCheckBtn(word)
+					// 	break
+					// }
+		// 		}
+		//     }
+		// })();
+		}
 	}
+}
+
+function addBlinking(){
+	for (let i = 0; i < word.length(); i++){
+		if(chosen_letters[i].style.display = "block" && chosen_letters[i].innerHTML = ""){
+			chosen_letters[i].classList.add("chosen-letter-blinking")
+			break
+		}
+	}
+}
+
+function clickToBox(){
+	this.setAttribute("disabled", "true")
+	this.style.color = "#f8f9fa"
+	const box = document.querySelector(".chosen-letter-blinking")
+	box.innerHTML = choice.innerHTML
+	box.classList.remove("chosen-letter-blinking")
+	const nextBox = box.nextElementSibling
+	if(nextBox.style.display === "block"){
+		nextBox.classList.add("chosen-letter-blinking")
+	}
+	showCheckBtn(word)
 }
 
 
@@ -218,14 +242,9 @@ function checkSpelling(word){
 						l.disabled = false
 					}
 				}
-
 			}
 		}
-
 	}
-
-	
-
 }
 
 
