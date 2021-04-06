@@ -210,8 +210,8 @@ function renderGame2(word){
 		// })();
 		
 
-function addBlinking(){
-	for (let i = 0; i < word.length(); i++){
+function addBlinking(word){
+	for (let i = 0; i < word.length; i++){
 		if(chosen_letters[i].style.display === "block" && chosen_letters[i].innerHTML === ""){
 			chosen_letters[i].classList.add("chosen-letter-blinking")
 			break
@@ -237,7 +237,6 @@ function clickToBox(e){
 
 
 function showCheckBtn(word){
-	// console.log(typeof word.length)
 	const lastBox = chosen_letters[word.length-1]
 	if(lastBox.innerHTML !== ""){
 		checkBtn.style.display = "block"
@@ -253,14 +252,14 @@ function checkSpelling(word){
 		picked_letters.push(picked_letter.innerHTML)
 	}
 	const picked_word = picked_letters.join("")
-	if(word.check(picked_word)){
+	if(picked_word === word){
 		const star2 = document.querySelector("#star2")
 		star2.classList.remove("far");
 		star2.classList.add("fas", "star-animation")
 	}else{
 		wrong_alert.style.display = "block";
-		for (let i = 0; i < word.length(); i++){
-			if (word.spelling[i] !== picked_letters[i]){
+		for (let i = 0; i < word.length; i++){
+			if (word[i] !== picked_letters[i]){
 				const wrong_letter = chosen_letters[i].innerHTML
 				chosen_letters[i].innerHTML = ""
 				for(const l of letter_choices){
@@ -271,6 +270,7 @@ function checkSpelling(word){
 				}
 			}
 		}
+		addBlinking(word)
 	}
 }
 
