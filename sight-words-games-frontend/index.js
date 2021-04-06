@@ -186,28 +186,8 @@ function renderGame2(word){
 		choice.disabled = false;
 		choice.classList.remove("btn-warning")
 		choice.classList.add("btn-light")
-		// for (let i = 0; i < word.length(); i++) (function(){ 
-		//     choice.onclick = clickToBox();
-		// }
 	}
 }
-		  //   {
-			 //    choice.setAttribute("disabled", "true")
-				// choice.style.color = "#f8f9fa"
-				// for(const box of chosen_letters){
-				// 	if(box.classList.contains("chosen-letter-blinking")){
-				// 		box.innerHTML = choice.innerHTML
-				// 		box.classList.remove("chosen-letter-blinking")
-				// 		const nextBox = box.nextElementSibling
-				// 		if(nextBox.style.display === "block"){
-				// 			nextBox.classList.add("chosen-letter-blinking")
-				// 		}
-					// 	showCheckBtn(word)
-					// 	break
-					// }
-		// 		}
-		//     }
-		// })();
 		
 
 function addBlinking(word){
@@ -217,6 +197,7 @@ function addBlinking(word){
 			break
 		}
 	}
+	showCheckBtn(word)
 }
 
 function clickToBox(e){
@@ -226,14 +207,8 @@ function clickToBox(e){
 	const box = document.querySelector(".chosen-letter-blinking")
 	box.innerHTML = e.target.innerHTML
 	box.classList.remove("chosen-letter-blinking")
-	const nextBox = box.nextElementSibling
-	if(nextBox.style.display === "block"){
-		nextBox.classList.add("chosen-letter-blinking")
-	}else{
-		const word = document.querySelector("#main-word").innerHTML
-		showCheckBtn(word)
-	}
-	
+	const word = document.querySelector("#main-word").innerHTML
+	addBlinking(word)	
 }
 
 
