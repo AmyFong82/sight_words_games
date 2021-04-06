@@ -19,6 +19,28 @@ document.addEventListener("DOMContentLoaded", () => {
 		fetchSightWord(1)
 	}
 
+	for (let i = 0; i < 4; i++){ 
+		letter_choices[i].onclick = e => clickToBox(e);
+	}
+
+		  //   {
+			 //    choice.setAttribute("disabled", "true")
+				// choice.style.color = "#f8f9fa"
+				// for(const box of chosen_letters){
+				// 	if(box.classList.contains("chosen-letter-blinking")){
+				// 		box.innerHTML = choice.innerHTML
+				// 		box.classList.remove("chosen-letter-blinking")
+				// 		const nextBox = box.nextElementSibling
+				// 		if(nextBox.style.display === "block"){
+				// 			nextBox.classList.add("chosen-letter-blinking")
+				// 		}
+					// 	showCheckBtn(word)
+					// 	break
+					// }
+		// 		}
+		//     }
+		// })();
+
 })
 
 function renderSightWords(){
@@ -164,8 +186,11 @@ function renderGame2(word){
 		choice.disabled = false;
 		choice.classList.remove("btn-warning")
 		choice.classList.add("btn-light")
-		for (let i = 0; i < word.length(); i++) (function(){ 
-		    choice.onclick = functionclickToBox() 
+		// for (let i = 0; i < word.length(); i++) (function(){ 
+		//     choice.onclick = clickToBox();
+		// }
+	}
+}
 		  //   {
 			 //    choice.setAttribute("disabled", "true")
 				// choice.style.color = "#f8f9fa"
@@ -183,35 +208,37 @@ function renderGame2(word){
 		// 		}
 		//     }
 		// })();
-		}
-	}
-}
+		
 
 function addBlinking(){
 	for (let i = 0; i < word.length(); i++){
-		if(chosen_letters[i].style.display = "block" && chosen_letters[i].innerHTML = ""){
+		if(chosen_letters[i].style.display === "block" && chosen_letters[i].innerHTML === ""){
 			chosen_letters[i].classList.add("chosen-letter-blinking")
 			break
 		}
 	}
 }
 
-function clickToBox(){
-	this.setAttribute("disabled", "true")
-	this.style.color = "#f8f9fa"
+function clickToBox(e){
+	e.target.setAttribute("disabled", "true")
+	e.target.style.color = "#f8f9fa"
 	const box = document.querySelector(".chosen-letter-blinking")
-	box.innerHTML = choice.innerHTML
+	box.innerHTML = e.target.innerHTML
 	box.classList.remove("chosen-letter-blinking")
 	const nextBox = box.nextElementSibling
 	if(nextBox.style.display === "block"){
 		nextBox.classList.add("chosen-letter-blinking")
+	}else{
+		const word = document.querySelector("#main-word").innerHTML
+		showCheckBtn(word)
 	}
-	showCheckBtn(word)
+	
 }
 
 
 function showCheckBtn(word){
-	const lastBox = chosen_letters[word.length()-1]
+	// console.log(typeof word.length)
+	const lastBox = chosen_letters[word.length-1]
 	if(lastBox.innerHTML !== ""){
 		checkBtn.style.display = "block"
 	}
