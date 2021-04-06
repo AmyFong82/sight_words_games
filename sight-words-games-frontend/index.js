@@ -220,6 +220,7 @@ function addBlinking(word){
 }
 
 function clickToBox(e){
+	wrong_alert.style.display = "none";
 	e.target.setAttribute("disabled", "true")
 	e.target.style.color = "#f8f9fa"
 	const box = document.querySelector(".chosen-letter-blinking")
@@ -243,6 +244,7 @@ function showCheckBtn(word){
 	}
 	checkBtn.onclick = e => {
 		checkSpelling(word)
+		checkBtn.style.display = "none"
 	}
 }
 
@@ -256,6 +258,7 @@ function checkSpelling(word){
 		const star2 = document.querySelector("#star2")
 		star2.classList.remove("far");
 		star2.classList.add("fas", "star-animation")
+        next_btn.style.display = "block";
 	}else{
 		wrong_alert.style.display = "block";
 		for (let i = 0; i < word.length; i++){
