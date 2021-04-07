@@ -21,25 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	for (let i = 0; i < 4; i++){ 
 		letter_choices[i].onclick = e => clickToBox(e);
+		chosen_letters[i].onclick = e => backToChoices(e);
 	}
 
-		  //   {
-			 //    choice.setAttribute("disabled", "true")
-				// choice.style.color = "#f8f9fa"
-				// for(const box of chosen_letters){
-				// 	if(box.classList.contains("chosen-letter-blinking")){
-				// 		box.innerHTML = choice.innerHTML
-				// 		box.classList.remove("chosen-letter-blinking")
-				// 		const nextBox = box.nextElementSibling
-				// 		if(nextBox.style.display === "block"){
-				// 			nextBox.classList.add("chosen-letter-blinking")
-				// 		}
-					// 	showCheckBtn(word)
-					// 	break
-					// }
-		// 		}
-		//     }
-		// })();
 
 })
 
@@ -209,6 +193,25 @@ function clickToBox(e){
 	box.classList.remove("chosen-letter-blinking")
 	const word = document.querySelector("#main-word").innerHTML
 	addBlinking(word)	
+}
+
+function backToChoices(e){
+	for(const l of chosen_letters){
+		if(l.classList.contains("chosen-letter-blinking")){
+			l.classList.remove("chosen-letter-blinking")
+		}
+	}
+	if(e.target.innerHTML !== ""){
+		for(const l of letter_choices){
+			if(l.innerHTML === e.target.innerHTML){
+				l.style.color = "#000"
+				l.disabled = false
+				e.target.innerHTML = ""
+				e.target.classList.add("chosen-letter-blinking")
+				break
+			}
+		}
+	}
 }
 
 
