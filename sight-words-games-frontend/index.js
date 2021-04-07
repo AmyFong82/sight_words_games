@@ -186,13 +186,15 @@ function addBlinking(word){
 
 function clickToBox(e){
 	wrong_alert.style.display = "none";
-	e.target.setAttribute("disabled", "true")
-	e.target.style.color = "#f8f9fa"
 	const box = document.querySelector(".chosen-letter-blinking")
-	box.innerHTML = e.target.innerHTML
-	box.classList.remove("chosen-letter-blinking")
+	if(box !== null){
+		box.innerHTML = e.target.innerHTML
+		box.classList.remove("chosen-letter-blinking")
+		e.target.setAttribute("disabled", "true")
+		e.target.style.color = "#f8f9fa"
+	}	
 	const word = document.querySelector("#main-word").innerHTML
-	addBlinking(word)	
+	addBlinking(word)
 }
 
 function backToChoices(e){
