@@ -238,9 +238,17 @@ function checkSpelling(word){
 		const star2 = document.querySelector("#star2")
 		star2.classList.remove("far");
 		star2.classList.add("fas", "star-animation")
+		playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
         next_btn.style.display = "block";
+        for(const l of chosen_letters){
+        	l.disabled = true;
+        }
+        for(const l of letter_choices){
+        	l.disabled = true;
+        }
 	}else{
 		wrong_alert.style.display = "block";
+		playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
 		for (let i = 0; i < word.length; i++){
 			if (word[i] !== picked_letters[i]){
 				const wrong_letter = chosen_letters[i].innerHTML
