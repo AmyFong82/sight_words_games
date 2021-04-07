@@ -154,6 +154,7 @@ function renderGame2(word){
 	}
 	for (let i = 0; i < word.length(); i++){
 		chosen_letters[i].style.display = "block"
+		chosen_letters[i].disabled = false
 	}
 	chosen_letters[0].classList.add("chosen-letter-blinking")
 	next_btn.style.display = "none";
@@ -240,6 +241,9 @@ function checkSpelling(word){
 		star2.classList.add("fas", "star-animation")
 		playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
         next_btn.style.display = "block";
+        next_btn.onclick = e => {
+        	renderGame3(word)
+        }
         for(const l of chosen_letters){
         	l.disabled = true;
         }
