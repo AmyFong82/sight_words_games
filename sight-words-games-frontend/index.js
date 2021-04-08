@@ -182,16 +182,6 @@ function showGame3(){
 }
 		
 
-function addBlinking(word){
-	for (let i = 0; i < word.length; i++){
-		if(chosen_letters[i].style.display === "block" && chosen_letters[i].innerHTML === ""){
-			chosen_letters[i].classList.add("chosen-letter-blinking")
-			break
-		}
-	}
-	showCheckBtn(word)
-}
-
 function clickToBox(e){
 	wrong_alert.style.display = "none";
 	const box = document.querySelector(".chosen-letter-blinking")
@@ -203,6 +193,16 @@ function clickToBox(e){
 	}	
 	const word = document.querySelector("#main-word").innerHTML
 	addBlinking(word)
+}
+
+function addBlinking(word){
+	for (let i = 0; i < word.length; i++){
+		if(chosen_letters[i].style.display === "block" && chosen_letters[i].innerHTML === ""){
+			chosen_letters[i].classList.add("chosen-letter-blinking")
+			break
+		}
+	}
+	showCheckBtn(word)
 }
 
 function backToChoices(e){
@@ -280,6 +280,10 @@ function checkSpelling(word){
 
 
 function renderGame3(word){
+	const sentence = document.querySelector("#sentence")
+	sentence.innerHTML = word.sentence
+	const image = document.querySelector("#image")
+	image.src = word.picture
 
 
 }
