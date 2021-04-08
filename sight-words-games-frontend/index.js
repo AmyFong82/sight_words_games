@@ -59,6 +59,7 @@ function resetLayout(){
 	intro_line.style.display = "none";
 	game1.style.display = "none";
 	game2.style.display = "none";
+	game3.style.display = "none";
 	next_btn.style.display = "none";
 	checkBtn.style.display = "none"
 	const stars123 = stars.children
@@ -66,8 +67,6 @@ function resetLayout(){
 		star.classList.remove("fas", "star-animation")
 		star.classList.add("far")
 	}
-
-
 }
 
 
@@ -97,14 +96,14 @@ function fetchSightWord(word_id){
 		const main_word = document.querySelector("#main-word")
 		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
-		const badge_sm = document.querySelector("h4 .badge");
-		badge_sm.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
 		playAudio("#pronunciation", word.audio)
 		speaker.onclick = e => {
     		playAudio("#pronunciation", word.audio)
 		}
 		renderGame1(word);
+		renderGame2(word);
+		renderGame3(word);
 	})
 }
 
@@ -130,7 +129,7 @@ function renderGame1(word){
 				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
 		        next_btn.style.display = "block";
 		        next_btn.onclick = e => {
-		        	renderGame2(word)
+		        	showGame2()
 		        }
 		        const other_choices = document.querySelectorAll(".word-choice")
 		        for(const b of other_choices){
@@ -157,12 +156,6 @@ function renderGame2(word){
 		chosen_letters[i].disabled = false
 	}
 	chosen_letters[0].classList.add("chosen-letter-blinking")
-	next_btn.style.display = "none";
-	right_alert.style.display = "none";
-	game1.style.display = "none"
-	game2.style.display = "block"
-	const word_in_q = document.querySelector("#game2 h4 .badge")
-	word_in_q.innerHTML = word.spelling
 
 	for(let i = 0; i < 4; i++) {
 		const choice = letter_choices[i]
@@ -172,6 +165,13 @@ function renderGame2(word){
 		choice.classList.remove("btn-warning")
 		choice.classList.add("btn-light")
 	}
+}
+
+function showGame2(){
+	next_btn.style.display = "none";
+	right_alert.style.display = "none";
+	game1.style.display = "none"
+	game2.style.display = "block"
 }
 		
 
@@ -239,9 +239,11 @@ function checkSpelling(word){
 		const star2 = document.querySelector("#star2")
 		star2.classList.remove("far");
 		star2.classList.add("fas", "star-animation")
+		right_alert.style.display = "block";
 		playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
         next_btn.style.display = "block";
         next_btn.onclick = e => {
+			right_alert.style.display = "none";
         	renderGame3(word)
         }
         for(const l of chosen_letters){
@@ -270,6 +272,14 @@ function checkSpelling(word){
 }
 
 
+function renderGame3(word){
+	game2.style.display = "none"
+	game3.style.display = "block"
+	const main_word = document.querySelector("#game3 h4 .badge")
+	main_word.innerHTML = word
+
+
+}
 
 class SightWord {
   constructor(spelling, audio, word_choices, letter_choices, sentence, picture){
