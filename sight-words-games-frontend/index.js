@@ -281,7 +281,12 @@ function checkSpelling(word){
 
 function renderGame3(word){
 	const sentence = document.querySelector("#sentence")
-	sentence.innerHTML = word.sentence
+	const sentence_words = word.sentence.split(" ")
+	for(let i = 0; i < sentence_words.length; i ++){
+		const span = document.createElement("span")
+		span.innerHTML = sentence_words[i] + " "
+		sentence.append(span)
+	}
 	const image = document.querySelector("#image")
 	image.src = word.picture
 
