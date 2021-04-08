@@ -173,6 +173,13 @@ function showGame2(){
 	game1.style.display = "none"
 	game2.style.display = "block"
 }
+
+function showGame3(){
+	next_btn.style.display = "none";
+	right_alert.style.display = "none";
+	game2.style.display = "none"
+	game3.style.display = "block"
+}
 		
 
 function addBlinking(word){
@@ -244,7 +251,7 @@ function checkSpelling(word){
         next_btn.style.display = "block";
         next_btn.onclick = e => {
 			right_alert.style.display = "none";
-        	renderGame3(word)
+        	showGame3()
         }
         for(const l of chosen_letters){
         	l.disabled = true;
@@ -273,10 +280,6 @@ function checkSpelling(word){
 
 
 function renderGame3(word){
-	game2.style.display = "none"
-	game3.style.display = "block"
-	const main_word = document.querySelector("#game3 h4 .badge")
-	main_word.innerHTML = word
 
 
 }
