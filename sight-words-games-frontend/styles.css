@@ -199,9 +199,14 @@ h2, h6, #audio_wrapper{
 	color: black;
 }
 
+.not-rounded {
+	border-radius: 0;
+	margin: 0;
+}
+
 #sentence {
 	padding-top: 25%;
-	text-align: center;
+	padding-left: 25px;
 }
 
 #image {

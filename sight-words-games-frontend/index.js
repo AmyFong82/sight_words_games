@@ -172,6 +172,10 @@ function showGame2(){
 	right_alert.style.display = "none";
 	game1.style.display = "none"
 	game2.style.display = "block"
+    for(const l of chosen_letters){
+		l.classList.add("btn-light")
+		l.classList.remove("btn-warning")        
+	}
 }
 
 function showGame3(){
@@ -255,7 +259,9 @@ function checkSpelling(word){
         }
         for(const l of chosen_letters){
         	l.disabled = true;
-        }
+			l.classList.remove("btn-light")
+			l.classList.add("btn-warning")        
+		}
         for(const l of letter_choices){
         	l.disabled = true;
         }
@@ -281,16 +287,17 @@ function checkSpelling(word){
 
 function renderGame3(word){
 	const sentence = document.querySelector("#sentence")
+	sentence.innerHTML = ""
 	const sentence_words = word.sentence.split(" ")
 	for(let i = 0; i < sentence_words.length; i ++){
-		const span = document.createElement("span")
-		span.innerHTML = sentence_words[i] + " "
-		sentence.append(span)
+		const btn = document.createElement("button")
+		btn.innerHTML = sentence_words[i] + " "
+		btn.classList.add("btn", "btn-light", "not-rounded")
+		sentence.append(btn)
+		// btn.onclick = e => 
 	}
 	const image = document.querySelector("#image")
 	image.src = word.picture
-
-
 }
 
 class SightWord {
