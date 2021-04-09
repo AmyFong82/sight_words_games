@@ -107,6 +107,11 @@ function fetchSightWord(word_id){
 	})
 }
 
+function fetchNextWord(word_id){
+	const next_id = (word_id + 1)
+	fetchSightWord(next_id)
+}
+
 
 function renderGame1(word){
 	const star1 = document.querySelector("#star1")
@@ -297,9 +302,23 @@ function renderGame3(word){
 			if(word.check(btn.innerHTML)){
 				btn.classList.add("btn-warning")
 				btn.classList.remove("btn-light")
+				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
+				const star3 = document.querySelector("#star3")
+				star3.classList.remove("far");
+				star3.classList.add("fas", "star-animation")
+				right_alert.style.display = "block";
+				wrong_alert.style.display = "none";
+		        next_btn.style.display = "block";
+		        next_btn.onclick = e => {
+					right_alert.style.display = "none";
+		        	fetchNextWord(word.id)
+		        }
 			}else{
-				console.log(false)
+				right_alert.style.display = "none";
+				wrong_alert.style.display = "block";
+				playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
 			}
+			btn.disabled = true;
 		})
 		sentence.append(btn)
 	}

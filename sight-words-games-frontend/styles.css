@@ -146,6 +146,10 @@ h2, h6, #audio_wrapper{
 	opacity: 1;
 }
 
+.btn-warning:focus, .btn:focus {
+	box-shadow: none;
+}
+
 @keyframes blinking_underline {
 	0% {border-bottom: 3px solid #f8f9fa;}
 	10% {border-bottom: 3px solid #4caf50;}
