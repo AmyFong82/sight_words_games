@@ -94,7 +94,7 @@ function fetchSightWord(word_id){
 		word_intro.style.display = "block";
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main-word")
-		const word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
+		const word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
 		playAudio("#pronunciation", word.audio)
@@ -108,7 +108,7 @@ function fetchSightWord(word_id){
 }
 
 function fetchNextWord(word_id){
-	const next_id = (word_id + 1)
+	const next_id = (parseInt(word_id) + 1)
 	fetchSightWord(next_id)
 }
 
@@ -309,6 +309,9 @@ function renderGame3(word){
 				right_alert.style.display = "block";
 				wrong_alert.style.display = "none";
 		        next_btn.style.display = "block";
+		        for(const b of sentence.children){
+		        	b.disabled = true;
+		        }
 		        next_btn.onclick = e => {
 					right_alert.style.display = "none";
 		        	fetchNextWord(word.id)
@@ -327,7 +330,8 @@ function renderGame3(word){
 }
 
 class SightWord {
-  constructor(spelling, audio, word_choices, letter_choices, sentence, picture){
+  constructor(id, spelling, audio, word_choices, letter_choices, sentence, picture){
+  	this.id = id;
   	this.spelling = spelling;
   	this.audio = audio;
   	this.word_choices = word_choices.split(" ");
@@ -337,7 +341,8 @@ class SightWord {
   }
 
   check(string){
-  	if(this.spelling === string){
+  	const string_lowerCase = string.toLowerCase()
+  	if(this.spelling === string_lowerCase){
   		return true
   	}else{
   		return false
