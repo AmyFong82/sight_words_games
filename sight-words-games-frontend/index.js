@@ -123,7 +123,6 @@ function renderGame1(word){
 				choice_btns[i].classList.add("btn-warning")
 				right_alert.style.display = "block";
 				wrong_alert.style.display = "none";
-				choice_btns[i].disabled = false;
 				star1.classList.remove("far");
 				star1.classList.add("fas", "star-animation")
 				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
@@ -135,6 +134,7 @@ function renderGame1(word){
 		        for(const b of other_choices){
 		        	b.setAttribute("disabled", "true")
 		        }
+				choice_btns[i].disabled = false;
 			}else{
 				wrong_alert.style.display = "block";
 				right_alert.style.display = "none";
@@ -294,7 +294,12 @@ function renderGame3(word){
 		btn.innerHTML = sentence_words[i] + " "
 		btn.classList.add("btn", "btn-light", "not-rounded")
 		sentence.append(btn)
-		// btn.onclick = e => 
+		btn.onclick = e => {
+			if(word.check(btn.innerHTML)){
+				btn.classList.add("btn-warning")
+				btn.classList.remove("btn-light")
+			}
+		}
 	}
 	const image = document.querySelector("#image")
 	image.src = word.picture

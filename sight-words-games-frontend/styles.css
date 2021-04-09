@@ -142,6 +142,10 @@ h2, h6, #audio_wrapper{
 	font-weight: 800;
 }
 
+.btn-warning:disabled {
+	opacity: 1;
+}
+
 @keyframes blinking_underline {
 	0% {border-bottom: 3px solid #f8f9fa;}
 	10% {border-bottom: 3px solid #4caf50;}
