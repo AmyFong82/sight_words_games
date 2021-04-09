@@ -291,15 +291,17 @@ function renderGame3(word){
 	const sentence_words = word.sentence.split(" ")
 	for(let i = 0; i < sentence_words.length; i ++){
 		const btn = document.createElement("button")
-		btn.innerHTML = sentence_words[i] + " "
+		btn.innerHTML = sentence_words[i]
 		btn.classList.add("btn", "btn-light", "not-rounded")
-		sentence.append(btn)
-		btn.onclick = e => {
+		btn.addEventListener("click", e => {
 			if(word.check(btn.innerHTML)){
 				btn.classList.add("btn-warning")
 				btn.classList.remove("btn-light")
+			}else{
+				console.log(false)
 			}
-		}
+		})
+		sentence.append(btn)
 	}
 	const image = document.querySelector("#image")
 	image.src = word.picture
