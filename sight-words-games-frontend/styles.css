@@ -222,3 +222,7 @@ h2, h6, #audio_wrapper{
 	border-radius: 30px;
 }
 
+form#user-login.d-flex {
+	display: none!important;
+}
+

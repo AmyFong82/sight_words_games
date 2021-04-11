@@ -13,32 +13,44 @@ const checkBtn = document.querySelector(".check-btn")
 const letter_choices = document.querySelector(".letter-choices").children
 
 document.addEventListener("DOMContentLoaded", () => {
-	renderSightWords();
+	// renderSightWords();
+
+// fetch("http://localhost:3000/users/1")
+// .then(resp => resp.json())
+// .then(sight_word => {
+// 	let word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
+// 	console.log(word.spelling === "an")
+// })
 
 	document.querySelector("button[type=submit]").addEventListener("click", (e) => {
+		e.preventDefault();
 	  	const username = document.getElementById("username").value;
 	  	const password = document.querySelector("#password").value;
-	  	const data = {username: username, password: password}
-	  	fetch(USERS_URL, {
+	  	let data = {username: username, password: password}
+	  	// const data = {username: "username6", password: "password6"}
+	  	fetch('http://localhost:3000/users', {
 	  		method: 'POST',
-	  		headers: {
+			headers: {
 				"Content-Type": "application/json",
 	    		"Accept": "application/json"
-	  		},
-	  		body: JSON.stringify(data)
-	  	})
+			},
+			body: JSON.stringify(data)
+		  	})
 		.then(resp => resp.json())
 		.then(user => {
-			const userform = document.querySelector(".user_login")
-			userform.style.display = "none"
-
+			let key = "Username"
+			let value = user.username
+			localStorage.setItem(key, value);
+			const userform = document.querySelector(".d-flex")
+			userform.id = "user-login"
 		})
+		.catch(error => console.error(error));
 	});
 
-	const startBtn = document.querySelector("#start-arrow")
-	startBtn.onclick = e => {
-		fetchSightWord(1)
-	}
+	// const startBtn = document.querySelector("#start-arrow")
+	// startBtn.onclick = e => {
+	// 	fetchSightWord(1)
+	// }
 
 	for (let i = 0; i < 4; i++){ 
 		letter_choices[i].onclick = e => clickToBox(e);
@@ -97,13 +109,6 @@ function playAudio(ele, file_path){
 	audio.play();
 }
 
- 
-// fetch("http://localhost:3000/sight_words/1")
-// .then(resp => resp.json())
-// .then(sight_word => {
-// 	let word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
-// 	console.log(word.spelling === "an")
-// })
 
 function fetchSightWord(word_id){
 	fetch(BASE_URL + '/sight_words/' + word_id)
