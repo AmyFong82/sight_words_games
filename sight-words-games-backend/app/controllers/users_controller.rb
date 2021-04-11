@@ -1,16 +1,24 @@
 class UsersController < ApplicationController
 
-	def create
-		@user = User.new(name: params[:name], password: params[:password])
+	def index
+		users = User.all
+		render json: UserSerializer.new(users).to_serialized_json
+	end
 
-		if @user.save
-			redirect_to user_path(@user)
+	def create
+		user = User.new(username: params[:username], password: params[:password])
+
+		if user.save
+			redirect_to user_path(user)
 		else
 
 		end
 	end
 
+
 	def show
+		user = User.find(params[:id])
+		render json: UserSerializer.new(user).to_serialized_json
 	end
 
 end

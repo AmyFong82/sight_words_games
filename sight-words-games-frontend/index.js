@@ -1,4 +1,5 @@
 const BASE_URL = "http://localhost:3000"
+const USERS_URL = BASE_URL + "users"
 const intro_line = document.querySelector("#intro-line")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".alert-warning")
@@ -13,6 +14,20 @@ const letter_choices = document.querySelector(".letter-choices").children
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
+
+	document.querySelector("button[type=submit]").addEventListener("click", (e) => {
+	  	const username = document.getElementById("username").value;
+	  	const password = document.querySelector("#password").value;
+	  	const data = {username: username, password: password}
+	  	fetch(USERS_URL, {
+	  		method: 'POST',
+	  		headers: {
+				"Content-Type": "application/json",
+	    		"Accept": "application/json"
+	  		},
+	  		body: JSON.stringify(data)
+	  	})
+	});
 
 	const startBtn = document.querySelector("#start-arrow")
 	startBtn.onclick = e => {
