@@ -5,6 +5,6 @@ class SightwordSerializer
 	end
 
 	def to_serialized_json
-		@sightword.to_json(:only => [:id, :spelling])
+		@sightword.to_json(except: [:created_at, :updated_at])
 	end
 end

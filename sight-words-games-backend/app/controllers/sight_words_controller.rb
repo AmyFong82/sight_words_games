@@ -7,6 +7,6 @@ class SightWordsController < ApplicationController
 
 	def show
 		sightword = SightWord.find(params[:id])
-		render json: sightword
+		render json: SightwordSerializer.new(sightword).to_serialized_json
 	end
 end
