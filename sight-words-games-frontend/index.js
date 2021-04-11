@@ -1,5 +1,5 @@
 const BASE_URL = "http://localhost:3000"
-const USERS_URL = BASE_URL + "users"
+const USERS_URL = BASE_URL + "/users"
 const intro_line = document.querySelector("#intro-line")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".alert-warning")
@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	  		},
 	  		body: JSON.stringify(data)
 	  	})
+		.then(resp => resp.json())
+		.then(user => {
+			const userform = document.querySelector(".user_login")
+			userform.style.display = "none"
+
+		})
 	});
 
 	const startBtn = document.querySelector("#start-arrow")

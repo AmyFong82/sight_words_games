@@ -9,9 +9,9 @@ class UsersController < ApplicationController
 		user = User.new(username: params[:username], password: params[:password])
 
 		if user.save
-			redirect_to user_path(user)
+			render json: UserSerializer.new(user).to_serialized_json
 		else
-
+			render "Username has been taken. Please use another one."
 		end
 	end
 
