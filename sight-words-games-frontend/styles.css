@@ -235,21 +235,6 @@ form#user-login.d-flex {
 	display: none!important;
 }
 
-/*#hi {
-	display: none;
-	background-color: #ffefa1;
-	margin: .5rem;
-	border-radius: 5px;
-
-}
-
-#name {
-	color: #d2691e;
-    font-weight: 600;
-    padding: 10px;
-    margin-bottom: 0;
-}*/
-
 .dropdown{
 	display: none;
 }

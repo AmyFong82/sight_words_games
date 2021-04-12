@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function checkUser(){
-	const user = localStorage.getItem("Username")
-	if(user){
+	const loggedIn_user = localStorage.getItem(key)
+	if(loggedIn_user){
 
 	}
 }
@@ -51,7 +51,6 @@ function logIn(){
 		    if (contentType && contentType.indexOf("application/json") !== -1) {
 			    return resp.json()
 				.then(user => {
-					console.log(user)
 					const value = user.id
 					localStorage.setItem(key, value);
 					const userform = document.querySelector(".d-flex")
@@ -60,6 +59,8 @@ function logIn(){
 					dropdown.style.display = "block"
 					const name = document.querySelector("#dropdownMenu2")
 					name.innerHTML = "Hi " + user.username + " <i class='fas fa-grin-alt'></i>"
+					const logout_btn = document.querySelector("#logout")
+					logout_btn.onclick = e => logout(e);
 				})
 			  } else {
 			    return resp.text()
@@ -71,6 +72,10 @@ function logIn(){
 		})
 		.catch(error => console.error(error));
 	})
+}
+
+function logout(e){
+	localStorage.removeItem("sightwords_user_id");
 }
 
 function renderSightWords(){
