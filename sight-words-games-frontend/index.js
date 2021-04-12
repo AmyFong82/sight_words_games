@@ -11,23 +11,38 @@ const game3 = document.querySelector("#game3")
 const chosen_letters = document.querySelectorAll(".chosen-letter")
 const checkBtn = document.querySelector(".check-btn")
 const letter_choices = document.querySelector(".letter-choices").children
+const key = "sightwords_user_id"
 
 document.addEventListener("DOMContentLoaded", () => {
-	// renderSightWords();
+	renderSightWords();
 
-// fetch("http://localhost:3000/users/1")
-// .then(resp => resp.json())
-// .then(sight_word => {
-// 	let word = new SightWord(sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.sentence, sight_word.picture)
-// 	console.log(word.spelling === "an")
-// })
+	logIn();
 
+	const startBtn = document.querySelector("#start-arrow")
+	startBtn.onclick = e => {
+		fetchSightWord(1)
+	}
+
+	for (let i = 0; i < 4; i++){ 
+		letter_choices[i].onclick = e => clickToBox(e);
+		chosen_letters[i].onclick = e => backToChoices(e);
+	}
+
+})
+
+function checkUser(){
+	const user = localStorage.getItem("Username")
+	if(user){
+
+	}
+}
+
+function logIn(){
 	document.querySelector("button[type=submit]").addEventListener("click", (e) => {
 		e.preventDefault();
 	  	const username = document.getElementById("username").value;
 	  	const password = document.querySelector("#password").value;
 	  	let data = {username: username, password: password}
-	  	// const data = {username: "username6", password: "password6"}
 	  	fetch('http://localhost:3000/users', {
 	  		method: 'POST',
 			headers: {
@@ -38,27 +53,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		  	})
 		.then(resp => resp.json())
 		.then(user => {
-			let key = "Username"
-			let value = user.username
+			const value = user.id
 			localStorage.setItem(key, value);
 			const userform = document.querySelector(".d-flex")
 			userform.id = "user-login"
+			const hi = document.querySelector("#hi")
+			hi.style.display = "block"
+			const name = document.querySelector("#name")
+			name.innerHTML = "Hi " + user.username + " !"
 		})
 		.catch(error => console.error(error));
-	});
-
-	// const startBtn = document.querySelector("#start-arrow")
-	// startBtn.onclick = e => {
-	// 	fetchSightWord(1)
-	// }
-
-	for (let i = 0; i < 4; i++){ 
-		letter_choices[i].onclick = e => clickToBox(e);
-		chosen_letters[i].onclick = e => backToChoices(e);
-	}
-
-
-})
+	})
+}
 
 function renderSightWords(){
 	const sightword_list_col = document.querySelector(".sightword_list_col")

@@ -226,3 +226,11 @@ form#user-login.d-flex {
 	display: none!important;
 }
 
+#hi {
+	display: none;
+}
+
+#name {
+	color: #d2691e;
+}
+
