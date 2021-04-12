@@ -6,8 +6,17 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		user = User.create(username: params[:username], password: params[:password])
-		render json: UserSerializer.new(user).to_serialized_json
+		user = User.new(username: params[:username], password: params[:password])
+		if user.save
+			render json: UserSerializer.new(user).to_serialized_json
+		else
+			user = User.find_by(username: params[:username])
+				if user.authenticate(params[:password])
+					render json: UserSerializer.new(user).to_serialized_json
+				else
+					render plain: "Username Taken / Wrong password."
+				end
+		end
 	end
 
 end

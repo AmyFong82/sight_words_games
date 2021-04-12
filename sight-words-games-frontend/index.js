@@ -51,16 +51,28 @@ function logIn(){
 			},
 			body: JSON.stringify(data)
 		  	})
-		.then(resp => resp.json())
-		.then(user => {
-			const value = user.id
-			localStorage.setItem(key, value);
-			const userform = document.querySelector(".d-flex")
-			userform.id = "user-login"
-			const hi = document.querySelector("#hi")
-			hi.style.display = "block"
-			const name = document.querySelector("#name")
-			name.innerHTML = "Hi " + user.username + " !"
+		.then(resp => {
+		  const contentType = resp.headers.get("content-type");
+		    if (contentType && contentType.indexOf("application/json") !== -1) {
+			    return resp.json()
+				.then(user => {
+					console.log(user)
+					const value = user.id
+					localStorage.setItem(key, value);
+					const userform = document.querySelector(".d-flex")
+					userform.id = "user-login"
+					const hi = document.querySelector("#hi")
+					hi.style.display = "block"
+					const name = document.querySelector("#name")
+					name.innerHTML = "Hi " + user.username + " !"
+				})
+			  } else {
+			    return resp.text()
+			    .then(text => {
+			      	const login_alert = document.querySelector(".alert-dismissible")
+			      	login_alert.style.display = "block"
+			    });
+			  }
 		})
 		.catch(error => console.error(error));
 	})
