@@ -235,7 +235,7 @@ form#user-login.d-flex {
 	display: none!important;
 }
 
-#hi {
+/*#hi {
 	display: none;
 	background-color: #ffefa1;
 	margin: .5rem;
@@ -248,5 +248,14 @@ form#user-login.d-flex {
     font-weight: 600;
     padding: 10px;
     margin-bottom: 0;
+}*/
+
+.dropdown{
+	display: none;
+}
+
+.dropdown .btn-warning {
+	color: #009688;
+	margin: 0;
 }
 

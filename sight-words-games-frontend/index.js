@@ -2,7 +2,7 @@ const BASE_URL = "http://localhost:3000"
 const USERS_URL = BASE_URL + "/users"
 const intro_line = document.querySelector(".intro-line")
 const right_alert = document.querySelector(".alert-success")
-const wrong_alert = document.querySelector(".alert-warning")
+const wrong_alert = document.querySelector(".wrong-alert")
 const stars = document.querySelector(".stars")
 const next_btn = document.querySelector(".next-btn")
 const game1 = document.querySelector("#game1")
@@ -56,9 +56,9 @@ function logIn(){
 					localStorage.setItem(key, value);
 					const userform = document.querySelector(".d-flex")
 					userform.id = "user-login"
-					const hi = document.querySelector("#hi")
-					hi.style.display = "block"
-					const name = document.querySelector("#name")
+					const dropdown = document.querySelector(".dropdown")
+					dropdown.style.display = "block"
+					const name = document.querySelector("#dropdownMenu2")
 					name.innerHTML = "Hi " + user.username + " <i class='fas fa-grin-alt'></i>"
 				})
 			  } else {

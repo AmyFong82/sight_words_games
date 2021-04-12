@@ -42,8 +42,16 @@
             <p><strong>Or</strong> you can use the site as a guest without Logging in.</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-          <div id="hi">
+<!--           <div id="hi">
             <h3 id="name"></h3>
+          </div> -->
+          <div class="dropdown">
+            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+              <!-- username here -->
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li><button class="dropdown-item" type="button">Logout</button></li>
+            </ul>
           </div>
         </div>
       </nav>
@@ -124,7 +132,7 @@
               </div>
             </div>
 
-            <div class="alert alert-warning text-center" role="alert">
+            <div class="alert alert-warning text-center wrong-alert" role="alert">
               Try again!
             </div>
             <div class="alert alert-success text-center" role="alert">
