@@ -59,7 +59,7 @@ function logIn(){
 					const hi = document.querySelector("#hi")
 					hi.style.display = "block"
 					const name = document.querySelector("#name")
-					name.innerHTML = "Hi " + user.username + " !"
+					name.innerHTML = "Hi " + user.username + " <i class='fas fa-grin-alt'></i>"
 				})
 			  } else {
 			    return resp.text()
