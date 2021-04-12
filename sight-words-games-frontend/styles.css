@@ -60,8 +60,8 @@ button.list-group-item {
 	text-align: center;
 }
 
-#intro-line {
-	padding-top: 12%;
+.intro-line h5 {
+	padding-top: 5%;
 	font-size: 2rem;
 	line-height: 2.5;
 }

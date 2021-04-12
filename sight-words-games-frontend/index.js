@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:3000"
 const USERS_URL = BASE_URL + "/users"
-const intro_line = document.querySelector("#intro-line")
+const intro_line = document.querySelector(".intro-line")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".alert-warning")
 const stars = document.querySelector(".stars")
@@ -17,11 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
 
 	logIn();
-
-	const startBtn = document.querySelector("#start-arrow")
-	startBtn.onclick = e => {
-		fetchSightWord(1)
-	}
 
 	for (let i = 0; i < 4; i++){ 
 		letter_choices[i].onclick = e => clickToBox(e);
