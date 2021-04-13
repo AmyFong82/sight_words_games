@@ -1,5 +1,7 @@
 const BASE_URL = "http://localhost:3000"
 const USERS_URL = BASE_URL + "/users"
+const userform = document.querySelector(".d-flex")
+const dropdown = document.querySelector(".dropdown")
 const intro_line = document.querySelector(".intro-line")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".wrong-alert")
@@ -51,11 +53,8 @@ function logIn(){
 		    if (contentType && contentType.indexOf("application/json") !== -1) {
 			    return resp.json()
 				.then(user => {
-					const value = user.id
-					localStorage.setItem(key, value);
-					const userform = document.querySelector(".d-flex")
+					localStorage.setItem(key, user.id);
 					userform.id = "user-login"
-					const dropdown = document.querySelector(".dropdown")
 					dropdown.style.display = "block"
 					const name = document.querySelector("#dropdownMenu2")
 					name.innerHTML = "Hi " + user.username + " <i class='fas fa-grin-alt'></i>"
@@ -76,6 +75,10 @@ function logIn(){
 
 function logout(e){
 	localStorage.removeItem("sightwords_user_id");
+	userform.removeAttribute('id');
+	dropdown.style.display = "none"
+  	let password = document.querySelector("#password");
+	password.value = "";
 }
 
 function renderSightWords(){
@@ -371,6 +374,15 @@ function renderGame3(word){
 	}
 	const image = document.querySelector("#image")
 	image.src = word.picture
+}
+
+class User {
+	constructor(id, username, completion_status){
+		this.id = id;
+		this.username = username;
+		this.completion_status = completion_status;
+	}
+
 }
 
 class SightWord {
