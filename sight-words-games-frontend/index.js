@@ -40,7 +40,7 @@ function logIn(){
 	  	const username = document.getElementById("username").value;
 	  	const password = document.querySelector("#password").value;
 	  	let data = {username: username, password: password}
-	  	fetch('http://localhost:3000/users', {
+	  	fetch(USERS_URL, {
 	  		method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
@@ -63,6 +63,7 @@ function logIn(){
 					const logout_btn = document.querySelector("#logout")
 					logout_btn.onclick = e => logout(e);
 				})
+				fetch(BASE_URL + ""+ "/completed_words")
 			  } else {
 			    return resp.text()
 			    .then(text => {
