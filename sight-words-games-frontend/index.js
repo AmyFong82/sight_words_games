@@ -383,6 +383,10 @@ class User {
 		this.completion_status = completion_status;
 	}
 
+	levelUp(){
+		return this.completion_status += 1
+	}
+
 }
 
 class SightWord {
