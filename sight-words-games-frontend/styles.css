@@ -43,8 +43,8 @@ h4, h5 {
 }
 
 #completion-status {
-	float: right;
-    padding: 10px;
+    position: absolute;
+    right: 20px;
     display: none;
 }
 
@@ -66,7 +66,7 @@ button.list-group-item {
 	text-align: center;
 }
 
-.intro-line h5 {
+.exercises_col h5 {
 	padding-top: 5%;
 	font-size: 2rem;
 	line-height: 2.5;
@@ -93,7 +93,6 @@ h2, h6, #audio_wrapper{
 }
 
 #speaker {
-    right: 25px;
     border: none;
     background-color: transparent;
     position: relative;
@@ -165,6 +164,18 @@ h2, h6, #audio_wrapper{
 
 .btn-warning:focus, .btn:focus {
 	box-shadow: none;
+}
+
+.user-action-btn {
+	background-color: #6ddccf;
+	color: white;
+	font-weight: 600;
+	display: block;
+    margin: auto;
+}
+
+.user-action-btn:hover {
+	color: green;
 }
 
 @keyframes blinking_underline {
