@@ -53,11 +53,12 @@ function logIn(){
 		    if (contentType && contentType.indexOf("application/json") !== -1) {
 			    return resp.json()
 				.then(user => {
-					localStorage.setItem(key, user.id);
+					const current_user = new User(user.id, user.username, user.completion_status)
+					localStorage.setItem(key, current_user.id);
 					userform.id = "user-login"
 					dropdown.style.display = "block"
 					const name = document.querySelector("#dropdownMenu2")
-					name.innerHTML = "Hi " + user.username + " <i class='fas fa-grin-alt'></i>"
+					name.innerHTML = "Hi " + current_user.username + " <i class='fas fa-grin-alt'></i>"
 					const logout_btn = document.querySelector("#logout")
 					logout_btn.onclick = e => logout(e);
 				})
@@ -79,6 +80,7 @@ function logout(e){
 	dropdown.style.display = "none"
   	let password = document.querySelector("#password");
 	password.value = "";
+	password.focus();
 }
 
 function renderSightWords(){
