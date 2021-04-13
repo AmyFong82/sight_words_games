@@ -13,7 +13,7 @@ const game3 = document.querySelector("#game3")
 const chosen_letters = document.querySelectorAll(".chosen-letter")
 const checkBtn = document.querySelector(".check-btn")
 const letter_choices = document.querySelector(".letter-choices").children
-const key = "sightwords_user_id"
+const key = "Sightword_CurrentUser"
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -54,7 +54,8 @@ function logIn(){
 			    return resp.json()
 				.then(user => {
 					const current_user = new User(user.id, user.username, user.completion_status)
-					localStorage.setItem(key, current_user.id);
+					let current_user_info = {id: current_user.id, completion_status: current_user.completion_status}
+					localStorage.setItem(key, JSON.stringify(current_user_info));
 					userform.id = "user-login"
 					dropdown.style.display = "block"
 					const name = document.querySelector("#dropdownMenu2")

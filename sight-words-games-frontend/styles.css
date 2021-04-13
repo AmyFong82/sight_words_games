@@ -32,14 +32,20 @@ h4, h5 {
 	background-color: #ffefa1;
 }
 
-.sw-list-title {
+.bold-title {
 	font-weight: 600;
+    color: darkcyan;
 }
 
 .sightword_list_col {
 	background-color: #ffcb91;
-	color: darkcyan;
 	height: 88vh;
+}
+
+#completion-status {
+	float: right;
+    padding: 10px;
+    display: none;
 }
 
 .fa-arrow-circle-right {
@@ -87,8 +93,10 @@ h2, h6, #audio_wrapper{
 }
 
 #speaker {
-	border: none;
-	background-color: transparent;
+    right: 25px;
+    border: none;
+    background-color: transparent;
+    position: relative;
 }
 
 .stars {
