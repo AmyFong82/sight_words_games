@@ -62,8 +62,13 @@ function logIn(){
 					name.innerHTML = "Hi " + current_user.username + " <i class='fas fa-grin-alt'></i>"
 					const logout_btn = document.querySelector("#logout")
 					logout_btn.onclick = e => logout(e);
+					fetch(USERS_URL + `/${user.id}`+ "/completed_words")
+					.then(response => response.json())
+					.then(completed_words => {
+
+					})
+
 				})
-				fetch(BASE_URL + ""+ "/completed_words")
 			  } else {
 			    return resp.text()
 			    .then(text => {
@@ -390,7 +395,6 @@ class User {
 	levelUp(){
 		return this.completion_status += 1
 	}
-
 }
 
 class SightWord {
@@ -416,5 +420,12 @@ class SightWord {
   length(){
   	return this.spelling.length
   }
+}
 
+class Completed_words {
+	constructor(id, user_id, word_id){
+		this.id = id;
+		this.user_id = user_id;
+		this.word_id = word_id;
+	}
 }
