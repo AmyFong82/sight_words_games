@@ -19,11 +19,13 @@ const chosen_letters = document.querySelectorAll(".chosen-letter")
 const checkBtn = document.querySelector(".check-btn")
 const letter_choices = document.querySelector(".letter-choices").children
 const key = "Sightword_CurrentUser"
+const loggedIn_user = JSON.parse(localStorage.getItem(key));
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
+	userMessage();
 
-	logIn();
+	document.querySelector("button[type=submit]").onclick = e => login(e);
 
 	for (let i = 0; i < 4; i++){ 
 		letter_choices[i].onclick = e => clickToBox(e);
@@ -32,80 +34,90 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
-function LoggedInMessage(){
-	intro_line.style.display = "none";
-	completion_status.style.display = "block";
-	user_message_div.classList.remove("d-none")
-	const loggedIn_user = JSON.parse(localStorage.getItem(key));
-	if(loggedIn_user.completion_status === 0){
-		completed_num.innerHTML = "0"
-		user_message.innerHTML = "Let's begin learning new sight words!"
-	} else if(loggedIn_user.completion_status = 10){
-		completed_num.innerHTML = loggedIn_user.completion_status
-		user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
-		user_action_btn.innerHTML = "Start Over"
-	} else if (loggedIn_user.completion_status > 0){
-		completed_num.innerHTML = loggedIn_user.completion_status
-		user_message.innerHTML = "Sight words you've learned:"
-		user_action_btn.innerHTML = "Continue"
+function userMessage(){
+	if(loggedIn_user === null){
+		intro_line.style.display = "block"
+		completion_status.style.display = "none";
+		user_message_div.style.display = "none";
+	}else{
+		hideLoginForm();
+		intro_line.style.display = "none";
+		completion_status.style.display = "block";
+		user_message_div.style.display = "block"
+		if(loggedIn_user.completion_status === 0){
+			completed_num.innerHTML = "0"
+			user_message.innerHTML = "Let's begin learning new sight words!"
+		} else if(loggedIn_user.completion_status === 10){
+			completed_num.innerHTML = loggedIn_user.completion_status
+			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
+			user_action_btn.innerHTML = "Start Over"
+		} else if (loggedIn_user.completion_status > 0){
+			completed_num.innerHTML = loggedIn_user.completion_status
+			user_message.innerHTML = "Sight words you've learned:"
+			user_action_btn.innerHTML = "Continue"
+		}
 	}
 }
 
-function logIn(){
-	document.querySelector("button[type=submit]").addEventListener("click", (e) => {
-		e.preventDefault();
-	  	const username = document.getElementById("username").value;
-	  	const password = document.querySelector("#password").value;
-	  	let data = {username: username, password: password}
-	  	fetch(USERS_URL, {
-	  		method: 'POST',
-			headers: {
-				"Content-Type": "application/json",
-	    		"Accept": "application/json"
-			},
-			body: JSON.stringify(data)
-		  	})
-		.then(resp => {
-		  const contentType = resp.headers.get("content-type");
-		    if (contentType && contentType.indexOf("application/json") !== -1) {
-			    return resp.json()
-				.then(user => {
-					const current_user = new User(user.id, user.username, user.completion_status)
-					let current_user_info = {id: current_user.id, completion_status: current_user.completion_status}
-					localStorage.setItem(key, JSON.stringify(current_user_info));
-					userform.id = "user-login"
-					dropdown.style.display = "block"
-					const name = document.querySelector("#dropdownMenu2")
-					name.innerHTML = "Hi " + current_user.username + " <i class='fas fa-grin-alt'></i>"
-					const logout_btn = document.querySelector("#logout")
-					logout_btn.onclick = e => logout(e);
-					LoggedInMessage();
-					fetch(USERS_URL + `/${user.id}`+ "/completed_words")
-					.then(response => response.json())
-					.then(completed_words => {
-
-					})
-
-				})
-			  } else {
-			    return resp.text()
-			    .then(text => {
-			      	const login_alert = document.querySelector(".alert-dismissible")
-			      	login_alert.style.display = "block"
-			    });
-			  }
-		})
-		.catch(error => console.error(error));
-	})
+function hideLoginForm(){
+	userform.id = "user-login"
+	dropdown.style.display = "block"
+	const name = document.querySelector("#dropdownMenu2")
+	const loggedIn_user = JSON.parse(localStorage.getItem(key));
+	console.log(loggedIn_user)
+	name.innerHTML = "Hi " + loggedIn_user.username + " <i class='fas fa-grin-alt'></i>"
+	const logout_btn = document.querySelector("#logout")
+	logout_btn.onclick = e => logout(e);
 }
 
+function login(e){
+	e.preventDefault();
+  	const username = document.getElementById("username").value;
+  	const password = document.querySelector("#password").value;
+  	let data = {username: username, password: password}
+  	fetch(USERS_URL, {
+  		method: 'POST',
+		headers: {
+			"Content-Type": "application/json",
+    		"Accept": "application/json"
+		},
+		body: JSON.stringify(data)
+	  	})
+	.then(resp => {
+	  const contentType = resp.headers.get("content-type");
+	    if (contentType && contentType.indexOf("application/json") !== -1) {
+		    return resp.json()
+			.then(user => {
+				const current_user = new User(user.id, user.username, user.completion_status)
+				let current_user_info = {username: current_user.username, completion_status: current_user.completion_status}
+				localStorage.setItem(key, JSON.stringify(current_user_info));
+				userMessage();
+				fetch(USERS_URL + `/${user.id}`+ "/completed_words")
+				.then(response => response.json())
+				.then(completed_words => {
+
+				})
+
+			})
+		  } else {
+		    return resp.text()
+		    .then(text => {
+		      	const login_alert = document.querySelector(".alert-dismissible")
+		      	login_alert.style.display = "block"
+		    });
+		  }
+	})
+	.catch(error => console.error(error));
+	}
+
 function logout(e){
-	localStorage.removeItem("sightwords_user_id");
+	localStorage.removeItem("Sightword_CurrentUser");
 	userform.removeAttribute('id');
 	dropdown.style.display = "none"
   	let password = document.querySelector("#password");
 	password.value = "";
 	password.focus();
+	userMessage();
 }
 
 function renderSightWords(){
