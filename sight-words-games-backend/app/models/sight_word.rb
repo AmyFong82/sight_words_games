@@ -1,3 +1,3 @@
 class SightWord < ApplicationRecord
-	has_many :users
+	has_many :completed_words
 end

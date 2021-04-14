@@ -3,6 +3,9 @@ const USERS_URL = BASE_URL + "/users"
 const userform = document.querySelector(".d-flex")
 const dropdown = document.querySelector(".dropdown")
 const intro_line = document.querySelector(".intro-line")
+const completion_status = document.querySelector("#completion-status")
+const new_user_message = document.querySelector("#new-user-message")
+const completed_num = document.querySelector("#completed-num")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".wrong-alert")
 const stars = document.querySelector(".stars")
@@ -27,10 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
-function checkUser(){
-	const loggedIn_user = localStorage.getItem(key)
-	if(loggedIn_user){
-
+function LoggedInMessage(){
+	const loggedIn_user = JSON.parse(localStorage.getItem(key));
+	if(loggedIn_user.completion_status === 0){
+		intro_line.style.display = "none";
+		completed_num.innerHTML = "0"
+		completion_status.style.display = "block";
+		new_user_message.classList.remove("d-none")
 	}
 }
 
@@ -62,6 +68,7 @@ function logIn(){
 					name.innerHTML = "Hi " + current_user.username + " <i class='fas fa-grin-alt'></i>"
 					const logout_btn = document.querySelector("#logout")
 					logout_btn.onclick = e => logout(e);
+					LoggedInMessage();
 					fetch(USERS_URL + `/${user.id}`+ "/completed_words")
 					.then(response => response.json())
 					.then(completed_words => {
