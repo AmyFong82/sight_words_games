@@ -4,7 +4,9 @@ const userform = document.querySelector(".d-flex")
 const dropdown = document.querySelector(".dropdown")
 const intro_line = document.querySelector(".intro-line")
 const completion_status = document.querySelector("#completion-status")
-const new_user_message = document.querySelector("#new-user-message")
+const user_message_div = document.querySelector("#user-message")
+const user_message = document.querySelector("#user-message h5")
+const user_action_btn = document.querySelector(".user-action-btn")
 const completed_num = document.querySelector("#completed-num")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".wrong-alert")
@@ -31,12 +33,21 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function LoggedInMessage(){
+	intro_line.style.display = "none";
+	completion_status.style.display = "block";
+	user_message_div.classList.remove("d-none")
 	const loggedIn_user = JSON.parse(localStorage.getItem(key));
 	if(loggedIn_user.completion_status === 0){
-		intro_line.style.display = "none";
 		completed_num.innerHTML = "0"
-		completion_status.style.display = "block";
-		new_user_message.classList.remove("d-none")
+		user_message.innerHTML = "Let's begin learning new sight words!"
+	} else if(loggedIn_user.completion_status = 10){
+		completed_num.innerHTML = loggedIn_user.completion_status
+		user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
+		user_action_btn.innerHTML = "Start Over"
+	} else if (loggedIn_user.completion_status > 0){
+		completed_num.innerHTML = loggedIn_user.completion_status
+		user_message.innerHTML = "Sight words you've learned:"
+		user_action_btn.innerHTML = "Continue"
 	}
 }
 

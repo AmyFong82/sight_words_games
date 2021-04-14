@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user1 = User.create(username: "User1", password: "1")
+user1 = User.create(username: "User1", password: "1", completion_status: 1)
 
 
 at = SightWord.create(spelling: "at", 
