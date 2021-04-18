@@ -8,6 +8,7 @@ const user_message_div = document.querySelector("#user-message")
 const user_message = document.querySelector("#user-message h5")
 const log_out_message = document.querySelector("#log-out-message")
 const user_action_btn = document.querySelector(".user-action-btn")
+const learned_words_list = document.querySelector(".learned-words-list")
 const completed_num = document.querySelector("#completed-num")
 const right_alert = document.querySelector(".alert-success")
 const wrong_alert = document.querySelector(".wrong-alert")
@@ -71,7 +72,18 @@ function login(e){
 				fetch(USERS_URL + `/${user.id}`+ "/completed_words")
 				.then(response => response.json())
 				.then(completed_words => {
-
+					console.log(completed_words)
+					const div = document.querySelector(".learned-words-list")
+					for(const word of completed_words){
+						const btn = document.createElement("button")
+						btn.classList.add("list-group-item")
+						btn.setAttribute("id", word[0])
+						btn.innerHTML = word[1]
+						btn.addEventListener("click", e => {
+							fetchSightWord(word[0])
+						})
+						div.append(btn)
+					}
 				})
 
 			})
