@@ -126,7 +126,7 @@ function userMessage(loggedIn_user){
 			completed_num.innerHTML = loggedIn_user.completion_status
 			user_message.innerHTML = "Sight words you've learned:"
 			renderCompletedWords()
-			user_action_btn.innerHTML = "Continue"
+			user_action_btn.innerHTML = "Learn More!"
 		}
 	}
 }
@@ -478,10 +478,10 @@ class SightWord {
   }
 }
 
-class Completed_words {
-	constructor(id, user_id, word_id){
-		this.id = id;
-		this.user_id = user_id;
-		this.word_id = word_id;
-	}
-}
+// class Completed_words {
+// 	constructor(id, user_id, word_id){
+// 		this.id = id;
+// 		this.user_id = user_id;
+// 		this.word_id = word_id;
+// 	}
+// }
