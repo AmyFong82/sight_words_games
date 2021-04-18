@@ -42,7 +42,6 @@ function hideLoginForm(){
 	dropdown.style.display = "block"
 	const name = document.querySelector("#dropdownMenu2")
 	const loggedIn_user = JSON.parse(localStorage.getItem(key));
-	console.log(loggedIn_user)
 	name.innerHTML = "Hi " + loggedIn_user.username + " <i class='fas fa-grin-alt'></i>"
 	const logout_btn = document.querySelector("#logout")
 	logout_btn.onclick = e => logout(e);
@@ -50,7 +49,7 @@ function hideLoginForm(){
 
 function login(e){
 	e.preventDefault();
-  	const username = document.getElementById("username").value;
+  	const username = document.querySelector("#username").value;
   	const password = document.querySelector("#password").value;
   	let data = {username: username, password: password}
   	fetch(USERS_URL, {
@@ -69,10 +68,10 @@ function login(e){
 				const current_user = new User(user.id, user.username, user.completion_status)
 				let current_user_info = {user_id:current_user.id, username: current_user.username, completion_status: current_user.completion_status}
 				localStorage.setItem(key, JSON.stringify(current_user_info));
-				userMessage(current_user);
-				renderCompletedWords()
+				userMessage();
+				log_out_message.style.display = "none";
 			})
-			hideLoginForm();
+			
 		  } else {
 		    return resp.text()
 		    .then(text => {
@@ -85,13 +84,11 @@ function login(e){
 }
 
 function renderCompletedWords(){
-	console.log(loggedIn_user.user_id)
-	console.log(`/${loggedIn_user.user_id}`)
+	console.log(loggedIn_user)
 	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words")
 	.then(response => response.json())
 	.then(completed_words => {
-		console.log(completed_words)
-		const div = document.querySelector(".learned-words-list")
+		learned_words_list.style.display = "flex";
 		for(const word of completed_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item")
@@ -100,13 +97,16 @@ function renderCompletedWords(){
 			btn.addEventListener("click", e => {
 				fetchSightWord(word[0])
 			})
-			div.append(btn)
+			learned_words_list.append(btn)
 		}
 	})
 }
 
-function userMessage(loggedIn_user){
-	if(loggedIn_user === null){
+function userMessage(user=loggedIn_user){
+	// const loggedIn_user = JSON.parse(localStorage.getItem(key));
+	console.log("L = " + loggedIn_user)
+	console.log(user)
+	if(user === null){
 		intro_line.style.display = "block"
 		completion_status.style.display = "none";
 		user_message_div.style.display = "none";
@@ -114,7 +114,8 @@ function userMessage(loggedIn_user){
 		hideLoginForm();
 		intro_line.style.display = "none";
 		completion_status.style.display = "block";
-		user_message_div.style.display = "block"
+		user_message_div.style.display = "block";
+		user_action_btn.style.display = "block";
 		if(loggedIn_user.completion_status === 0){
 			completed_num.innerHTML = "0"
 			user_message.innerHTML = "Let's begin learning new sight words!"
@@ -136,13 +137,15 @@ function logout(e){
 	userform.removeAttribute('id');
 	dropdown.style.display = "none";
 	completion_status.style.display = "none";
-	user_message.style.display = "none";
+	user_message_div.style.display = "none";
 	user_action_btn.style.display = "none";
   	let password = document.querySelector("#password");
 	password.value = "";
-	password.focus();
+  	let username = document.querySelector("#username");
+	username.focus();
 	log_out_message.style.display = "block";
 	games_div.style.display = "none";
+	learned_words_list.innerHTML = '';
 }
 
 function renderSightWords(){
