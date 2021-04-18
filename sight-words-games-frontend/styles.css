@@ -104,6 +104,7 @@ h2, h6, #audio_wrapper{
 
 .stars {
 	position: absolute;
+	top: 80px;
 	color: #ffc107;
 	font-size: 2rem;
 	padding: 20px;

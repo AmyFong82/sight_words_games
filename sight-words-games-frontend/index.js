@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
+
 function hideLoginForm(){
 	userform.id = "user-login"
 	dropdown.style.display = "block"
@@ -84,7 +85,6 @@ function login(e){
 }
 
 function renderCompletedWords(){
-	console.log(loggedIn_user)
 	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words")
 	.then(response => response.json())
 	.then(completed_words => {
@@ -102,11 +102,8 @@ function renderCompletedWords(){
 	})
 }
 
-function userMessage(user=loggedIn_user){
-	// const loggedIn_user = JSON.parse(localStorage.getItem(key));
-	console.log("L = " + loggedIn_user)
-	console.log(user)
-	if(user === null){
+function userMessage(){
+	if(loggedIn_user === null){
 		intro_line.style.display = "block"
 		completion_status.style.display = "none";
 		user_message_div.style.display = "none";
@@ -162,6 +159,8 @@ function renderSightWords(){
 			btn.setAttribute("id", word.id)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
+				user_message_div.style.display = "none"
+				games_div.style.display = "block"
 				fetchSightWord(word.id)
 				const non_active_btns = document.querySelectorAll(".list-group button")
 				for (const b of non_active_btns){
