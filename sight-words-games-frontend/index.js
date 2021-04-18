@@ -1,26 +1,27 @@
-const BASE_URL = "http://localhost:3000"
-const USERS_URL = BASE_URL + "/users"
-const userform = document.querySelector(".d-flex")
-const dropdown = document.querySelector(".dropdown")
-const intro_line = document.querySelector(".intro-line")
-const completion_status = document.querySelector("#completion-status")
-const user_message_div = document.querySelector("#user-message")
-const user_message = document.querySelector("#user-message h5")
-const log_out_message = document.querySelector("#log-out-message")
-const user_action_btn = document.querySelector(".user-action-btn")
-const learned_words_list = document.querySelector(".learned-words-list")
-const completed_num = document.querySelector("#completed-num")
-const right_alert = document.querySelector(".alert-success")
-const wrong_alert = document.querySelector(".wrong-alert")
-const stars = document.querySelector(".stars")
-const next_btn = document.querySelector(".next-btn")
-const game1 = document.querySelector("#game1")
-const game2 = document.querySelector("#game2")
-const game3 = document.querySelector("#game3")
-const chosen_letters = document.querySelectorAll(".chosen-letter")
-const checkBtn = document.querySelector(".check-btn")
-const letter_choices = document.querySelector(".letter-choices").children
-const key = "Sightword_CurrentUser"
+const BASE_URL = "http://localhost:3000";
+const USERS_URL = BASE_URL + "/users";
+const userform = document.querySelector(".d-flex");
+const dropdown = document.querySelector(".dropdown");
+const intro_line = document.querySelector(".intro-line");
+const completion_status = document.querySelector("#completion-status");
+const user_message_div = document.querySelector("#user-message");
+const user_message = document.querySelector("#user-message h5");
+const log_out_message = document.querySelector("#log-out-message");
+const user_action_btn = document.querySelector(".user-action-btn");
+const learned_words_list = document.querySelector(".learned-words-list");
+const completed_num = document.querySelector("#completed-num");
+const right_alert = document.querySelector(".alert-success");
+const wrong_alert = document.querySelector(".wrong-alert");
+const stars = document.querySelector(".stars");
+const next_btn = document.querySelector(".next-btn");
+const games_div = document.querySelector("#games_div");
+const game1 = document.querySelector("#game1");
+const game2 = document.querySelector("#game2");
+const game3 = document.querySelector("#game3");
+const chosen_letters = document.querySelectorAll(".chosen-letter");
+const checkBtn = document.querySelector(".check-btn");
+const letter_choices = document.querySelector(".letter-choices").children;
+const key = "Sightword_CurrentUser";
 const loggedIn_user = JSON.parse(localStorage.getItem(key));
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,26 +67,10 @@ function login(e){
 		    return resp.json()
 			.then(user => {
 				const current_user = new User(user.id, user.username, user.completion_status)
-				let current_user_info = {username: current_user.username, completion_status: current_user.completion_status}
+				let current_user_info = {user_id:current_user.id, username: current_user.username, completion_status: current_user.completion_status}
 				localStorage.setItem(key, JSON.stringify(current_user_info));
 				userMessage(current_user);
-				fetch(USERS_URL + `/${user.id}`+ "/completed_words")
-				.then(response => response.json())
-				.then(completed_words => {
-					console.log(completed_words)
-					const div = document.querySelector(".learned-words-list")
-					for(const word of completed_words){
-						const btn = document.createElement("button")
-						btn.classList.add("list-group-item")
-						btn.setAttribute("id", word[0])
-						btn.innerHTML = word[1]
-						btn.addEventListener("click", e => {
-							fetchSightWord(word[0])
-						})
-						div.append(btn)
-					}
-				})
-
+				renderCompletedWords()
 			})
 			hideLoginForm();
 		  } else {
@@ -97,6 +82,27 @@ function login(e){
 		  }
 	})
 	.catch(error => console.error(error));
+}
+
+function renderCompletedWords(){
+	console.log(loggedIn_user.user_id)
+	console.log(`/${loggedIn_user.user_id}`)
+	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words")
+	.then(response => response.json())
+	.then(completed_words => {
+		console.log(completed_words)
+		const div = document.querySelector(".learned-words-list")
+		for(const word of completed_words){
+			const btn = document.createElement("button")
+			btn.classList.add("list-group-item")
+			btn.setAttribute("id", word[0])
+			btn.innerHTML = word[1]
+			btn.addEventListener("click", e => {
+				fetchSightWord(word[0])
+			})
+			div.append(btn)
+		}
+	})
 }
 
 function userMessage(loggedIn_user){
@@ -119,6 +125,7 @@ function userMessage(loggedIn_user){
 		} else if (loggedIn_user.completion_status > 0){
 			completed_num.innerHTML = loggedIn_user.completion_status
 			user_message.innerHTML = "Sight words you've learned:"
+			renderCompletedWords()
 			user_action_btn.innerHTML = "Continue"
 		}
 	}
@@ -135,6 +142,7 @@ function logout(e){
 	password.value = "";
 	password.focus();
 	log_out_message.style.display = "block";
+	games_div.style.display = "none";
 }
 
 function renderSightWords(){
