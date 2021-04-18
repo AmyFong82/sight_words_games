@@ -48,7 +48,7 @@ h4, h5 {
     display: none;
 }
 
-#user-message {
+#user-message, #log-out-message {
 	display: none;
 }
 

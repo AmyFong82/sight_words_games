@@ -6,6 +6,7 @@ const intro_line = document.querySelector(".intro-line")
 const completion_status = document.querySelector("#completion-status")
 const user_message_div = document.querySelector("#user-message")
 const user_message = document.querySelector("#user-message h5")
+const log_out_message = document.querySelector("#log-out-message")
 const user_action_btn = document.querySelector(".user-action-btn")
 const completed_num = document.querySelector("#completed-num")
 const right_alert = document.querySelector(".alert-success")
@@ -23,7 +24,7 @@ const loggedIn_user = JSON.parse(localStorage.getItem(key));
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
-	userMessage();
+	userMessage(loggedIn_user);
 
 	document.querySelector("button[type=submit]").onclick = e => login(e);
 
@@ -33,31 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 })
-
-function userMessage(){
-	if(loggedIn_user === null){
-		intro_line.style.display = "block"
-		completion_status.style.display = "none";
-		user_message_div.style.display = "none";
-	}else{
-		hideLoginForm();
-		intro_line.style.display = "none";
-		completion_status.style.display = "block";
-		user_message_div.style.display = "block"
-		if(loggedIn_user.completion_status === 0){
-			completed_num.innerHTML = "0"
-			user_message.innerHTML = "Let's begin learning new sight words!"
-		} else if(loggedIn_user.completion_status === 10){
-			completed_num.innerHTML = loggedIn_user.completion_status
-			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
-			user_action_btn.innerHTML = "Start Over"
-		} else if (loggedIn_user.completion_status > 0){
-			completed_num.innerHTML = loggedIn_user.completion_status
-			user_message.innerHTML = "Sight words you've learned:"
-			user_action_btn.innerHTML = "Continue"
-		}
-	}
-}
 
 function hideLoginForm(){
 	userform.id = "user-login"
@@ -91,7 +67,7 @@ function login(e){
 				const current_user = new User(user.id, user.username, user.completion_status)
 				let current_user_info = {username: current_user.username, completion_status: current_user.completion_status}
 				localStorage.setItem(key, JSON.stringify(current_user_info));
-				userMessage();
+				userMessage(current_user);
 				fetch(USERS_URL + `/${user.id}`+ "/completed_words")
 				.then(response => response.json())
 				.then(completed_words => {
@@ -99,6 +75,7 @@ function login(e){
 				})
 
 			})
+			hideLoginForm();
 		  } else {
 		    return resp.text()
 		    .then(text => {
@@ -108,16 +85,44 @@ function login(e){
 		  }
 	})
 	.catch(error => console.error(error));
+}
+
+function userMessage(loggedIn_user){
+	if(loggedIn_user === null){
+		intro_line.style.display = "block"
+		completion_status.style.display = "none";
+		user_message_div.style.display = "none";
+	}else{
+		hideLoginForm();
+		intro_line.style.display = "none";
+		completion_status.style.display = "block";
+		user_message_div.style.display = "block"
+		if(loggedIn_user.completion_status === 0){
+			completed_num.innerHTML = "0"
+			user_message.innerHTML = "Let's begin learning new sight words!"
+		} else if(loggedIn_user.completion_status === 10){
+			completed_num.innerHTML = loggedIn_user.completion_status
+			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
+			user_action_btn.innerHTML = "Start Over"
+		} else if (loggedIn_user.completion_status > 0){
+			completed_num.innerHTML = loggedIn_user.completion_status
+			user_message.innerHTML = "Sight words you've learned:"
+			user_action_btn.innerHTML = "Continue"
+		}
 	}
+}
 
 function logout(e){
 	localStorage.removeItem("Sightword_CurrentUser");
 	userform.removeAttribute('id');
-	dropdown.style.display = "none"
+	dropdown.style.display = "none";
+	completion_status.style.display = "none";
+	user_message.style.display = "none";
+	user_action_btn.style.display = "none";
   	let password = document.querySelector("#password");
 	password.value = "";
 	password.focus();
-	userMessage();
+	log_out_message.style.display = "block";
 }
 
 function renderSightWords(){
@@ -426,6 +431,7 @@ class User {
 		return this.completion_status += 1
 	}
 }
+
 
 class SightWord {
   constructor(id, spelling, audio, word_choices, letter_choices, sentence, picture){
