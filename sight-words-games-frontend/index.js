@@ -110,17 +110,21 @@ function userMessage(){
 	}else{
 		hideLoginForm();
 		intro_line.style.display = "none";
-		completion_status.style.display = "block";
 		user_message_div.style.display = "block";
 		user_action_btn.style.display = "block";
 		if(loggedIn_user.completion_status === 0){
-			completed_num.innerHTML = "0"
+			completion_status.style.display = "none";
 			user_message.innerHTML = "Let's begin learning new sight words!"
+			user_action_btn.onclick = e => {
+				fetchSightWord(1)
+			}
 		} else if(loggedIn_user.completion_status === 10){
 			completed_num.innerHTML = loggedIn_user.completion_status
 			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
+			completion_status.style.display = "block";
 			user_action_btn.innerHTML = "Start Over"
 		} else if (loggedIn_user.completion_status > 0){
+			completion_status.style.display = "block";
 			completed_num.innerHTML = loggedIn_user.completion_status
 			user_message.innerHTML = "Sight words you've learned:"
 			renderCompletedWords()
@@ -198,6 +202,10 @@ function playAudio(ele, file_path){
 
 
 function fetchSightWord(word_id){
+	user_message_div.style.display = "none";
+	games_div.style.display = "block";
+	completion_status.style.display = "block";
+	completed_num.innerHTML = loggedIn_user.completion_status
 	fetch(BASE_URL + '/sight_words/' + word_id)
 	.then(resp => resp.json())
 	.then(sight_word => {
@@ -283,6 +291,57 @@ function renderGame2(word){
 		choice.classList.remove("btn-warning")
 		choice.classList.add("btn-light")
 	}
+}
+
+function renderGame3(word){
+	const sentence = document.querySelector("#sentence")
+	sentence.innerHTML = ""
+	const sentence_words = word.sentence.split(" ")
+	for(let i = 0; i < sentence_words.length; i ++){
+		const btn = document.createElement("button")
+		btn.innerHTML = sentence_words[i]
+		btn.classList.add("btn", "btn-light", "not-rounded")
+		btn.addEventListener("click", e => {
+			if(word.check(btn.innerHTML)){
+				btn.classList.add("btn-warning")
+				btn.classList.remove("btn-light")
+				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
+				const star3 = document.querySelector("#star3")
+				star3.classList.remove("far");
+				star3.classList.add("fas", "star-animation")
+				right_alert.style.display = "block";
+				wrong_alert.style.display = "none";
+		        next_btn.style.display = "block";
+		        for(const b of sentence.children){
+		        	b.disabled = true;
+		        }
+		        next_btn.onclick = e => {
+					right_alert.style.display = "none";
+		        	fetchNextWord(word.id)
+		        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
+					fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
+		        		method: 'POST',
+						headers: {
+							"Content-Type": "application/json",
+				    		"Accept": "application/json"
+						},
+						body: JSON.stringify(data)
+					  	})
+					.then(resp => (console.log(resp)))
+
+		       
+		        }
+			}else{
+				right_alert.style.display = "none";
+				wrong_alert.style.display = "block";
+				playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
+			}
+			btn.disabled = true;
+		})
+		sentence.append(btn)
+	}
+	const image = document.querySelector("#image")
+	image.src = word.picture
 }
 
 function showGame2(){
@@ -403,44 +462,7 @@ function checkSpelling(word){
 }
 
 
-function renderGame3(word){
-	const sentence = document.querySelector("#sentence")
-	sentence.innerHTML = ""
-	const sentence_words = word.sentence.split(" ")
-	for(let i = 0; i < sentence_words.length; i ++){
-		const btn = document.createElement("button")
-		btn.innerHTML = sentence_words[i]
-		btn.classList.add("btn", "btn-light", "not-rounded")
-		btn.addEventListener("click", e => {
-			if(word.check(btn.innerHTML)){
-				btn.classList.add("btn-warning")
-				btn.classList.remove("btn-light")
-				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
-				const star3 = document.querySelector("#star3")
-				star3.classList.remove("far");
-				star3.classList.add("fas", "star-animation")
-				right_alert.style.display = "block";
-				wrong_alert.style.display = "none";
-		        next_btn.style.display = "block";
-		        for(const b of sentence.children){
-		        	b.disabled = true;
-		        }
-		        next_btn.onclick = e => {
-					right_alert.style.display = "none";
-		        	fetchNextWord(word.id)
-		        }
-			}else{
-				right_alert.style.display = "none";
-				wrong_alert.style.display = "block";
-				playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
-			}
-			btn.disabled = true;
-		})
-		sentence.append(btn)
-	}
-	const image = document.querySelector("#image")
-	image.src = word.picture
-}
+
 
 class User {
 	constructor(id, username, completion_status){

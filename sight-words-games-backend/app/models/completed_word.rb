@@ -4,8 +4,12 @@ class CompletedWord < ApplicationRecord
 
   	def completed_word_id_spelling
   		id = self.sight_word_id
-  		spelling = SightWord.find(self.sight_word_id).spelling
+  		spelling = self.sight_word.spelling
 		return id, spelling
+	end
+
+	def user_completion_update
+		self.user.completion_update
 	end
 
 end

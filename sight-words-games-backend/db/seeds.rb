@@ -69,5 +69,3 @@ the = SightWord.create(spelling: "the",
 # 						pronunciation_key:
 # 						sentence:
 # 						picture:)
-
-completed_words1 = CompletedWord.create(user: user1, sight_word: at)
