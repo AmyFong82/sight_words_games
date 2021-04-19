@@ -9,6 +9,7 @@ class CompletedWordsController < ApplicationController
 	def create
 		completed_word = CompletedWord.find_or_create_by(user_id: params[:user_id], sight_word_id: params[:sight_word_id])
 		completed_word.user_completion_update
-		render json: completed_word.user.completion_status
+		updated_num = completed_word.user.completion_status
+		render plain: updated_num
 	end
 end

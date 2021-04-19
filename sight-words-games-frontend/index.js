@@ -316,6 +316,7 @@ function renderGame3(word){
 		        	b.disabled = true;
 		        }
 		        next_btn.onclick = e => {
+	        		e.preventDefault();
 					right_alert.style.display = "none";
 		        	fetchNextWord(word.id)
 		        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
@@ -326,10 +327,8 @@ function renderGame3(word){
 				    		"Accept": "application/json"
 						},
 						body: JSON.stringify(data)
-					  	})
-					.then(resp => (console.log(resp)))
+					})
 
-		       
 		        }
 			}else{
 				right_alert.style.display = "none";
