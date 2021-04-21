@@ -10,6 +10,6 @@ class CompletedWordsController < ApplicationController
 		completed_word = CompletedWord.find_or_create_by(user_id: params[:user_id], sight_word_id: params[:sight_word_id])
 		completed_word.user_completion_update
 		updated_num = completed_word.user.completion_status
-		render plain: updated_num
+		render plain: updated_num.to_s
 	end
 end

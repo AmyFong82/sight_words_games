@@ -21,8 +21,9 @@ const game3 = document.querySelector("#game3");
 const chosen_letters = document.querySelectorAll(".chosen-letter");
 const checkBtn = document.querySelector(".check-btn");
 const letter_choices = document.querySelector(".letter-choices").children;
+let current_user;
 const key = "Sightword_CurrentUser";
-const loggedIn_user = JSON.parse(localStorage.getItem(key));
+let loggedIn_user = JSON.parse(localStorage.getItem(key));
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -66,10 +67,11 @@ function login(e){
 	    if (contentType && contentType.indexOf("application/json") !== -1) {
 		    return resp.json()
 			.then(user => {
-				const current_user = new User(user.id, user.username, user.completion_status)
-				let current_user_info = {user_id:current_user.id, username: current_user.username, completion_status: current_user.completion_status}
+				current_user = new User(user.id, user.username, user.completion_status)
+				let current_user_info = {user_id: current_user.id, username: current_user.username, completion_status: current_user.completion_status}
 				localStorage.setItem(key, JSON.stringify(current_user_info));
-				userMessage();
+				loggedIn_user = JSON.parse(localStorage.getItem(key));
+				userMessage(loggedIn_user);
 				log_out_message.style.display = "none";
 			})
 			
@@ -102,13 +104,14 @@ function renderCompletedWords(){
 	})
 }
 
-function userMessage(){
+function userMessage(current_user){
 	if(loggedIn_user === null){
 		intro_line.style.display = "block"
 		completion_status.style.display = "none";
 		user_message_div.style.display = "none";
 	}else{
 		hideLoginForm();
+		completed_num.innerHTML = current_user.completion_status
 		intro_line.style.display = "none";
 		user_message_div.style.display = "block";
 		user_action_btn.style.display = "block";
@@ -118,14 +121,12 @@ function userMessage(){
 			user_action_btn.onclick = e => {
 				fetchSightWord(1)
 			}
-		} else if(loggedIn_user.completion_status === 10){
-			completed_num.innerHTML = loggedIn_user.completion_status
+		} else if(current_user.completion_status === 10){
 			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
 			completion_status.style.display = "block";
 			user_action_btn.innerHTML = "Start Over"
-		} else if (loggedIn_user.completion_status > 0){
+		} else if (current_user.completion_status > 0){
 			completion_status.style.display = "block";
-			completed_num.innerHTML = loggedIn_user.completion_status
 			user_message.innerHTML = "Sight words you've learned:"
 			renderCompletedWords()
 			user_action_btn.innerHTML = "Learn More!"
@@ -316,7 +317,7 @@ function renderGame3(word){
 		        	b.disabled = true;
 		        }
 		        next_btn.onclick = e => {
-	        		e.preventDefault();
+	        		// e.preventDefault();
 					right_alert.style.display = "none";
 		        	fetchNextWord(word.id)
 		        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
@@ -328,6 +329,8 @@ function renderGame3(word){
 						},
 						body: JSON.stringify(data)
 					})
+					// .then(resp => resp.text())
+					// .then(num => localStorage.)
 
 		        }
 			}else{
