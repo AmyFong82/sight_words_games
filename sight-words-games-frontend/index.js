@@ -68,8 +68,7 @@ function login(e){
 		    return resp.json()
 			.then(user => {
 				current_user = new User(user.id, user.username, user.completion_status)
-				let current_user_info = {user_id: current_user.id, username: current_user.username, completion_status: current_user.completion_status}
-				localStorage.setItem(key, JSON.stringify(current_user_info));
+				updateLocalStorage(current_user);
 				loggedIn_user = JSON.parse(localStorage.getItem(key));
 				userMessage(loggedIn_user);
 				log_out_message.style.display = "none";
@@ -84,6 +83,11 @@ function login(e){
 		  }
 	})
 	.catch(error => console.error(error));
+}
+
+function updateLocalStorage(current_user){
+	let current_user_info = {user_id: current_user.id, username: current_user.username, completion_status: current_user.completion_status}
+	localStorage.setItem(key, JSON.stringify(current_user_info));
 }
 
 function renderCompletedWords(){
@@ -206,7 +210,7 @@ function fetchSightWord(word_id){
 	user_message_div.style.display = "none";
 	games_div.style.display = "block";
 	completion_status.style.display = "block";
-	completed_num.innerHTML = loggedIn_user.completion_status
+	completed_num.innerHTML = current_user.completion_status
 	fetch(BASE_URL + '/sight_words/' + word_id)
 	.then(resp => resp.json())
 	.then(sight_word => {
@@ -317,7 +321,6 @@ function renderGame3(word){
 		        	b.disabled = true;
 		        }
 		        next_btn.onclick = e => {
-	        		// e.preventDefault();
 					right_alert.style.display = "none";
 		        	fetchNextWord(word.id)
 		        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
@@ -329,8 +332,12 @@ function renderGame3(word){
 						},
 						body: JSON.stringify(data)
 					})
-					// .then(resp => resp.text())
-					// .then(num => localStorage.)
+					.then(resp => resp.text())
+					.then(num => {
+						current_user.completion_status = num
+						completed_num.innerHTML = num
+						updateLocalStorage(current_user)
+					})
 
 		        }
 			}else{
@@ -473,9 +480,9 @@ class User {
 		this.completion_status = completion_status;
 	}
 
-	levelUp(){
-		return this.completion_status += 1
-	}
+	// levelUp(){
+	// 	this.completion_status += 1
+	// }
 }
 
 
