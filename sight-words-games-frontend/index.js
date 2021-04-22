@@ -330,22 +330,26 @@ function renderGame3(word){
 		        next_btn.onclick = e => {
 					right_alert.style.display = "none";
 		        	fetchNextWord(word.id)
-		        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
-					fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
-		        		method: 'POST',
-						headers: {
-							"Content-Type": "application/json",
-				    		"Accept": "application/json"
-						},
-						body: JSON.stringify(data)
-					})
-					.then(resp => resp.text())
-					.then(num => {
-						current_user.completion_status = num
-						completed_num.innerHTML = num
-						updateLocalStorage(current_user)
-					})
-
+		        	if(loggedIn_user){
+			        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
+						fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
+			        		method: 'POST',
+							headers: {
+								"Content-Type": "application/json",
+					    		"Accept": "application/json"
+							},
+							body: JSON.stringify(data)
+						})
+						.then(resp => resp.text())
+						.then(num => {
+							current_user.completion_status = num
+							completed_num.innerHTML = num
+							updateLocalStorage(current_user)
+						})
+					}else{
+						current_user.levelUp()
+						completed_num.innerHTML = current_user.completion_status
+					}
 		        }
 			}else{
 				right_alert.style.display = "none";
@@ -486,6 +490,10 @@ class User {
 		this.username = username;
 		this.completion_status = completion_status;
 	}
+
+	levelUp(){
+		return this.completion_status += 1
+	}
 }
 
 
@@ -513,11 +521,3 @@ class SightWord {
   	return this.spelling.length
   }
 }
-
-// class Completed_words {
-// 	constructor(id, user_id, word_id){
-// 		this.id = id;
-// 		this.user_id = user_id;
-// 		this.word_id = word_id;
-// 	}
-// }
