@@ -23,10 +23,12 @@ the = SightWord.create(spelling: "the",
 						picture: "https://thehappypuppysite.com/wp-content/uploads/2018/10/brown-dog-names-long.jpg")
 
 # of = SightWord.create(spelling: "of"
-# 						pronunciation_audio:
-# 						pronunciation_key:
-# 						sentence:
-# 						picture:)
+of = SightWord.create(spelling: "of", 
+					audio: "https://static.sfdict.com/audio/lunawav/NEW/NEW10235.ogg",
+					word_choices: "of on ot off",
+					letter_choices: "o l f e",
+					sentence: "Is that fish looking at me?", 
+					picture: "https://pyxis.nymag.com/v1/imgs/b
 
 # to = SightWord.create(spelling: "to"
 # 						pronunciation_audio:

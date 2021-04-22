@@ -114,12 +114,13 @@ function userMessage(current_user){
 		completion_status.style.display = "none";
 		user_message_div.style.display = "none";
 	}else{
+		current_user = new User(loggedIn_user)
 		hideLoginForm();
 		completed_num.innerHTML = current_user.completion_status
 		intro_line.style.display = "none";
 		user_message_div.style.display = "block";
 		user_action_btn.style.display = "block";
-		if(loggedIn_user.completion_status === 0){
+		if(current_user.completion_status === 0){
 			completion_status.style.display = "none";
 			user_message.innerHTML = "Let's begin learning new sight words!"
 			user_action_btn.onclick = e => {
@@ -140,6 +141,7 @@ function userMessage(current_user){
 
 function logout(e){
 	localStorage.removeItem("Sightword_CurrentUser");
+	completed_num.innerHTML = "0"
 	userform.removeAttribute('id');
 	dropdown.style.display = "none";
 	completion_status.style.display = "none";
@@ -207,6 +209,11 @@ function playAudio(ele, file_path){
 
 
 function fetchSightWord(word_id){
+	if(loggedIn_user){
+		current_user = new User(loggedIn_user)
+	}else{
+		current_user = new User(0, "Guest", 0)
+	}
 	user_message_div.style.display = "none";
 	games_div.style.display = "block";
 	completion_status.style.display = "block";
@@ -479,10 +486,6 @@ class User {
 		this.username = username;
 		this.completion_status = completion_status;
 	}
-
-	// levelUp(){
-	// 	this.completion_status += 1
-	// }
 }
 
 
