@@ -24,11 +24,11 @@ the = SightWord.create(spelling: "the",
 
 # of = SightWord.create(spelling: "of"
 of = SightWord.create(spelling: "of", 
-					audio: "https://static.sfdict.com/audio/lunawav/NEW/NEW10235.ogg",
+					audio: "https://static.sfdict.com/audio/lunawav/O00/O0050100.ogg",
 					word_choices: "of on ot off",
 					letter_choices: "o l f e",
-					sentence: "Is that fish looking at me?", 
-					picture: "https://pyxis.nymag.com/v1/imgs/b
+					sentence: "I have a cup of milk.", 
+					picture: "https://image.freepik.com/free-photo/girl-holding-glass-milk_23-2148277058.jpg")
 
 # to = SightWord.create(spelling: "to"
 # 						pronunciation_audio:
