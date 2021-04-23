@@ -25,10 +25,15 @@ let current_user;
 const key = "Sightword_CurrentUser";
 let loggedIn_user = JSON.parse(localStorage.getItem(key));
 let word;
+const login_alert = document.querySelector(".alert-dismissible")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
 	userMessage(loggedIn_user);
+
+	if(loggedIn_user){
+		current_user = new User(loggedIn_user.user_id, loggedIn_user.username, loggedIn_user.completion_status)
+	}
 
 	document.querySelector("button[type=submit]").onclick = e => login(e);
 
@@ -69,16 +74,16 @@ function login(e){
 		    return resp.json()
 			.then(user => {
 				current_user = new User(user.id, user.username, user.completion_status)
-				updateLocalStorage(current_user);
+				updateLocalStorage();
 				loggedIn_user = JSON.parse(localStorage.getItem(key));
 				userMessage(loggedIn_user);
 				log_out_message.style.display = "none";
+				login_alert.style.display = "none";
 			})
 			
 		  } else {
 		    return resp.text()
 		    .then(text => {
-		      	const login_alert = document.querySelector(".alert-dismissible")
 		      	login_alert.style.display = "block"
 		    });
 		  }
@@ -86,7 +91,7 @@ function login(e){
 	.catch(error => console.error(error));
 }
 
-function updateLocalStorage(current_user){
+function updateLocalStorage(){
 	let current_user_info = {user_id: current_user.id, username: current_user.username, completion_status: current_user.completion_status}
 	localStorage.setItem(key, JSON.stringify(current_user_info));
 }
@@ -136,9 +141,9 @@ function userMessage(loggedIn_user){
 }
 
 function logout(e){
+	loggedIn_user = null
 	localStorage.removeItem("Sightword_CurrentUser");
 	completed_num.innerHTML = "0"
-	console.log(completed_num.innerHTML)
 	userform.removeAttribute('id');
 	dropdown.style.display = "none";
 	completion_status.style.display = "none";
@@ -234,8 +239,6 @@ function playAudio(ele, file_path){
 function fetchSightWord(word_id){
 	if(loggedIn_user === null){
 		current_user = new User(0, "Guest", 0)
-	}else{
-		current_user = loggedIn_user
 	}
 	user_message_div.style.display = "none";
 	games_div.style.display = "block";
@@ -366,14 +369,12 @@ function renderGame3(word){
 						})
 						.then(resp => resp.text())
 						.then(num => {
-							console.log(num)
 							current_user.completion_status = num
 							completed_num.innerHTML = num
 							updateLocalStorage(current_user)
 						})
 					}else{
-						current_user.levelUp()
-						completed_num.innerHTML = current_user.completion_status
+						completed_num.innerHTML = current_user.levelUp()
 					}
 		        }
 			}else{
@@ -389,6 +390,10 @@ function renderGame3(word){
 	image.src = word.picture
 }
 		
+
+function completionLevelUp(){
+	completed_num.innerHTML = current_user.levelUp()
+}
 
 function clickToBox(e){
 	wrong_alert.style.display = "none";
