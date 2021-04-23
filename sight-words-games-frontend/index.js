@@ -77,6 +77,7 @@ function login(e){
 				updateLocalStorage();
 				loggedIn_user = JSON.parse(localStorage.getItem(key));
 				userMessage(loggedIn_user);
+				games_div.style.display = "none";
 				log_out_message.style.display = "none";
 				login_alert.style.display = "none";
 			})
