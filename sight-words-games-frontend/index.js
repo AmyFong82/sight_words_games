@@ -24,6 +24,7 @@ const letter_choices = document.querySelector(".letter-choices").children;
 let current_user;
 const key = "Sightword_CurrentUser";
 let loggedIn_user = JSON.parse(localStorage.getItem(key));
+let word;
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -163,7 +164,7 @@ function renderSightWords(){
 		for (const word of sight_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item", "list-group-item-action")
-			btn.setAttribute("id", word.id)
+			btn.setAttribute("id", `word_id_${word.id}`)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
 				showGame1(e)
@@ -249,13 +250,11 @@ function fetchSightWord(word_id){
 		word_intro.style.display = "block";
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main-word")
-		const word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
+		word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
 		playAudio("#pronunciation", word.audio)
-		speaker.onclick = e => {
-    		playAudio("#pronunciation", word.audio)
-		}
+		speaker.onclick = e => playAudio("#pronunciation", word.audio)
 		renderGame1(word);
 		renderGame2(word);
 		renderGame3(word);
@@ -266,7 +265,8 @@ function fetchNextWord(word_id){
 	const next_id = (parseInt(word_id) + 1)
 	fetchSightWord(next_id)
 	removeActiveWordBtn()
-
+	const active_btn = document.querySelector(`#word_id_${next_id}`)
+	active_btn.classList.add('active')
 }
 
 
