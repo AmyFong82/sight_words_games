@@ -100,9 +100,7 @@ function renderCompletedWords(){
 			btn.classList.add("list-group-item")
 			btn.setAttribute("id", word[0])
 			btn.innerHTML = word[1]
-			btn.addEventListener("click", e => {
-				fetchSightWord(word[0])
-			})
+			btn.addEventListener.onclick = e => fetchSightWord(word[0])
 			learned_words_list.append(btn)
 		}
 	})
@@ -122,9 +120,7 @@ function userMessage(loggedIn_user){
 		if(loggedIn_user.completion_status === 0){
 			completion_status.style.display = "none";
 			user_message.innerHTML = "Let's begin learning new sight words!"
-			user_action_btn.onclick = e => {
-				fetchSightWord(1)
-			}
+			user_action_btn.onclick = e => fetchSightWord(1)
 		} else if(loggedIn_user.completion_status === 10){
 			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
 			completion_status.style.display = "block";
@@ -170,20 +166,46 @@ function renderSightWords(){
 			btn.setAttribute("id", word.id)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
-				user_message_div.style.display = "none"
-				games_div.style.display = "block"
+				showGame1(e)
 				fetchSightWord(word.id)
-				const non_active_btns = document.querySelectorAll(".list-group button")
-				for (const b of non_active_btns){
-					b.classList.remove("active")
-				}
-				btn.classList.add("active")
-				right_alert.style.display = "none";
-				wrong_alert.style.display = "none";
 			})
 			div.append(btn)
 		}
 	})
+}
+
+function showGame1(e){
+	user_message_div.style.display = "none"
+	games_div.style.display = "block"
+	removeActiveWordBtn()
+	e.target.classList.add("active")
+	right_alert.style.display = "none";
+	wrong_alert.style.display = "none";
+}
+
+function showGame2(){
+	next_btn.style.display = "none";
+	right_alert.style.display = "none";
+	game1.style.display = "none"
+	game2.style.display = "block"
+    for(const l of chosen_letters){
+		l.classList.add("btn-light")
+		l.classList.remove("btn-warning")        
+	}
+}
+
+function showGame3(){
+	next_btn.style.display = "none";
+	right_alert.style.display = "none";
+	game2.style.display = "none"
+	game3.style.display = "block"
+}
+
+function removeActiveWordBtn(){
+	const word_btns = document.querySelectorAll(".list-group button")
+	for (const b of word_btns){
+		b.classList.remove("active")
+	}
 }
 
 function resetLayout(){
@@ -243,6 +265,8 @@ function fetchSightWord(word_id){
 function fetchNextWord(word_id){
 	const next_id = (parseInt(word_id) + 1)
 	fetchSightWord(next_id)
+	removeActiveWordBtn()
+
 }
 
 
@@ -350,7 +374,6 @@ function renderGame3(word){
 					}else{
 						current_user.levelUp()
 						completed_num.innerHTML = current_user.completion_status
-						console.log(current_user)
 					}
 		        }
 			}else{
@@ -364,24 +387,6 @@ function renderGame3(word){
 	}
 	const image = document.querySelector("#image")
 	image.src = word.picture
-}
-
-function showGame2(){
-	next_btn.style.display = "none";
-	right_alert.style.display = "none";
-	game1.style.display = "none"
-	game2.style.display = "block"
-    for(const l of chosen_letters){
-		l.classList.add("btn-light")
-		l.classList.remove("btn-warning")        
-	}
-}
-
-function showGame3(){
-	next_btn.style.display = "none";
-	right_alert.style.display = "none";
-	game2.style.display = "none"
-	game3.style.display = "block"
 }
 		
 
