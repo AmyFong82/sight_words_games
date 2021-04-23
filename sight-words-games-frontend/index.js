@@ -241,6 +241,7 @@ function fetchSightWord(word_id){
 		current_user = new User(0, "Guest", 0)
 	}
 	user_message_div.style.display = "none";
+	log_out_message.style.display = "none";
 	games_div.style.display = "block";
 	completion_status.style.display = "block";
 	completed_num.innerHTML = current_user.completion_status
