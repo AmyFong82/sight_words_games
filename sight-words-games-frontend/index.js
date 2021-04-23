@@ -238,7 +238,7 @@ function playAudio(ele, file_path){
 
 
 function fetchSightWord(word_id){
-	if(loggedIn_user === null){
+	if(loggedIn_user === null && current_user === undefined){
 		current_user = new User(0, "Guest", 0)
 	}
 	user_message_div.style.display = "none";
