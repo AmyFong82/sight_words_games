@@ -41,7 +41,7 @@ is = SightWord.create(spelling: "is",
 					word_choices: "in is es as",
 					letter_choices: "s i l e",
 					sentence: "This is my friend.", 
-					picture: "https://images.pexels.com/photos/3662824/pexels-photo-3662824.jpeg?cs=srgb&dl=pexels-cottonbro-3662824.jpg&fm=jpg")
+					picture: "https://image.freepik.com/free-vector/thai-boy-girl-smiling_1308-38177.jpg")
 
 you = SightWord.create(spelling: "you",
 						audio: "https://static.sfdict.com/audio/lunawav/Y00/Y0041100.ogg",
@@ -57,26 +57,23 @@ that = SightWord.create(spelling: "that",
 						sentence: "That cake looks yummy!",
 						picture: "https://images.pexels.com/photos/3913295/pexels-photo-3913295.jpeg?cs=srgb&dl=pexels-svetlana-b-3913295.jpg&fm=jpg")
 
-# it = SightWord.create(spelling: "it"
 it = SightWord.create(spelling: "it",
 						audio: "https://static.sfdict.com/audio/lunawav/I03/I0348600.ogg",
-						word_choices: "then the ten them",
-						letter_choices: "e h t l",
-						sentence: "The dog is brown.",
-						picture: "https://thehappypuppysite.com/wp-content/uploads/2018/10/brown-dog-names-long.jpg")
+						word_choices: "at to eat it",
+						letter_choices: "i h t d",
+						sentence: "It is raining.",
+						picture: "https://images.pexels.com/photos/3761511/pexels-photo-3761511.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3761511.jpg&fm=jpg")
 
-# he = SightWord.create(spelling: "he"
 he = SightWord.create(spelling: "he",
 						audio: "https://static.sfdict.com/audio/lunawav/H01/H0133500.ogg",
-						word_choices: "then the ten them",
-						letter_choices: "e h t l",
-						sentence: "The dog is brown.",
-						picture: "https://thehappypuppysite.com/wp-content/uploads/2018/10/brown-dog-names-long.jpg")
+						word_choices: "hen he ten ha",
+						letter_choices: "e h a l",
+						sentence: "He is playing soccer.",
+						picture: "https://image.freepik.com/free-vector/cute-kid-boy-play-soccer-as-striker_97632-1191.jpg")
 
-# she = SightWord.create(spelling: "she"
 she = SightWord.create(spelling: "she",
 						audio: "https://static.sfdict.com/audio/lunawav/S04/S0422800.ogg",
-						word_choices: "then the ten them",
-						letter_choices: "e h t l",
-						sentence: "The dog is brown.",
-						picture: "https://thehappypuppysite.com/wp-content/uploads/2018/10/brown-dog-names-long.jpg")
+						word_choices: "he the sue she",
+						letter_choices: "e h t s",
+						sentence: "She has a camera.",
+						picture: "https://images.pexels.com/photos/189857/pexels-photo-189857.jpeg?cs=srgb&dl=pexels-jessica-lewis-189857.jpg&fm=jpg")

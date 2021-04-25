@@ -4,12 +4,12 @@ const userform = document.querySelector(".d-flex");
 const dropdown = document.querySelector(".dropdown");
 const intro_line = document.querySelector(".intro-line");
 const completion_status = document.querySelector("#completion-status");
-const completed_num = document.querySelector("#completed-num");
 const user_message_div = document.querySelector("#user-message");
 const user_message = document.querySelector("#user-message h5");
 const log_out_message = document.querySelector("#log-out-message");
 const user_action_btn = document.querySelector(".user-action-btn");
 const learned_words_list = document.querySelector(".learned-words-list");
+const completed_num = document.querySelector("#completed-num");
 const right_alert = document.querySelector(".alert-success");
 const wrong_alert = document.querySelector(".wrong-alert");
 const stars = document.querySelector(".stars");
@@ -21,27 +21,20 @@ const game3 = document.querySelector("#game3");
 const chosen_letters = document.querySelectorAll(".chosen-letter");
 const checkBtn = document.querySelector(".check-btn");
 const letter_choices = document.querySelector(".letter-choices").children;
-let current_user;
+// let current_user;
 const key = "Sightword_CurrentUser";
 let loggedIn_user = JSON.parse(localStorage.getItem(key));
-let word;
-const login_alert = document.querySelector(".alert-dismissible")
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
 	userMessage(loggedIn_user);
 
-	if(loggedIn_user){
-		current_user = new User(loggedIn_user.user_id, loggedIn_user.username, loggedIn_user.completion_status)
-	}
-
-	document.querySelector("button[type=submit]").onclick = e => login(e);
+	document.querySelector("button[type=submit]").addEventListener("click", login);
 
 	for (let i = 0; i < 4; i++){ 
 		letter_choices[i].onclick = e => clickToBox(e);
 		chosen_letters[i].onclick = e => backToChoices(e);
 	}
-
 })
 
 
@@ -59,7 +52,7 @@ function login(e){
 	e.preventDefault();
   	const username = document.querySelector("#username").value;
   	const password = document.querySelector("#password").value;
-  	let data = {username: username, password: password}
+  	const data = {username: username, password: password}
   	fetch(USERS_URL, {
   		method: 'POST',
 		headers: {
@@ -67,32 +60,40 @@ function login(e){
     		"Accept": "application/json"
 		},
 		body: JSON.stringify(data)
-	  	})
+	})
 	.then(resp => {
 	  const contentType = resp.headers.get("content-type");
 	    if (contentType && contentType.indexOf("application/json") !== -1) {
 		    return resp.json()
 			.then(user => {
 				current_user = new User(user.id, user.username, user.completion_status)
-				updateLocalStorage();
+				updateLocalStorage(current_user);
 				loggedIn_user = JSON.parse(localStorage.getItem(key));
 				userMessage(loggedIn_user);
-				games_div.style.display = "none";
 				log_out_message.style.display = "none";
-				login_alert.style.display = "none";
-			})
-			
-		  } else {
+			})	
+		} else {
 		    return resp.text()
 		    .then(text => {
+		    	const login_alert = document.createElement("div")
+		    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
+		    	login_alert.setAttribute("role", "alert")
+		    	const alert_message = document.createElement("p")
+		    	alert_message.innerHTML = `<strong>${text}</strong>`
+		    	const close_btn = document.createElement("button")
+		    	close_btn.classList.add("btn-close")
+		    	close_btn.setAttribute("type", "button")
+		    	close_btn.setAttribute("data-bs-dismiss", "alert")
+		    	login_alert.append(alert_message, close_btn)
 		      	login_alert.style.display = "block"
+		      	userform.parentNode.insertBefore(login_alert, userform.nextSibling);
 		    });
-		  }
+		}
 	})
 	.catch(error => console.error(error));
 }
 
-function updateLocalStorage(){
+function updateLocalStorage(current_user){
 	let current_user_info = {user_id: current_user.id, username: current_user.username, completion_status: current_user.completion_status}
 	localStorage.setItem(key, JSON.stringify(current_user_info));
 }
@@ -107,32 +108,36 @@ function renderCompletedWords(){
 			btn.classList.add("list-group-item")
 			btn.setAttribute("id", word[0])
 			btn.innerHTML = word[1]
-			btn.addEventListener.onclick = e => fetchSightWord(word[0])
+			btn.addEventListener("click", e => {
+				fetchSightWord(word[0])
+			})
 			learned_words_list.append(btn)
 		}
 	})
 }
 
-function userMessage(loggedIn_user){
+function userMessage(current_user){
 	if(loggedIn_user === null){
 		intro_line.style.display = "block"
 		completion_status.style.display = "none";
 		user_message_div.style.display = "none";
 	}else{
 		hideLoginForm();
-		completed_num.innerHTML = loggedIn_user.completion_status.toString()
+		completed_num.innerHTML = current_user.completion_status
 		intro_line.style.display = "none";
 		user_message_div.style.display = "block";
 		user_action_btn.style.display = "block";
 		if(loggedIn_user.completion_status === 0){
 			completion_status.style.display = "none";
 			user_message.innerHTML = "Let's begin learning new sight words!"
-			user_action_btn.onclick = e => fetchSightWord(1)
-		} else if(loggedIn_user.completion_status === 10){
+			user_action_btn.onclick = e => {
+				fetchSightWord(1)
+			}
+		} else if(current_user.completion_status === 10){
 			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
 			completion_status.style.display = "block";
 			user_action_btn.innerHTML = "Start Over"
-		} else if (loggedIn_user.completion_status > 0){
+		} else if (current_user.completion_status > 0){
 			completion_status.style.display = "block";
 			user_message.innerHTML = "Sight words you've learned:"
 			renderCompletedWords()
@@ -142,9 +147,7 @@ function userMessage(loggedIn_user){
 }
 
 function logout(e){
-	loggedIn_user = null
 	localStorage.removeItem("Sightword_CurrentUser");
-	completed_num.innerHTML = "0"
 	userform.removeAttribute('id');
 	dropdown.style.display = "none";
 	completion_status.style.display = "none";
@@ -170,49 +173,23 @@ function renderSightWords(){
 		for (const word of sight_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item", "list-group-item-action")
-			btn.setAttribute("id", `word_id_${word.id}`)
+			btn.setAttribute("id", word.id)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
-				showGame1(e)
+				user_message_div.style.display = "none"
+				games_div.style.display = "block"
 				fetchSightWord(word.id)
+				const non_active_btns = document.querySelectorAll(".list-group button")
+				for (const b of non_active_btns){
+					b.classList.remove("active")
+				}
+				btn.classList.add("active")
+				right_alert.style.display = "none";
+				wrong_alert.style.display = "none";
 			})
 			div.append(btn)
 		}
 	})
-}
-
-function showGame1(e){
-	user_message_div.style.display = "none"
-	games_div.style.display = "block"
-	removeActiveWordBtn()
-	e.target.classList.add("active")
-	right_alert.style.display = "none";
-	wrong_alert.style.display = "none";
-}
-
-function showGame2(){
-	next_btn.style.display = "none";
-	right_alert.style.display = "none";
-	game1.style.display = "none"
-	game2.style.display = "block"
-    for(const l of chosen_letters){
-		l.classList.add("btn-light")
-		l.classList.remove("btn-warning")        
-	}
-}
-
-function showGame3(){
-	next_btn.style.display = "none";
-	right_alert.style.display = "none";
-	game2.style.display = "none"
-	game3.style.display = "block"
-}
-
-function removeActiveWordBtn(){
-	const word_btns = document.querySelectorAll(".list-group button")
-	for (const b of word_btns){
-		b.classList.remove("active")
-	}
 }
 
 function resetLayout(){
@@ -238,11 +215,7 @@ function playAudio(ele, file_path){
 
 
 function fetchSightWord(word_id){
-	if(loggedIn_user === null && current_user === undefined){
-		current_user = new User(0, "Guest", 0)
-	}
 	user_message_div.style.display = "none";
-	log_out_message.style.display = "none";
 	games_div.style.display = "block";
 	completion_status.style.display = "block";
 	completed_num.innerHTML = current_user.completion_status
@@ -255,11 +228,13 @@ function fetchSightWord(word_id){
 		word_intro.style.display = "block";
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main-word")
-		word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
+		const word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
 		playAudio("#pronunciation", word.audio)
-		speaker.onclick = e => playAudio("#pronunciation", word.audio)
+		speaker.onclick = e => {
+    		playAudio("#pronunciation", word.audio)
+		}
 		renderGame1(word);
 		renderGame2(word);
 		renderGame3(word);
@@ -269,9 +244,6 @@ function fetchSightWord(word_id){
 function fetchNextWord(word_id){
 	const next_id = (parseInt(word_id) + 1)
 	fetchSightWord(next_id)
-	removeActiveWordBtn()
-	const active_btn = document.querySelector(`#word_id_${next_id}`)
-	active_btn.classList.add('active')
 }
 
 
@@ -359,25 +331,22 @@ function renderGame3(word){
 		        next_btn.onclick = e => {
 					right_alert.style.display = "none";
 		        	fetchNextWord(word.id)
-		        	if(loggedIn_user){
-			        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
-						fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
-			        		method: 'POST',
-							headers: {
-								"Content-Type": "application/json",
-					    		"Accept": "application/json"
-							},
-							body: JSON.stringify(data)
-						})
-						.then(resp => resp.text())
-						.then(num => {
-							current_user.completion_status = num
-							completed_num.innerHTML = num
-							updateLocalStorage(current_user)
-						})
-					}else{
-						completed_num.innerHTML = current_user.levelUp()
-					}
+		        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
+					fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
+		        		method: 'POST',
+						headers: {
+							"Content-Type": "application/json",
+				    		"Accept": "application/json"
+						},
+						body: JSON.stringify(data)
+					})
+					.then(resp => resp.text())
+					.then(num => {
+						current_user.completion_status = num
+						completed_num.innerHTML = num
+						updateLocalStorage(current_user)
+					})
+
 		        }
 			}else{
 				right_alert.style.display = "none";
@@ -391,11 +360,25 @@ function renderGame3(word){
 	const image = document.querySelector("#image")
 	image.src = word.picture
 }
-		
 
-function completionLevelUp(){
-	completed_num.innerHTML = current_user.levelUp()
+function showGame2(){
+	next_btn.style.display = "none";
+	right_alert.style.display = "none";
+	game1.style.display = "none"
+	game2.style.display = "block"
+    for(const l of chosen_letters){
+		l.classList.add("btn-light")
+		l.classList.remove("btn-warning")        
+	}
 }
+
+function showGame3(){
+	next_btn.style.display = "none";
+	right_alert.style.display = "none";
+	game2.style.display = "none"
+	game3.style.display = "block"
+}
+		
 
 function clickToBox(e){
 	wrong_alert.style.display = "none";
@@ -505,10 +488,9 @@ class User {
 		this.completion_status = completion_status;
 	}
 
-	// for guest user level up
-	levelUp(){
-		return this.completion_status += 1
-	}
+	// levelUp(){
+	// 	this.completion_status += 1
+	// }
 }
 
 
