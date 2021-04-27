@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
 	userMessage(loggedIn_user);
 
+	if(loggedIn_user){
+		current_user = new User(loggedIn_user.user_id, loggedIn_user.username, loggedIn_user.completion_status)
+	}
+
 	document.querySelector("button[type=submit]").addEventListener("click", function(e){
 	  	const username = document.querySelector("#username").value;
 	  	const password = document.querySelector("#password").value;
@@ -229,7 +233,7 @@ function fetchSightWord(word_id){
 	user_message_div.style.display = "none";
 	games_div.style.display = "block";
 	completion_status.style.display = "block";
-	completed_num.innerHTML = current_user.completion_status
+	completed_num.innerHTML = current_user.completion_status + 1
 	fetch(BASE_URL + '/sight_words/' + word_id)
 	.then(resp => resp.json())
 	.then(sight_word => {
@@ -353,7 +357,7 @@ function renderGame3(word){
 					})
 					.then(resp => resp.text())
 					.then(num => {
-						current_user.completion_status = num
+						current_user.completion_status = parseInt(num, 10)
 						completed_num.innerHTML = num
 						updateLocalStorage(current_user)
 					})
