@@ -21,7 +21,7 @@ const game3 = document.querySelector("#game3");
 const chosen_letters = document.querySelectorAll(".chosen-letter");
 const checkBtn = document.querySelector(".check-btn");
 const letter_choices = document.querySelector(".letter-choices").children;
-// let current_user;
+let current_user;
 const key = "Sightword_CurrentUser";
 let loggedIn_user = JSON.parse(localStorage.getItem(key));
 
@@ -29,7 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
 	userMessage(loggedIn_user);
 
-	document.querySelector("button[type=submit]").addEventListener("click", login);
+	document.querySelector("button[type=submit]").addEventListener("click", function(e){
+	  	const username = document.querySelector("#username").value;
+	  	const password = document.querySelector("#password").value;
+	  	if(username !== "" && password !== ""){
+	  		login(e);
+	  	}
+
+	});
 
 	for (let i = 0; i < 4; i++){ 
 		letter_choices[i].onclick = e => clickToBox(e);
@@ -47,6 +54,8 @@ function hideLoginForm(){
 	const logout_btn = document.querySelector("#logout")
 	logout_btn.onclick = e => logout(e);
 }
+
+
 
 function login(e){
 	e.preventDefault();
@@ -68,6 +77,8 @@ function login(e){
 			.then(user => {
 				current_user = new User(user.id, user.username, user.completion_status)
 				updateLocalStorage(current_user);
+				let current_user_info = {user_id: user.id, username: user.username, completion_status: user.completion_status}
+				localStorage.setItem(key, JSON.stringify(current_user_info));
 				loggedIn_user = JSON.parse(localStorage.getItem(key));
 				userMessage(loggedIn_user);
 				log_out_message.style.display = "none";
@@ -93,8 +104,8 @@ function login(e){
 	.catch(error => console.error(error));
 }
 
-function updateLocalStorage(current_user){
-	let current_user_info = {user_id: current_user.id, username: current_user.username, completion_status: current_user.completion_status}
+function updateLocalStorage(user){
+	let current_user_info = {user_id: user.id, username: user.username, completion_status: user.completion_status}
 	localStorage.setItem(key, JSON.stringify(current_user_info));
 }
 
