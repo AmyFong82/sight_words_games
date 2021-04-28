@@ -24,6 +24,7 @@ const letter_choices = document.querySelector(".letter-choices").children;
 let current_user;
 const key = "Sightword_CurrentUser";
 let loggedIn_user = JSON.parse(localStorage.getItem(key));
+let word;
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
@@ -31,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	if(loggedIn_user){
 		current_user = new User(loggedIn_user.user_id, loggedIn_user.username, loggedIn_user.completion_status)
+	}else{
+		current_user = new User(0, "Guest", 0)
 	}
 
 	document.querySelector("button[type=submit]").addEventListener("click", function(e){
@@ -57,6 +60,8 @@ function hideLoginForm(){
 	name.innerHTML = "Hi " + loggedIn_user.username + " <i class='fas fa-grin-alt'></i>"
 	const logout_btn = document.querySelector("#logout")
 	logout_btn.onclick = e => logout(e);
+	const home_btn = document.querySelector("#home")
+	// home_btn.onclick = e => 
 }
 
 
@@ -85,6 +90,7 @@ function login(e){
 				localStorage.setItem(key, JSON.stringify(current_user_info));
 				loggedIn_user = JSON.parse(localStorage.getItem(key));
 				userMessage(loggedIn_user);
+				games_div.style.display = "none";
 				log_out_message.style.display = "none";
 			})	
 		} else {
@@ -121,7 +127,7 @@ function renderCompletedWords(){
 		for(const word of completed_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item")
-			btn.setAttribute("id", word[0])
+			btn.setAttribute("id",  `word_id_${word.id}`)
 			btn.innerHTML = word[1]
 			btn.addEventListener("click", e => {
 				fetchSightWord(word[0])
@@ -149,7 +155,7 @@ function userMessage(current_user){
 				fetchSightWord(1)
 			}
 		} else if(current_user.completion_status === 10){
-			user_message.innerHTML = "Congratulations! You've learned 10 sight words!"
+			user_message.innerHTML = "Congratulations! You've learned all 10 sight words!"
 			completion_status.style.display = "block";
 			user_action_btn.innerHTML = "Start Over"
 		} else if (current_user.completion_status > 0){
@@ -175,6 +181,8 @@ function logout(e){
 	log_out_message.style.display = "block";
 	games_div.style.display = "none";
 	learned_words_list.innerHTML = '';
+	loggedIn_user = null;
+	current_user = new User(0, "Guest", 0);
 }
 
 function renderSightWords(){
@@ -188,7 +196,7 @@ function renderSightWords(){
 		for (const word of sight_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item", "list-group-item-action")
-			btn.setAttribute("id", word.id)
+			btn.setAttribute("id", `word_id_${word.id}`)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
 				user_message_div.style.display = "none"
@@ -230,6 +238,10 @@ function playAudio(ele, file_path){
 
 
 function fetchSightWord(word_id){
+	// if(loggedIn_user === null && current_user === undefined){
+	// 	current_user = new User(0, "Guest", 0)
+	// }
+	log_out_message.style.display = "none";
 	user_message_div.style.display = "none";
 	games_div.style.display = "block";
 	completion_status.style.display = "block";
@@ -243,13 +255,11 @@ function fetchSightWord(word_id){
 		word_intro.style.display = "block";
 		game1.style.display = "block";
 		const main_word = document.querySelector("#main-word")
-		const word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
+		word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
 		const speaker = document.querySelector("#speaker");
 		playAudio("#pronunciation", word.audio)
-		speaker.onclick = e => {
-    		playAudio("#pronunciation", word.audio)
-		}
+		speaker.onclick = e => playAudio("#pronunciation", word.audio)
 		renderGame1(word);
 		renderGame2(word);
 		renderGame3(word);
@@ -259,6 +269,16 @@ function fetchSightWord(word_id){
 function fetchNextWord(word_id){
 	const next_id = (parseInt(word_id) + 1)
 	fetchSightWord(next_id)
+	removeActiveWordBtn()
+	const active_btn = document.querySelector(`#word_id_${next_id}`)
+	active_btn.classList.add('active')
+}
+
+function removeActiveWordBtn(){
+	const word_btns = document.querySelectorAll(".list-group button")
+	for (const b of word_btns){
+		b.classList.remove("active")
+	}
 }
 
 
@@ -502,10 +522,6 @@ class User {
 		this.username = username;
 		this.completion_status = completion_status;
 	}
-
-	// levelUp(){
-	// 	this.completion_status += 1
-	// }
 }
 
 
