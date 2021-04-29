@@ -4,12 +4,12 @@ const userform = document.querySelector(".d-flex");
 const dropdown = document.querySelector(".dropdown");
 const intro_line = document.querySelector(".intro-line");
 const completion_status = document.querySelector("#completion-status");
+const completed_num = document.querySelector("#completed-num");
 const user_message_div = document.querySelector("#user-message");
 const user_message = document.querySelector("#user-message h5");
 const log_out_message = document.querySelector("#log-out-message");
 const user_action_btn = document.querySelector(".user-action-btn");
 const learned_words_list = document.querySelector(".learned-words-list");
-const completed_num = document.querySelector("#completed-num");
 const right_alert = document.querySelector(".alert-success");
 const wrong_alert = document.querySelector(".wrong-alert");
 const stars = document.querySelector(".stars");
@@ -366,22 +366,26 @@ function renderGame3(word){
 		        next_btn.onclick = e => {
 					right_alert.style.display = "none";
 		        	fetchNextWord(word.id)
-		        	data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
-					fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
-		        		method: 'POST',
-						headers: {
-							"Content-Type": "application/json",
-				    		"Accept": "application/json"
-						},
-						body: JSON.stringify(data)
-					})
-					.then(resp => resp.text())
-					.then(num => {
-						current_user.completion_status = parseInt(num, 10)
-						completed_num.innerHTML = num
-						updateLocalStorage(current_user)
-					})
-
+		        	if (loggedIn_user){
+		        		data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
+						fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
+			        		method: 'POST',
+							headers: {
+								"Content-Type": "application/json",
+					    		"Accept": "application/json"
+							},
+							body: JSON.stringify(data)
+						})
+						.then(resp => resp.text())
+						.then(num => {
+							current_user.completion_status = parseInt(num, 10)
+							completed_num.innerHTML = num
+							updateLocalStorage(current_user)
+						})
+					}else{
+						current_user.levelUp();
+						completed_num.innerHTML = current_user.completion_status + 1
+					}
 		        }
 			}else{
 				right_alert.style.display = "none";
@@ -521,6 +525,11 @@ class User {
 		this.id = id;
 		this.username = username;
 		this.completion_status = completion_status;
+	}
+
+	// for Guest user
+	levelUp(){
+		this.completion_status += 1
 	}
 }
 
