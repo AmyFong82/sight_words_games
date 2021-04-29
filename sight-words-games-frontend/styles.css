@@ -254,9 +254,16 @@ h2, h6, #audio_wrapper{
 	padding-left: 25px;
 }
 
+.game3-row {
+	max-height: 250px;
+}
+
 #image {
+	max-height: 230px;
 	width: 100%;
 	border-radius: 30px;
+	object-fit: cover;
+	object-position: top;
 }
 
 form#user-login.d-flex {

@@ -69,7 +69,7 @@ he = SightWord.create(spelling: "he",
 						word_choices: "hen he ten ha",
 						letter_choices: "e h a l",
 						sentence: "He is playing soccer.",
-						picture: "https://image.freepik.com/free-vector/cute-kid-boy-play-soccer-as-striker_97632-1191.jpg")
+						picture: "https://image.freepik.com/free-vector/boy-playing-soccer-throwing-ball_7710-104.jpg")
 
 she = SightWord.create(spelling: "she",
 						audio: "https://static.sfdict.com/audio/lunawav/S04/S0422800.ogg",
