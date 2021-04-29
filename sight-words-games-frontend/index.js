@@ -51,6 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 })
 
+function hide(obj){
+	obj.style.display = "none";
+}
+
+function show(obj){
+	obj.style.display = "block";
+}
 
 function hideLoginForm(){
 	userform.id = "user-login"
@@ -61,7 +68,10 @@ function hideLoginForm(){
 	const logout_btn = document.querySelector("#logout")
 	logout_btn.onclick = e => logout(e);
 	const home_btn = document.querySelector("#home")
-	// home_btn.onclick = e => 
+	home_btn.onclick = e => {
+		userMessage(loggedIn_user);
+		hide(games_div)
+	}
 }
 
 
@@ -120,6 +130,7 @@ function updateLocalStorage(user){
 }
 
 function renderCompletedWords(){
+	learned_words_list.innerHTML = ""
 	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words")
 	.then(response => response.json())
 	.then(completed_words => {
