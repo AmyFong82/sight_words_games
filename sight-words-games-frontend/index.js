@@ -61,7 +61,7 @@ function show(obj){
 
 function hideLoginForm(){
 	userform.id = "user-login"
-	dropdown.style.display = "block"
+	show(dropdown)
 	const name = document.querySelector("#dropdownMenu2")
 	const loggedIn_user = JSON.parse(localStorage.getItem(key));
 	name.innerHTML = "Hi " + loggedIn_user.username + " <i class='fas fa-grin-alt'></i>"
@@ -100,8 +100,8 @@ function login(e){
 				localStorage.setItem(key, JSON.stringify(current_user_info));
 				loggedIn_user = JSON.parse(localStorage.getItem(key));
 				userMessage(loggedIn_user);
-				games_div.style.display = "none";
-				log_out_message.style.display = "none";
+				hide(games_div)
+				hide(log_out_message)
 			})	
 		} else {
 		    return resp.text()
@@ -116,7 +116,7 @@ function login(e){
 		    	close_btn.setAttribute("type", "button")
 		    	close_btn.setAttribute("data-bs-dismiss", "alert")
 		    	login_alert.append(alert_message, close_btn)
-		      	login_alert.style.display = "block"
+		      	show(login_alert)
 		      	userform.parentNode.insertBefore(login_alert, userform.nextSibling);
 		    });
 		}
@@ -150,27 +150,27 @@ function renderCompletedWords(){
 
 function userMessage(current_user){
 	if(loggedIn_user === null){
-		intro_line.style.display = "block"
-		completion_status.style.display = "none";
-		user_message_div.style.display = "none";
+		show(intro_line)
+		hide(completion_status)
+		hide(user_message_div)
 	}else{
 		hideLoginForm();
 		completed_num.innerHTML = current_user.completion_status
-		intro_line.style.display = "none";
-		user_message_div.style.display = "block";
-		user_action_btn.style.display = "block";
+		hide(intro_line)
+		show(user_message_div)
+		show(user_action_btn)
 		if(loggedIn_user.completion_status === 0){
-			completion_status.style.display = "none";
+			hide(completion_status)
 			user_message.innerHTML = "Let's begin learning new sight words!"
 			user_action_btn.onclick = e => {
 				fetchSightWord(1)
 			}
 		} else if(current_user.completion_status === 10){
 			user_message.innerHTML = "Congratulations! You've learned all 10 sight words!"
-			completion_status.style.display = "block";
+			show(completion_status)
 			user_action_btn.innerHTML = "Start Over"
 		} else if (current_user.completion_status > 0){
-			completion_status.style.display = "block";
+			show(completion_status)
 			user_message.innerHTML = "Sight words you've learned:"
 			renderCompletedWords()
 			user_action_btn.innerHTML = "Learn More!"
@@ -181,16 +181,16 @@ function userMessage(current_user){
 function logout(e){
 	localStorage.removeItem("Sightword_CurrentUser");
 	userform.removeAttribute('id');
-	dropdown.style.display = "none";
-	completion_status.style.display = "none";
-	user_message_div.style.display = "none";
-	user_action_btn.style.display = "none";
+	const objs_to_hide = [dropdown, completion_status, user_message_div, user_action_btn]
+	for(obj of objs_to_hide){
+		hide(obj)
+	}
   	let password = document.querySelector("#password");
 	password.value = "";
   	let username = document.querySelector("#username");
 	username.focus();
-	log_out_message.style.display = "block";
-	games_div.style.display = "none";
+	show(log_out_message)
+	hide(games_div)
 	learned_words_list.innerHTML = '';
 	loggedIn_user = null;
 	current_user = new User(0, "Guest", 0);
@@ -210,16 +210,16 @@ function renderSightWords(){
 			btn.setAttribute("id", `word_id_${word.id}`)
 			btn.innerHTML = word.spelling
 			btn.addEventListener("click", e => {
-				user_message_div.style.display = "none"
-				games_div.style.display = "block"
+				hide(user_message_div)
+				show(games_div)
 				fetchSightWord(word.id)
 				const non_active_btns = document.querySelectorAll(".list-group button")
 				for (const b of non_active_btns){
 					b.classList.remove("active")
 				}
 				btn.classList.add("active")
-				right_alert.style.display = "none";
-				wrong_alert.style.display = "none";
+				hide(right_alert)
+				hide(wrong_alert)
 			})
 			div.append(btn)
 		}
@@ -227,12 +227,10 @@ function renderSightWords(){
 }
 
 function resetLayout(){
-	intro_line.style.display = "none";
-	game1.style.display = "none";
-	game2.style.display = "none";
-	game3.style.display = "none";
-	next_btn.style.display = "none";
-	checkBtn.style.display = "none"
+	const objs_to_hide = [intro_line, game1, game2, game3, next_btn, checkBtn]
+	for(obj of objs_to_hide){
+		hide(obj);
+	}
 	const stars123 = stars.children
 	for(let star of stars123){
 		star.classList.remove("fas", "star-animation")
@@ -249,22 +247,19 @@ function playAudio(ele, file_path){
 
 
 function fetchSightWord(word_id){
-	// if(loggedIn_user === null && current_user === undefined){
-	// 	current_user = new User(0, "Guest", 0)
-	// }
-	log_out_message.style.display = "none";
-	user_message_div.style.display = "none";
-	games_div.style.display = "block";
-	completion_status.style.display = "block";
+	hide(log_out_message)
+	hide(user_message_div)
+	show(games_div)
+	show(completion_status)
 	completed_num.innerHTML = current_user.completion_status + 1
 	fetch(BASE_URL + '/sight_words/' + word_id)
 	.then(resp => resp.json())
 	.then(sight_word => {
 		resetLayout();
-		stars.style.display = "block";
+		show(stars)
 		const word_intro = document.querySelector("#word-intro")
-		word_intro.style.display = "block";
-		game1.style.display = "block";
+		show(word_intro)
+		show(game1)
 		const main_word = document.querySelector("#main-word")
 		word = new SightWord(sight_word.id, sight_word.spelling, sight_word.audio, sight_word.word_choices, sight_word.letter_choices, sight_word.sentence, sight_word.picture);
 		main_word.innerHTML = word.spelling;
@@ -306,12 +301,12 @@ function renderGame1(word){
 			if(word.check(choice_btns[i].innerHTML)){
 				choice_btns[i].classList.remove("btn-light")
 				choice_btns[i].classList.add("btn-warning")
-				right_alert.style.display = "block";
-				wrong_alert.style.display = "none";
+				show(right_alert)
+				hide(wrong_alert)
 				star1.classList.remove("far");
 				star1.classList.add("fas", "star-animation")
 				playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
-		        next_btn.style.display = "block";
+		        show(next_btn)
 		        next_btn.onclick = e => {
 		        	showGame2()
 		        }
@@ -321,8 +316,8 @@ function renderGame1(word){
 		        }
 				choice_btns[i].disabled = false;
 			}else{
-				wrong_alert.style.display = "block";
-				right_alert.style.display = "none";
+				show(wrong_alert)
+				hide(right_alert)
 				choice_btns[i].setAttribute("disabled", "true")
 				playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
 			}
@@ -332,12 +327,12 @@ function renderGame1(word){
 
 function renderGame2(word){
 	for (let i = 0; i < chosen_letters.length; i++) {
-		chosen_letters[i].style.display = "none"
+		hide(chosen_letters[i])
 		chosen_letters[i].innerHTML = ""
 		chosen_letters[i].classList.remove("chosen-letter-blinking")
 	}
 	for (let i = 0; i < word.length(); i++){
-		chosen_letters[i].style.display = "block"
+		show(chosen_letters[i])
 		chosen_letters[i].disabled = false
 	}
 	chosen_letters[0].classList.add("chosen-letter-blinking")
@@ -368,14 +363,14 @@ function renderGame3(word){
 				const star3 = document.querySelector("#star3")
 				star3.classList.remove("far");
 				star3.classList.add("fas", "star-animation")
-				right_alert.style.display = "block";
-				wrong_alert.style.display = "none";
-		        next_btn.style.display = "block";
+				show(right_alert)
+				hide(wrong_alert)
+		        show(next_btn)
 		        for(const b of sentence.children){
 		        	b.disabled = true;
 		        }
 		        next_btn.onclick = e => {
-					right_alert.style.display = "none";
+					hide(right_alert)
 		        	fetchNextWord(word.id)
 		        	if (loggedIn_user){
 		        		data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
@@ -399,8 +394,8 @@ function renderGame3(word){
 					}
 		        }
 			}else{
-				right_alert.style.display = "none";
-				wrong_alert.style.display = "block";
+				hide(right_alert)
+				show(wrong_alert)
 				playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
 			}
 			btn.disabled = true;
@@ -412,10 +407,11 @@ function renderGame3(word){
 }
 
 function showGame2(){
-	next_btn.style.display = "none";
-	right_alert.style.display = "none";
-	game1.style.display = "none"
-	game2.style.display = "block"
+	const objs_to_hide = [next_btn, right_alert, game1]
+	for (obj of objs_to_hide){
+		hide(obj)
+	}
+	show(game2)
     for(const l of chosen_letters){
 		l.classList.add("btn-light")
 		l.classList.remove("btn-warning")        
@@ -423,15 +419,15 @@ function showGame2(){
 }
 
 function showGame3(){
-	next_btn.style.display = "none";
-	right_alert.style.display = "none";
-	game2.style.display = "none"
-	game3.style.display = "block"
+	hide(next_btn)
+	hide(right_alert)
+	hide(game2)
+	show(game3)
 }
 		
 
 function clickToBox(e){
-	wrong_alert.style.display = "none";
+	hide(wrong_alert)
 	const box = document.querySelector(".chosen-letter-blinking")
 	if(box !== null){
 		box.innerHTML = e.target.innerHTML
@@ -476,11 +472,11 @@ function backToChoices(e){
 function showCheckBtn(word){
 	const lastBox = chosen_letters[word.length-1]
 	if(lastBox.innerHTML !== ""){
-		checkBtn.style.display = "block"
+		show(checkBtn)
 	}
 	checkBtn.onclick = e => {
 		checkSpelling(word)
-		checkBtn.style.display = "none"
+		hide(checkBtn)
 	}
 }
 
@@ -494,11 +490,11 @@ function checkSpelling(word){
 		const star2 = document.querySelector("#star2")
 		star2.classList.remove("far");
 		star2.classList.add("fas", "star-animation")
-		right_alert.style.display = "block";
+		show(right_alert)
 		playAudio("#alert_audio", "sounds/right_alert_chime.mp3")
-        next_btn.style.display = "block";
+        show(next_btn)
         next_btn.onclick = e => {
-			right_alert.style.display = "none";
+			hide(right_alert)
         	showGame3()
         }
         for(const l of chosen_letters){
@@ -510,7 +506,7 @@ function checkSpelling(word){
         	l.disabled = true;
         }
 	}else{
-		wrong_alert.style.display = "block";
+		show(wrong_alert)
 		playAudio("#alert_audio", "sounds/wrong_alert_chime.mp3")
 		for (let i = 0; i < word.length; i++){
 			if (word[i] !== picked_letters[i]){
