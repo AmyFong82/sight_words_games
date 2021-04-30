@@ -32,6 +32,11 @@ h4, h5 {
 	background-color: #ffefa1;
 }
 
+.completed {
+	background-color: #eaeaea;
+	color: gray;
+}
+
 .bold-title {
 	font-weight: 600;
     color: darkcyan;
