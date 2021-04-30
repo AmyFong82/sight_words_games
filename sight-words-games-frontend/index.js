@@ -2,6 +2,7 @@ const BASE_URL = "http://localhost:3000";
 const USERS_URL = BASE_URL + "/users";
 const userform = document.querySelector(".d-flex");
 const dropdown = document.querySelector(".dropdown");
+const sightword_list_col = document.querySelector(".sightword_list_col")
 const intro_line = document.querySelector(".intro-line");
 const completion_status = document.querySelector("#completion-status");
 const completed_num = document.querySelector("#completed-num");
@@ -106,6 +107,8 @@ function login(e){
 		} else {
 		    return resp.text()
 		    .then(text => {
+		    	const login_modal = document.querySelector("modal")
+		    	// login_modal
 		    	const login_alert = document.createElement("div")
 		    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
 		    	login_alert.setAttribute("role", "alert")
@@ -138,8 +141,9 @@ function renderCompletedWords(){
 		for(const word of completed_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item")
-			btn.setAttribute("id",  `word_id_${word.id}`)
+			btn.setAttribute("id",  `completed_word_id_${word[0]}`)
 			btn.innerHTML = word[1]
+			const word_on_left_list = document.querySelector(`#word_id_${word[0]}`)
 			btn.addEventListener("click", e => {
 				fetchSightWord(word[0])
 			})
@@ -197,7 +201,6 @@ function logout(e){
 }
 
 function renderSightWords(){
-	const sightword_list_col = document.querySelector(".sightword_list_col")
 	const div = document.createElement("div")
 	div.classList = "list-group"
 	sightword_list_col.append(div)
@@ -252,6 +255,8 @@ function fetchSightWord(word_id){
 	show(games_div)
 	show(completion_status)
 	completed_num.innerHTML = current_user.completion_status + 1
+	const word_on_the_list = document.querySelector(`#word_id_${word_id}`)
+	word_on_the_list.classList.add('active')
 	fetch(BASE_URL + '/sight_words/' + word_id)
 	.then(resp => resp.json())
 	.then(sight_word => {
