@@ -378,6 +378,8 @@ function renderGame3(word){
 		        next_btn.onclick = e => {
 					hide(right_alert)
 		        	fetchNextWord(word.id)
+    				const word_on_left_list = document.querySelector(`#word_id_${word.id}`)
+					word_on_left_list.classList.add("completed")
 		        	if (loggedIn_user){
 		        		data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
 						fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
