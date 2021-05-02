@@ -143,9 +143,7 @@ function renderCompletedWords(){
 			btn.classList.add("list-group-item")
 			btn.setAttribute("id",  `completed_word_id_${word[0]}`)
 			btn.innerHTML = word[1]
-			console.log(word[0])
 			const word_on_left_list = document.querySelector(`#word_id_${word[0]}`)
-			console.log(word_on_left_list)
 			word_on_left_list.classList.add("completed")
 			btn.addEventListener("click", e => {
 				fetchSightWord(word[0])
@@ -393,7 +391,7 @@ function renderGame3(word){
 						.then(resp => resp.text())
 						.then(num => {
 							current_user.completion_status = parseInt(num, 10)
-							completed_num.innerHTML = num
+							completed_num.innerHTML = current_user.completion_status + 1
 							updateLocalStorage(current_user)
 						})
 					}else{
