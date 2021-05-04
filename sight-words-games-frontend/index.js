@@ -107,8 +107,6 @@ function login(e){
 		} else {
 		    return resp.text()
 		    .then(text => {
-		    	const login_modal = document.querySelector("modal")
-		    	// login_modal
 		    	const login_alert = document.createElement("div")
 		    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
 		    	login_alert.setAttribute("role", "alert")
