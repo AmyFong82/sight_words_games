@@ -158,15 +158,18 @@ function userMessage(current_user){
 		show(intro_line)
 		hide(completion_status)
 		hide(user_message_div)
+		hide(games_div)
 	}else{
 		hideLoginForm();
 		completed_num.innerHTML = current_user.completion_status
 		hide(intro_line)
+		hide(games_div)
 		show(user_message_div)
 		show(user_action_btn)
-		if(loggedIn_user.completion_status === 0){
+		if(current_user.completion_status === 0){
 			hide(completion_status)
 			user_message.innerHTML = "Let's begin learning new sight words!"
+			user_action_btn.innerHTML = "Start"
 			user_action_btn.onclick = e => {
 				fetchSightWord(1)
 			}
@@ -380,36 +383,41 @@ function renderGame3(word){
 				star3.classList.add("fas", "star-animation")
 				show(right_alert)
 				hide(wrong_alert)
-		        show(next_btn)
+			    show(next_btn)
 		        for(const b of sentence.children){
 		        	b.disabled = true;
 		        }
-		        next_btn.onclick = e => {
-					hide(right_alert)
-		        	fetchNextWord(word.id)
-    				const word_on_left_list = document.querySelector(`#word_id_${word.id}`)
-					word_on_left_list.classList.add("completed")
-		        	if (loggedIn_user){
-		        		data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
-						fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
-			        		method: 'POST',
-							headers: {
-								"Content-Type": "application/json",
-					    		"Accept": "application/json"
-							},
-							body: JSON.stringify(data)
-						})
-						.then(resp => resp.text())
-						.then(num => {
-							current_user.completion_status = parseInt(num, 10)
-							completed_num.innerHTML = current_user.completion_status + 1
-							updateLocalStorage(current_user)
-						})
-					}else{
-						current_user.levelUp();
-						completed_num.innerHTML = current_user.completion_status + 1
+				const word_on_left_list = document.querySelector(`#word_id_${word.id}`)
+				word_on_left_list.classList.add("completed")
+	        	if (loggedIn_user){
+	        		data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
+					fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
+		        		method: 'POST',
+						headers: {
+							"Content-Type": "application/json",
+				    		"Accept": "application/json"
+						},
+						body: JSON.stringify(data)
+					})
+					.then(resp => resp.text())
+					.then(num => {
+						current_user.completion_status = parseInt(num, 10)
+						updateLocalStorage(current_user)
+					})
+				}else{
+					current_user.levelUp();
+				}
+				if(completed_num.innerHTML !== "10"){
+					next_btn.onclick = e => {
+						hide(right_alert)
+			        	fetchNextWord(word.id)
+    					completed_num.innerHTML = current_user.completion_status + 1
+		        	}
+				}else{
+					next_btn.onclick = e => {
+						userMessage(current_user)
 					}
-		        }
+				}
 			}else{
 				hide(right_alert)
 				show(wrong_alert)
