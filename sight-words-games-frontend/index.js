@@ -179,6 +179,11 @@ function userMessage(current_user){
 			user_message.innerHTML = "Sight words you've learned:"
 			renderCompletedWords()
 			user_action_btn.innerHTML = "Learn More!"
+			user_action_btn.onclick = e => {
+				const next_word = document.querySelector("button.list-group-item-action:not(.completed)")
+				const word_id = next_word.id.split("_")[2]
+				fetchSightWord(word_id)
+			}
 		}
 	}
 }
@@ -199,6 +204,10 @@ function logout(e){
 	learned_words_list.innerHTML = '';
 	loggedIn_user = null;
 	current_user = new User(0, "Guest", 0);
+	const list_btns = document.querySelectorAll(".list-group button")
+	for (const b of list_btns){
+		b.classList.remove("completed")
+	}
 }
 
 function renderSightWords(){
