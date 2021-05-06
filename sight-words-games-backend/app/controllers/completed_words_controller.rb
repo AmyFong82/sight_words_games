@@ -12,4 +12,10 @@ class CompletedWordsController < ApplicationController
 		updated_num = completed_word.user.completion_status
 		render plain: updated_num.to_s
 	end
+
+	def destroy
+		completed_words = CompletedWord.where(user_id: params[:user_id])
+	    completed_words.delete_all
+
+	end
 end
