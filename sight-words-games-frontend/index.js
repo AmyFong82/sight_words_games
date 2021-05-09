@@ -174,6 +174,7 @@ function userMessage(current_user){
 		} else if(current_user.completion_status === 10){
 			user_message.innerHTML = "Congratulations! You've learned all 10 sight words!"
 			show(completion_status)
+			learned_words_list.innerHTML = ""
 			user_action_btn.innerHTML = "Start Over"
 			user_action_btn.onclick = e => {
 				resetCompletionStatus()
@@ -193,7 +194,6 @@ function userMessage(current_user){
 }
 
 function fetchCompletionStatus(data){
-	console.log(data)
 	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
 		method: 'POST',
 		headers: {
@@ -210,9 +210,9 @@ function fetchCompletionStatus(data){
 }
 
 function resetCompletionStatus(){
-	data = {user_id: loggedIn_user.user_id}
-	for(let i = 1; i < 10; i++){
-		fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words/" + `${i}`, {
+	// data = {user_id: loggedIn_user.user_id}
+	// for(let i = 1; i < 10; i++){
+		fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words/1", {
 			method: 'DELETE',
 			headers: {
 				"Content-Type": "application/json",
@@ -225,7 +225,13 @@ function resetCompletionStatus(){
 			current_user.completion_status = parseInt(num, 10)
 			updateLocalStorage(current_user)
 		})
-	}
+		setTimeout(function() {
+			current_user = JSON.parse(localStorage.getItem(key));
+			console.log(current_user)
+			userMessage(current_user)
+		}, 100);
+
+	
 }
 
 function logout(e){
