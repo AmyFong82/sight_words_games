@@ -70,6 +70,7 @@ function hideLoginForm(){
 	logout_btn.onclick = e => logout(e);
 	const home_btn = document.querySelector("#home")
 	home_btn.onclick = e => {
+		let loggedIn_user = JSON.parse(localStorage.getItem(key));
 		userMessage(loggedIn_user);
 		hide(games_div)
 	}
@@ -175,7 +176,9 @@ function userMessage(current_user){
 			user_message.innerHTML = "Congratulations! You've learned all 10 sight words!"
 			show(completion_status)
 			user_action_btn.innerHTML = "Start Over"
-			user_action_btn.onclick = e =>{
+			user_action_btn.onclick = e => {
+				data = {user_id: loggedIn_user.user_id}
+				// fetchCompletionStatus(DELETE, data)
 
 			}
 		} else if (current_user.completion_status > 0){
@@ -192,48 +195,20 @@ function userMessage(current_user){
 	}
 }
 
-function deleteCompleteWords(){
-	fetch(USERS_URL, {
-  		method: 'POST',
+function fetchCompletionStatus(data){
+	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
+		method: 'POST',
 		headers: {
 			"Content-Type": "application/json",
     		"Accept": "application/json"
 		},
 		body: JSON.stringify(data)
 	})
-	.then(resp => {
-	  const contentType = resp.headers.get("content-type");
-	    if (contentType && contentType.indexOf("application/json") !== -1) {
-		    return resp.json()
-			.then(user => {
-				current_user = new User(user.id, user.username, user.completion_status)
-				updateLocalStorage(current_user);
-				let current_user_info = {user_id: user.id, username: user.username, completion_status: user.completion_status}
-				localStorage.setItem(key, JSON.stringify(current_user_info));
-				loggedIn_user = JSON.parse(localStorage.getItem(key));
-				userMessage(loggedIn_user);
-				hide(games_div)
-				hide(log_out_message)
-			})	
-		} else {
-		    return resp.text()
-		    .then(text => {
-		    	const login_alert = document.createElement("div")
-		    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
-		    	login_alert.setAttribute("role", "alert")
-		    	const alert_message = document.createElement("p")
-		    	alert_message.innerHTML = `<strong>${text}</strong>`
-		    	const close_btn = document.createElement("button")
-		    	close_btn.classList.add("btn-close")
-		    	close_btn.setAttribute("type", "button")
-		    	close_btn.setAttribute("data-bs-dismiss", "alert")
-		    	login_alert.append(alert_message, close_btn)
-		      	show(login_alert)
-		      	userform.parentNode.insertBefore(login_alert, userform.nextSibling);
-		    });
-		}
+	.then(resp => resp.text())
+	.then(num => {
+		current_user.completion_status = parseInt(num, 10)
+		updateLocalStorage(current_user)
 	})
-	.catch(error => console.error(error));
 }
 
 function logout(e){
@@ -436,19 +411,7 @@ function renderGame3(word){
 				word_on_left_list.classList.add("completed")
 	        	if (loggedIn_user){
 	        		data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
-					fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
-		        		method: 'POST',
-						headers: {
-							"Content-Type": "application/json",
-				    		"Accept": "application/json"
-						},
-						body: JSON.stringify(data)
-					})
-					.then(resp => resp.text())
-					.then(num => {
-						current_user.completion_status = parseInt(num, 10)
-						updateLocalStorage(current_user)
-					})
+					fetchCompletionStatus(data)
 				}else{
 					current_user.levelUp();
 				}

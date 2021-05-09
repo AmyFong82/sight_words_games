@@ -16,6 +16,9 @@ class CompletedWordsController < ApplicationController
 	def destroy
 		completed_words = CompletedWord.where(user_id: params[:user_id])
 	    completed_words.delete_all
-
+		user = User.find(params[:user_id])
+		user.completion_status = 0
+		updated_num = 0
+		render plain: updated_num.to_s
 	end
 end
