@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	  	if(username !== "" && password !== ""){
 	  		login(e);
 	  	}
-
 	});
 
 	for (let i = 0; i < 4; i++){ 
@@ -177,9 +176,7 @@ function userMessage(current_user){
 			show(completion_status)
 			user_action_btn.innerHTML = "Start Over"
 			user_action_btn.onclick = e => {
-				data = {user_id: loggedIn_user.user_id}
-				// fetchCompletionStatus(DELETE, data)
-
+				resetCompletionStatus()
 			}
 		} else if (current_user.completion_status > 0){
 			show(completion_status)
@@ -196,6 +193,7 @@ function userMessage(current_user){
 }
 
 function fetchCompletionStatus(data){
+	console.log(data)
 	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
 		method: 'POST',
 		headers: {
@@ -209,6 +207,25 @@ function fetchCompletionStatus(data){
 		current_user.completion_status = parseInt(num, 10)
 		updateLocalStorage(current_user)
 	})
+}
+
+function resetCompletionStatus(){
+	data = {user_id: loggedIn_user.user_id}
+	for(let i = 1; i < 10; i++){
+		fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words/" + `${i}`, {
+			method: 'DELETE',
+			headers: {
+				"Content-Type": "application/json",
+	    		"Accept": "application/json"
+			},
+			body: JSON.stringify(data)
+		})
+		.then(resp => resp.text())
+		.then(num => {
+			current_user.completion_status = parseInt(num, 10)
+			updateLocalStorage(current_user)
+		})
+	}
 }
 
 function logout(e){
