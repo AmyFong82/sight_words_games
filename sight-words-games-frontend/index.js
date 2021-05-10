@@ -234,7 +234,7 @@ function fetchCompletionStatus(data){
 		},
 		body: JSON.stringify(data)
 	})
-	.then(resp => resp.text())
+	.then(resp => resp.json())
 	.then(num => {
 		current_user.completion_status = parseInt(num, 10)
 		updateLocalStorage(current_user)
