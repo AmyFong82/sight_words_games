@@ -22,20 +22,20 @@ const game3 = document.querySelector("#game3");
 const chosen_letters = document.querySelectorAll(".chosen-letter");
 const checkBtn = document.querySelector(".check-btn");
 const letter_choices = document.querySelector(".letter-choices").children;
-let current_user;
 const key = "Sightword_CurrentUser";
 let loggedIn_user = JSON.parse(localStorage.getItem(key));
 let word;
 
 document.addEventListener("DOMContentLoaded", () => {
 	renderSightWords();
-	userMessage(loggedIn_user);
 
 	if(loggedIn_user){
 		current_user = new User(loggedIn_user.user_id, loggedIn_user.username, loggedIn_user.completion_status)
 	}else{
 		current_user = new User(0, "Guest", 0)
 	}
+
+	userMessage(loggedIn_user);
 
 	document.querySelector("button[type=submit]").addEventListener("click", function(e){
 	  	const username = document.querySelector("#username").value;
@@ -63,14 +63,12 @@ function hideLoginForm(){
 	userform.id = "user-login"
 	show(dropdown)
 	const name = document.querySelector("#dropdownMenu2")
-	const loggedIn_user = JSON.parse(localStorage.getItem(key));
-	name.innerHTML = "Hi " + loggedIn_user.username + " <i class='fas fa-grin-alt'></i>"
+	name.innerHTML = "Hi " + current_user.username + " <i class='fas fa-grin-alt'></i>"
 	const logout_btn = document.querySelector("#logout")
 	logout_btn.onclick = e => logout(e);
 	const home_btn = document.querySelector("#home")
 	home_btn.onclick = e => {
-		let loggedIn_user = JSON.parse(localStorage.getItem(key));
-		userMessage(loggedIn_user);
+		userMessage(current_user);
 		hide(games_div)
 	}
 }
