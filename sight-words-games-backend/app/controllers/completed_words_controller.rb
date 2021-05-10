@@ -1,9 +1,10 @@
 class CompletedWordsController < ApplicationController
 
 	def index
-		completed_words = User.find(params[:user_id]).completed_words
-		spelled_out_words = completed_words.map { |w| w.completed_word_id_spelling}
-		render json: spelled_out_words
+		completed_words = CompletedWord.where(user_id: params[:user_id])
+		render json: completed_words.to_json(:include=> {
+			:sight_word => { only: [:id, :spelling]}
+		}, :only => [:id])
 	end
 
 	def create
