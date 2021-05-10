@@ -187,8 +187,9 @@ function userMessage(current_user){
 	}
 }
 
-function fetchCompletionStatus(data){
-	fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words", {
+function updateCompletionStatus(){
+	data = {user_id: current_user.id, sight_word_id: word.id}
+	fetch(USERS_URL + `/${current_user.id}`+ "/completed_words", {
 		method: 'POST',
 		headers: {
 			"Content-Type": "application/json",
@@ -204,11 +205,11 @@ function fetchCompletionStatus(data){
 }
 
 function resetCompletionStatus(){
-	// data = {user_id: loggedIn_user.user_id}
+	data = {user_id: current_user.id}
 	// for(let i = 1; i < 10; i++){
 		removeActiveWordBtn()
 		removeCompletedWordBtn()
-		fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words/1", {
+		fetch(USERS_URL + `/${current_user.id}`+ "/completed_words/1", {
 			method: 'DELETE',
 			headers: {
 				"Content-Type": "application/json",
@@ -222,7 +223,6 @@ function resetCompletionStatus(){
 			updateLocalStorage(current_user)
 		})
 		setTimeout(function() {
-			current_user = JSON.parse(localStorage.getItem(key));
 			userMessage(current_user)
 		}, 100);
 }
@@ -430,8 +430,7 @@ function renderGame3(word){
 				const word_on_left_list = document.querySelector(`#word_id_${word.id}`)
 				word_on_left_list.classList.add("completed")
 	        	if (loggedIn_user){
-	        		data = {user_id: loggedIn_user.user_id, sight_word_id: word.id}
-					fetchCompletionStatus(data)
+					updateCompletionStatus()
 				}else{
 					current_user.levelUp();
 				}
