@@ -89,70 +89,32 @@ function login(e){
 		},
 		body: JSON.stringify(data)
 	})
-	.then(resp => {
-	  const contentType = resp.headers.get("content-type");
-	    if (contentType && contentType.indexOf("application/json") !== -1) {
-		    return resp.json()
-			.then(user => {
-				current_user = new User(user.id, user.username, user.completion_status)
-				updateLocalStorage(current_user);
-				let current_user_info = {user_id: user.id, username: user.username, completion_status: user.completion_status}
-				localStorage.setItem(key, JSON.stringify(current_user_info));
-				loggedIn_user = JSON.parse(localStorage.getItem(key));
-				userMessage(loggedIn_user);
-				hide(games_div)
-				hide(log_out_message)
-			})	
+	.then(resp => resp.json())
+	.then(user => {
+		if(user.id){
+			current_user = new User(user.id, user.username, user.completion_status)
+			updateLocalStorage(current_user);
+			let current_user_info = {user_id: user.id, username: user.username, completion_status: user.completion_status}
+			localStorage.setItem(key, JSON.stringify(current_user_info));
+			loggedIn_user = JSON.parse(localStorage.getItem(key));
+			userMessage(loggedIn_user);
+			hide(games_div)
+			hide(log_out_message)
 		} else {
-		    return resp.text()
-		    .then(text => {
-		    	const login_alert = document.createElement("div")
-		    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
-		    	login_alert.setAttribute("role", "alert")
-		    	const alert_message = document.createElement("p")
-		    	alert_message.innerHTML = `<strong>${text}</strong>`
-		    	const close_btn = document.createElement("button")
-		    	close_btn.classList.add("btn-close")
-		    	close_btn.setAttribute("type", "button")
-		    	close_btn.setAttribute("data-bs-dismiss", "alert")
-		    	login_alert.append(alert_message, close_btn)
-		      	show(login_alert)
-		      	userform.parentNode.insertBefore(login_alert, userform.nextSibling);
-		    });
-		}
+	    	const login_alert = document.createElement("div")
+	    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
+	    	login_alert.setAttribute("role", "alert")
+	    	const alert_message = document.createElement("p")
+	    	alert_message.innerHTML = `<strong>${user.message}</strong>`
+	    	const close_btn = document.createElement("button")
+	    	close_btn.classList.add("btn-close")
+	    	close_btn.setAttribute("type", "button")
+	    	close_btn.setAttribute("data-bs-dismiss", "alert")
+	    	login_alert.append(alert_message, close_btn)
+	      	show(login_alert)
+	      	userform.parentNode.insertBefore(login_alert, userform.nextSibling);
+	    }
 	})
-	// .then(resp => {
-	//   const contentType = resp.headers.get("content-type");
-	//     if (contentType && contentType.indexOf("application/json") !== -1) {
-	// 	    return resp.json()
-	// 		.then(user => {
-	// 			current_user = new User(user.id, user.username, user.completion_status)
-	// 			updateLocalStorage(current_user);
-	// 			let current_user_info = {user_id: user.id, username: user.username, completion_status: user.completion_status}
-	// 			localStorage.setItem(key, JSON.stringify(current_user_info));
-	// 			loggedIn_user = JSON.parse(localStorage.getItem(key));
-	// 			userMessage(loggedIn_user);
-	// 			hide(games_div)
-	// 			hide(log_out_message)
-	// 		})	
-	// 	} else {
-	// 	    return resp.text()
-	// 	    .then(text => {
-	// 	    	const login_alert = document.createElement("div")
-	// 	    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
-	// 	    	login_alert.setAttribute("role", "alert")
-	// 	    	const alert_message = document.createElement("p")
-	// 	    	alert_message.innerHTML = `<strong>${text}</strong>`
-	// 	    	const close_btn = document.createElement("button")
-	// 	    	close_btn.classList.add("btn-close")
-	// 	    	close_btn.setAttribute("type", "button")
-	// 	    	close_btn.setAttribute("data-bs-dismiss", "alert")
-	// 	    	login_alert.append(alert_message, close_btn)
-	// 	      	show(login_alert)
-	// 	      	userform.parentNode.insertBefore(login_alert, userform.nextSibling);
-	// 	    });
-	// 	}
-	// })
 	.catch(error => console.error(error));
 }
 
