@@ -18,6 +18,7 @@ class CompletedWordsController < ApplicationController
 	    completed_words.delete_all
 		user = User.find(params[:user_id])
 		user.completion_status = 0
+		user.save
 		updated_num = 0
 		render plain: updated_num.to_s
 	end

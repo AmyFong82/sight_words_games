@@ -212,6 +212,8 @@ function fetchCompletionStatus(data){
 function resetCompletionStatus(){
 	// data = {user_id: loggedIn_user.user_id}
 	// for(let i = 1; i < 10; i++){
+		removeActiveWordBtn();
+		removeCompletedWordBtn();
 		fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words/1", {
 			method: 'DELETE',
 			headers: {
@@ -230,8 +232,6 @@ function resetCompletionStatus(){
 			console.log(current_user)
 			userMessage(current_user)
 		}, 100);
-
-	
 }
 
 function logout(e){
@@ -250,6 +250,10 @@ function logout(e){
 	learned_words_list.innerHTML = '';
 	loggedIn_user = null;
 	current_user = new User(0, "Guest", 0);
+	removeCompletedWordBtn();
+}
+
+function removeCompletedWordBtn(){
 	const list_btns = document.querySelectorAll(".list-group button")
 	for (const b of list_btns){
 		b.classList.remove("completed")
