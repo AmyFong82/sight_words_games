@@ -76,7 +76,6 @@ function hideLoginForm(){
 }
 
 
-
 function login(e){
 	e.preventDefault();
   	const username = document.querySelector("#username").value;
@@ -122,6 +121,38 @@ function login(e){
 		    });
 		}
 	})
+	// .then(resp => {
+	//   const contentType = resp.headers.get("content-type");
+	//     if (contentType && contentType.indexOf("application/json") !== -1) {
+	// 	    return resp.json()
+	// 		.then(user => {
+	// 			current_user = new User(user.id, user.username, user.completion_status)
+	// 			updateLocalStorage(current_user);
+	// 			let current_user_info = {user_id: user.id, username: user.username, completion_status: user.completion_status}
+	// 			localStorage.setItem(key, JSON.stringify(current_user_info));
+	// 			loggedIn_user = JSON.parse(localStorage.getItem(key));
+	// 			userMessage(loggedIn_user);
+	// 			hide(games_div)
+	// 			hide(log_out_message)
+	// 		})	
+	// 	} else {
+	// 	    return resp.text()
+	// 	    .then(text => {
+	// 	    	const login_alert = document.createElement("div")
+	// 	    	login_alert.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show")
+	// 	    	login_alert.setAttribute("role", "alert")
+	// 	    	const alert_message = document.createElement("p")
+	// 	    	alert_message.innerHTML = `<strong>${text}</strong>`
+	// 	    	const close_btn = document.createElement("button")
+	// 	    	close_btn.classList.add("btn-close")
+	// 	    	close_btn.setAttribute("type", "button")
+	// 	    	close_btn.setAttribute("data-bs-dismiss", "alert")
+	// 	    	login_alert.append(alert_message, close_btn)
+	// 	      	show(login_alert)
+	// 	      	userform.parentNode.insertBefore(login_alert, userform.nextSibling);
+	// 	    });
+	// 	}
+	// })
 	.catch(error => console.error(error));
 }
 
@@ -157,6 +188,7 @@ function userMessage(current_user){
 		hide(completion_status)
 		hide(user_message_div)
 		hide(games_div)
+		removeCompletedWordBtn()
 	}else{
 		hideLoginForm();
 		completed_num.innerHTML = current_user.completion_status
@@ -212,8 +244,8 @@ function fetchCompletionStatus(data){
 function resetCompletionStatus(){
 	// data = {user_id: loggedIn_user.user_id}
 	// for(let i = 1; i < 10; i++){
-		removeActiveWordBtn();
-		removeCompletedWordBtn();
+		removeActiveWordBtn()
+		removeCompletedWordBtn()
 		fetch(USERS_URL + `/${loggedIn_user.user_id}`+ "/completed_words/1", {
 			method: 'DELETE',
 			headers: {
@@ -229,7 +261,6 @@ function resetCompletionStatus(){
 		})
 		setTimeout(function() {
 			current_user = JSON.parse(localStorage.getItem(key));
-			console.log(current_user)
 			userMessage(current_user)
 		}, 100);
 }

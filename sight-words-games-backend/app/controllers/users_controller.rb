@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 				if user.authenticate(params[:password])
 					render json: UserSerializer.new(user).to_serialized_json
 				else
-					render plain: "Username Taken / Wrong password"
+					render json: {message: 'Username Taken / Wrong password'}
 				end
 		end
 	end
