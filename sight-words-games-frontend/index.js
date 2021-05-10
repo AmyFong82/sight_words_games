@@ -162,29 +162,27 @@ function userMessage(current_user){
 			hide(completion_status)
 			user_message.innerHTML = "Let's begin learning new sight words!"
 			user_action_btn.innerHTML = "Start"
-			user_action_btn.onclick = e => {
-				fetchSightWord(1)
-			}
+			user_action_btn.onclick = e => fetchSightWord(1)
 		} else if(current_user.completion_status === 10){
 			user_message.innerHTML = '<img style="-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://media.tenor.com/images/24520b4497153abb91ca769fe4a7f23f/tenor.gif"><br>You\'ve learned all 10 sight words!'
 			show(completion_status)
 			learned_words_list.innerHTML = ""
 			user_action_btn.innerHTML = "Start Over"
-			user_action_btn.onclick = e => {
-				resetCompletionStatus()
-			}
+			user_action_btn.onclick = e => resetCompletionStatus()
 		} else if (current_user.completion_status > 0){
 			show(completion_status)
 			user_message.innerHTML = "Sight words you've learned:"
 			renderCompletedWords()
 			user_action_btn.innerHTML = "Learn More!"
-			user_action_btn.onclick = e => {
-				const next_word = document.querySelector("button.list-group-item-action:not(.completed)")
-				const word_id = next_word.id.split("_")[2]
-				fetchSightWord(word_id)
-			}
+			user_action_btn.onclick = e => findTheNotCompletedWord()
 		}
 	}
+}
+
+function findTheNotCompletedWord(){
+	const next_word = document.querySelector("button.list-group-item-action:not(.completed)")
+	const word_id = next_word.id.split("_")[2]
+	fetchSightWord(word_id)
 }
 
 function updateCompletionStatus(){
@@ -332,11 +330,13 @@ function fetchSightWord(word_id){
 }
 
 function fetchNextWord(word_id){
-	const next_id = (parseInt(word_id) + 1)
-	fetchSightWord(next_id)
 	removeActiveWordBtn()
-	const active_btn = document.querySelector(`#word_id_${next_id}`)
-	active_btn.classList.add('active')
+	if(word_id < 10){
+		const next_id = (parseInt(word_id) + 1)
+		fetchSightWord(next_id)
+	}else{
+		findTheNotCompletedWord()
+	}
 }
 
 function removeActiveWordBtn(){
