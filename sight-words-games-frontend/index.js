@@ -170,12 +170,12 @@ function renderCompletedWords(){
 		for(const word of completed_words){
 			const btn = document.createElement("button")
 			btn.classList.add("list-group-item")
-			btn.setAttribute("id",  `completed_word_id_${word[0]}`)
-			btn.innerHTML = word[1]
-			const word_on_left_list = document.querySelector(`#word_id_${word[0]}`)
+			btn.setAttribute("id",  `completed_word_id_${word.sight_word.id}`)
+			btn.innerHTML = word.sight_word.spelling
+			const word_on_left_list = document.querySelector(`#word_id_${word.sight_word.id}`)
 			word_on_left_list.classList.add("completed")
 			btn.addEventListener("click", e => {
-				fetchSightWord(word[0])
+				fetchSightWord(word.sight_word.id)
 			})
 			learned_words_list.append(btn)
 		}
