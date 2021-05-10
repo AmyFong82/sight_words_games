@@ -16,7 +16,7 @@ at = SightWord.create(spelling: "at",
 					picture: "https://pyxis.nymag.com/v1/imgs/bc4/9c9/fde191e88b8b4c007822555bdd4019c38f-20-dream-fish.2x.rhorizontal.w700.jpg")
 
 the = SightWord.create(spelling: "the",
-						audio: "https://static.sfdict.com/audio/lunawav/NEW2016/the_000.ogg",
+						audio: "https://img2.tfd.com/pron/mp3/en/US/df/dfsfdodyhs.mp3",
 						word_choices: "then the ten them",
 						letter_choices: "e h t l",
 						sentence: "The dog is brown.",
@@ -30,7 +30,7 @@ of = SightWord.create(spelling: "of",
 					picture: "https://image.freepik.com/free-photo/girl-holding-glass-milk_23-2148277058.jpg")
 
 to = SightWord.create(spelling: "to", 
-					audio: "https://static.sfdict.com/audio/lunawav/NEW/NEW15350.ogg",
+					audio: "https://ssl.gstatic.com/dictionary/static/sounds/20200429/to--_us_2.mp3",
 					word_choices: "of on to at",
 					letter_choices: "o l t a",
 					sentence: "I like to read.", 

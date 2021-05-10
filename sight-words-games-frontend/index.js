@@ -8,6 +8,7 @@ const completion_status = document.querySelector("#completion-status");
 const completed_num = document.querySelector("#completed-num");
 const user_message_div = document.querySelector("#user-message");
 const user_message = document.querySelector("#user-message h5");
+// const congrats = document.querySelector(".tenor-gif-embed")
 const log_out_message = document.querySelector("#log-out-message");
 const user_action_btn = document.querySelector(".user-action-btn");
 const learned_words_list = document.querySelector(".learned-words-list");
@@ -97,6 +98,7 @@ function login(e){
 			loggedIn_user = JSON.parse(localStorage.getItem(key));
 			userMessage(loggedIn_user);
 			hide(games_div)
+			removeActiveWordBtn()
 			hide(log_out_message)
 		} else {
 	    	const login_alert = document.createElement("div")
@@ -164,7 +166,7 @@ function userMessage(current_user){
 				fetchSightWord(1)
 			}
 		} else if(current_user.completion_status === 10){
-			user_message.innerHTML = "Congratulations! You've learned all 10 sight words!"
+			user_message.innerHTML = '<img style="-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://media.tenor.com/images/24520b4497153abb91ca769fe4a7f23f/tenor.gif"><br>You\'ve learned all 10 sight words!'
 			show(completion_status)
 			learned_words_list.innerHTML = ""
 			user_action_btn.innerHTML = "Start Over"
@@ -242,6 +244,7 @@ function logout(e){
 	loggedIn_user = null;
 	current_user = new User(0, "Guest", 0);
 	removeCompletedWordBtn();
+	removeActiveWordBtn()
 }
 
 function removeCompletedWordBtn(){
