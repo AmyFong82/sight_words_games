@@ -329,14 +329,9 @@ function fetchSightWord(word_id){
 	})
 }
 
-function fetchNextWord(word_id){
+function fetchNextWord(){
 	removeActiveWordBtn()
-	if(word_id < 10){
-		const next_id = (parseInt(word_id) + 1)
-		fetchSightWord(next_id)
-	}else{
-		findTheNotCompletedWord()
-	}
+	findTheNotCompletedWord()
 }
 
 function removeActiveWordBtn(){
@@ -438,7 +433,7 @@ function renderGame3(word){
 				if(completed_num.innerHTML !== "10"){
 					next_btn.onclick = e => {
 						hide(right_alert)
-			        	fetchNextWord(word.id)
+			        	fetchNextWord()
     					completed_num.innerHTML = current_user.completion_status + 1
 		        	}
 				}else{
