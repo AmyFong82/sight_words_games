@@ -277,6 +277,7 @@ function renderSightWords(){
 				hide(wrong_alert)
 			})
 			div.append(btn)
+
 		}
 	})
 }
