@@ -1,6 +1,6 @@
-# sight_words_games
+# sight_words_game
 
-### This is a Sight words games for toddlers, includes 10 easy sight words
+### This is a sight word game for toddlers, includes 10 easy sight words
 
 Step 1. Clone this repo: https://github.com/AmyFong82/sight_words_games.git
 
