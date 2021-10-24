@@ -12,10 +12,14 @@ Step 4. Import some seeds: rake db:seed
 
 Step 5. Fire up the local server: rails s
 
-Step 6. You can either sign up as a user or play as a guest.
+Step 6. Open the index.html in your browser
+
+Step 7. You can either sign up as a user or play as a guest.
 
 This is a sight word exercises for 4 - 5 year olds. Each sight word has 3 easy exercies.
 
-[Video Demo](https://youtu.be/MV1kvY5qSoA "Sight Word Game Demo")
+<!-- [Video Demo](https://youtu.be/MV1kvY5qSoA "Sight Word Game Demo") -->
 
 Video Demo: https://youtu.be/MV1kvY5qSoA
+
+![Sight Word Game](/SightWordGame_screenshot.png)
