@@ -1,24 +1,24 @@
-# README
+# sight_words_game
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### This is a sight word game for toddlers, includes 10 easy sight words
 
-Things you may want to cover:
+Step 1. Clone this repo: https://github.com/AmyFong82/sight_words_games.git
 
-* Ruby version
+Step 2. Install gems: bundle install
 
-* System dependencies
+Step 3. Setup the database: rake db:migrate
 
-* Configuration
+Step 4. Import some seeds: rake db:seed
 
-* Database creation
+Step 5. Fire up the local server: rails s
 
-* Database initialization
+Step 6. Open the index.html in your browser
 
-* How to run the test suite
+Step 7. You can either sign up as a user or play as a guest.
 
-* Services (job queues, cache servers, search engines, etc.)
+This is a sight word exercises for 4 - 5 year olds. Each sight word has 3 easy exercies.
 
-* Deployment instructions
 
-* ...
+Video Demo: https://youtu.be/MV1kvY5qSoA
+
+![Sight Word Game](/SightWordGame_screenshot.png)

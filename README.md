@@ -18,7 +18,6 @@ Step 7. You can either sign up as a user or play as a guest.
 
 This is a sight word exercises for 4 - 5 year olds. Each sight word has 3 easy exercies.
 
-<!-- [Video Demo](https://youtu.be/MV1kvY5qSoA "Sight Word Game Demo") -->
 
 Video Demo: https://youtu.be/MV1kvY5qSoA
 
