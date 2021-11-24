@@ -1,3 +1,42 @@
+class User {
+	constructor(id, username, completion_status){
+		this.id = id;
+		this.username = username;
+		this.completion_status = completion_status;
+	}
+
+	// for Guest user
+	levelUp(){
+		this.completion_status += 1
+	}
+}
+
+
+class SightWord {
+  constructor(id, spelling, audio, word_choices, letter_choices, sentence, picture){
+  	this.id = id;
+  	this.spelling = spelling;
+  	this.audio = audio;
+  	this.word_choices = word_choices.split(" ");
+  	this.letter_choices = letter_choices.split(" ");
+  	this.sentence = sentence;
+  	this.picture = picture;
+  }
+
+  check(string){
+  	const string_lowerCase = string.toLowerCase()
+  	if(this.spelling === string_lowerCase){
+  		return true
+  	}else{
+  		return false
+  	}
+  }
+
+  length(){
+  	return this.spelling.length
+  }
+}
+
 const BASE_URL = "http://localhost:3000";
 const USERS_URL = BASE_URL + "/users";
 const userform = document.querySelector(".d-flex");
@@ -571,46 +610,4 @@ function checkSpelling(word){
 		}
 		addBlinking(word)
 	}
-}
-
-
-
-
-class User {
-	constructor(id, username, completion_status){
-		this.id = id;
-		this.username = username;
-		this.completion_status = completion_status;
-	}
-
-	// for Guest user
-	levelUp(){
-		this.completion_status += 1
-	}
-}
-
-
-class SightWord {
-  constructor(id, spelling, audio, word_choices, letter_choices, sentence, picture){
-  	this.id = id;
-  	this.spelling = spelling;
-  	this.audio = audio;
-  	this.word_choices = word_choices.split(" ");
-  	this.letter_choices = letter_choices.split(" ");
-  	this.sentence = sentence;
-  	this.picture = picture;
-  }
-
-  check(string){
-  	const string_lowerCase = string.toLowerCase()
-  	if(this.spelling === string_lowerCase){
-  		return true
-  	}else{
-  		return false
-  	}
-  }
-
-  length(){
-  	return this.spelling.length
-  }
 }

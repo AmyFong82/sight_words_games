@@ -33,8 +33,8 @@ to = SightWord.create(spelling: "to",
 					audio: "https://ssl.gstatic.com/dictionary/static/sounds/20200429/to--_us_2.mp3",
 					word_choices: "of on to at",
 					letter_choices: "o l t a",
-					sentence: "I like to read.", 
-					picture: "https://www.outsideonline.com/sites/default/files/styles/width_1200/public/2020/03/27/girl-reading-book_h.jpg?itok=_L4sCZ8v")
+					sentence: "We like to read.", 
+					picture: "images/2kids_reading.jpg")
 
 is = SightWord.create(spelling: "is", 
 					audio: "https://static.sfdict.com/audio/lunawav/I03/I0315300.ogg",
