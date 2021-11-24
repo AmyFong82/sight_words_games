@@ -1,6 +1,8 @@
 # sight_words_game
 
-### This is a sight word game for toddlers, includes 10 easy sight words
+### This is a sight word game for toddlers, includes 10 easy sight words.
+This is a single page application that was built with Rails API backend, and HTML, CSS and Javascript on the frontend.
+Ajax communication between client and server through fetch calls. Implemented RESTful conventions with Rails API.
 
 Step 1. Clone this repo: https://github.com/AmyFong82/sight_words_games.git
 
