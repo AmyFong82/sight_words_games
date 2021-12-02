@@ -243,7 +243,6 @@ function updateCompletionStatus(){
 
 function resetCompletionStatus(){
 	data = {user_id: current_user.id}
-	// for(let i = 1; i < 10; i++){
 		removeActiveWordBtn()
 		removeCompletedWordBtn()
 		fetch(USERS_URL + `/${current_user.id}`+ "/completed_words/1", {
