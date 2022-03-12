@@ -4,21 +4,11 @@
 This is a single page application that was built with Rails API backend, and HTML, CSS and Javascript on the frontend.
 Ajax communication between client and server through fetch calls. Implemented RESTful conventions with Rails API.
 
-Step 1. Clone this repo: https://github.com/AmyFong82/sight_words_games.git
+You can access the game here: https://amyfong82.github.io/sightWordsGame/
 
-Step 2. Install gems: bundle install
+You can either sign up as a user or play as a guest.
 
-Step 3. Setup the database: rake db:migrate
-
-Step 4. Import some seeds: rake db:seed
-
-Step 5. Fire up the local server: rails s
-
-Step 6. Open the index.html in your browser
-
-Step 7. You can either sign up as a user or play as a guest.
-
-This is a sight word exercises for 4 - 5 year olds. Each sight word has 3 easy exercies.
+This is a sight word exercises for 4 - 5 year olds. Each sight word has 3 easy exercises.
 
 
 Video Demo: https://youtu.be/MV1kvY5qSoA
