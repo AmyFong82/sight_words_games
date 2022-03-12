@@ -13,4 +13,4 @@ This is a sight word exercises for 4 - 5 year olds. Each sight word has 3 easy e
 
 Video Demo: https://youtu.be/MV1kvY5qSoA
 
-![Sight Word Game](/SightWordGame_screenshot.png)
+![Sight Word Game](/screenshots/SightWordGame_screenshot.png)
