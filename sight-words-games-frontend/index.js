@@ -38,7 +38,7 @@ class SightWord {
 }
 
 // const BASE_URL = "http://localhost:3000";
-const BASE_URL = "https://sight-words-game-backend.herokuapp.com";
+const BASE_URL = "https://sightwords-game-backend.herokuapp.com/";
 const USERS_URL = BASE_URL + "/users";
 const userform = document.querySelector(".d-flex");
 const dropdown = document.querySelector(".dropdown");
