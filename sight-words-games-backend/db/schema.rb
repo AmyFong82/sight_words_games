@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2021_03_17_035428) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "completed_words", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "sight_word_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "sight_word_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["sight_word_id"], name: "index_completed_words_on_sight_word_id"
